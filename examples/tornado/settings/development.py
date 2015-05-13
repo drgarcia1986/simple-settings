@@ -1,3 +1,5 @@
 # -*- coding: utf-8 -*-
+from settings.base import *  # noqa
 
-PORT = 8000
+
+EXAMPLE_FOO = 'foo dev'

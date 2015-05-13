@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from settings.base import *  # noqa
 
 DEBUG = False
 PORT = 8000
