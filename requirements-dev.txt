@@ -5,3 +5,4 @@ py==1.4.27
 pytest==2.7.0
 pytest-cov==1.8.1
 bumpversion==0.5.1
+flake8==2.4.0
