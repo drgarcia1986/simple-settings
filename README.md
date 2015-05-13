@@ -8,7 +8,29 @@ A simple way to manage your project settings.
 
 With `simple_settings` you just need specify your settings module in `--settings` arg (of command line or enviroment) and all will be available in `simple_settings.settings`.
 
-For example:
+### Instalation
+Use `pip` (simple like this project :smile:).
+
+```bash
+$ pip install simple-settings
 ```
+
+### Usage
+#### _project_settings.py_
+```python
+# -*- coding: utf-8 -*-
+SIMPLE_CONF = 'simple'
+```
+#### _app.py_
+```python
+# -*- coding: utf-8 -*-
+from simple_settings import settings
+
+print settings.SIMPLE_CONF
+```
+#### _Run_
+```bash
 $ python app.py --settings=project_settings
+simple
 ```
+Check [examples](https://github.com/drgarcia1986/simple-settings/tree/master/examples) for more usage samples.

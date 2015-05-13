@@ -7,7 +7,7 @@ flake8:
 	flake8 simple_settings/
 
 test: clean flake8
-	py.test --cov-config .coveragerc --cov-report term-missing --cov-report html --cov-report xml --cov simple_settings/ tests/
+	py.test --cov-config .coveragerc --cov-report term-missing --cov simple_settings/ tests/
 
 test-debug: clean
 	py.test -x --pdb simple_settings/ tests/
