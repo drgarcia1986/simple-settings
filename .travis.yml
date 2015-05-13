@@ -6,11 +6,10 @@ python:
 
 install:
     - make requirements
+    - pip install coveralls
 
-before-script:
-    - pip install python-coveralls
-
-script: make test
+script: 
+    - make test
 
 after_sucess:
     - coveralls
