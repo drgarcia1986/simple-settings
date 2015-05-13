@@ -16,7 +16,7 @@ class ConfigHandler(RequestHandler):
 
 if __name__ == '__main__':
     app = Application(
-        handles=[(r'/', ConfigHandler)],
+        handlers=[(r'/', ConfigHandler)],
         debug=settings.DEBUG
     )
     server = HTTPServer(app)
