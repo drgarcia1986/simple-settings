@@ -38,7 +38,7 @@ def get_package_data(package):
 
 setup(
     name='simple-settings',
-    version='0.2.0',
+    version='0.0.0',
     install_requires=[],
     url='https://github.com/drgarcia1986/simple-settings',
     author='Diego Garcia',
