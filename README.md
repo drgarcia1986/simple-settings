@@ -29,8 +29,15 @@ from simple_settings import settings
 print settings.SIMPLE_CONF
 ```
 #### _Run_
+With command line args
 ```bash
 $ python app.py --settings=project_settings
+simple
+```
+Or env
+```bash
+$ export settings=project_settings
+$ python app.py
 simple
 ```
 Check [examples](https://github.com/drgarcia1986/simple-settings/tree/master/examples) for more usage samples.
