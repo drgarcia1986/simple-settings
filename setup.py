@@ -27,7 +27,7 @@ setup(
     keywords='django flask bottle tornado settings configuration conf',
     description=description,
     long_description=long_description,
-    download_url='https://github.com/drgarcia1986/drgarcia1986/tarball/master',
+    download_url='https://github.com/drgarcia1986/simple-settings/tarball/master',
     packages=['simple_settings'],
     package_dir={'simple_settings': 'simple_settings'},
     classifiers=[
