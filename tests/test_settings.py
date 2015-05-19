@@ -1,16 +1,13 @@
 # -*- coding: utf-8 -*-
-from mock import patch, MagicMock
+import sys
+from mock import patch
 import pytest
 
 
 class TestSettings(object):
 
-    def _patch_cmd_line(self):
-        return 'argparse.ArgumentParser.parse_args'
-
     def _load_settings_by_cmd_line(self, module_name):
-        with patch(self._patch_cmd_line()) as mock:
-            mock.return_value = MagicMock(settings=module_name)
+        with patch.object(sys, 'argv', ['--settings={}'.format(module_name)]):
             from simple_settings.core import _Settings
             return _Settings()
 
@@ -28,8 +25,7 @@ class TestSettings(object):
 
     def test_should_load_module_by_enviroment(self):
         expect_module = 'tests.samples.complex'
-        with patch(self._patch_cmd_line()) as mock:
-            mock.return_value = MagicMock(settings='')
+        with patch.object(sys, 'argv', []):
             settings = self._load_settings_by_enviroment(expect_module)
 
         assert settings._settings_module == expect_module
@@ -68,8 +64,19 @@ class TestSettings(object):
         assert settings.SIMPLE_STRING == u'simple from env'
 
     def test_setting_are_not_configured(self):
-        with patch(self._patch_cmd_line()) as mock:
-            mock.return_value = MagicMock(settings='')
+        with patch.object(sys, 'argv', []):
             with pytest.raises(RuntimeError):
+                from simple_settings.core import _Settings
+                _Settings()
+
+    def test_setting_configured_wrong(self):
+        with patch.object(sys, 'argv', ['--settings', 'tests.samples.simple']):
+            with pytest.raises(RuntimeError):
+                from simple_settings.core import _Settings
+                _Settings()
+
+    def test_setting_not_found(self):
+        with patch.object(sys, 'argv', ['--settings=foo']):
+            with pytest.raises(ImportError):
                 from simple_settings.core import _Settings
                 _Settings()

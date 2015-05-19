@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-import argparse
 import importlib
 import os
+import sys
 
 
 class _Settings(object):
@@ -18,9 +18,12 @@ class _Settings(object):
         self._load_settings_module(self._settings_module)
 
     def _get_settings_from_cmd_line(self):
-        parser = argparse.ArgumentParser()
-        parser.add_argument('--settings', action='store', default='')
-        return parser.parse_args().settings
+        for a in sys.argv:
+            if a.startswith('--settings'):
+                try:
+                    return a.split('=')[1]
+                except IndexError:
+                    return None
 
     def _load_settings_module(self, settings_module):
         module = importlib.import_module(settings_module)
