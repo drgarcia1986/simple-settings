@@ -19,7 +19,7 @@ except:
 
 setup(
     name='simple-settings',
-    version='0.1.0',
+    version='0.1.1',
     install_requires=[],
     url='https://github.com/drgarcia1986/simple-settings',
     author='Diego Garcia',
