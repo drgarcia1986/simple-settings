@@ -89,5 +89,8 @@ Check [examples](https://github.com/drgarcia1986/simple-settings/tree/master/exa
 
 ## Changelog
 
+### [0.1.1] - 2015-05-19
+ - Fix parser_args error if using simple-settings with others command line arguments.
+
 ### [0.1.0] - 2015-05-14
  - First release.
