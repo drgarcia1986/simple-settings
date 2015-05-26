@@ -18,10 +18,10 @@ class _Settings(object):
         self._load_settings_module()
 
     def _get_settings_from_cmd_line(self):
-        for a in sys.argv:
-            if a.startswith('--settings'):
+        for arg in sys.argv:
+            if arg.startswith('--settings'):
                 try:
-                    return a.split('=')[1]
+                    return arg.split('=')[1]
                 except IndexError:
                     return None
 
