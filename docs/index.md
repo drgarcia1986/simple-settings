@@ -87,7 +87,20 @@ simple from env
 ```
 Check [examples](https://github.com/drgarcia1986/simple-settings/tree/master/examples), in project repository for more usage samples.
 
+## Load multiple settings modules
+simple-settings can load more than one setting module without use import approach, just specify yours settings modules separated by comma.
+For example:
+```bash
+$ python app.py --settings=production,amazon,new_relic
+```
+simple-setting will load all settings modules in order that was specified (`production`-> `amazon` -> `new_relic`) overriding possibles conflicts.
+
+But remember, the environment is still a priority. 
+
 ## Changelog
+
+### [NEXT_RELEASE]
+ - Load multiple settings separated by comma (like a pipeline).
 
 ### [0.1.1] - 2015-05-19
  - Fix parser_args error if using simple-settings with others command line arguments.
