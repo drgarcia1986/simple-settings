@@ -13,7 +13,7 @@ def read(fname):
 description = 'A simple way to manage your project settings'
 try:
     long_description = read('README.md')
-except:
+except IOError:
     long_description = description
 
 
