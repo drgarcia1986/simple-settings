@@ -4,6 +4,7 @@ Python Simple Settings
 [![Code Issues](http://www.quantifiedcode.com/api/v1/project/1b5307f0f1584c3b9c736f976b57e973/badge.svg)](http://www.quantifiedcode.com/app/project/1b5307f0f1584c3b9c736f976b57e973)
 [![Build Status](https://travis-ci.org/drgarcia1986/simple-settings.svg)](https://travis-ci.org/drgarcia1986/simple-settings)
 [![Coverage Status](https://coveralls.io/repos/drgarcia1986/simple-settings/badge.svg)](https://coveralls.io/r/drgarcia1986/simple-settings)
+[![Latest Version](https://pypip.in/version/simple-settings/badge.svg)](https://pypi.python.org/pypi/simple-settings/)
 
 A simple way to manage your project settings.
 
