@@ -19,7 +19,7 @@ $ pip install simple-settings
 
 ### Usage
 ```bash
-$ python app.py --settings=my_settings.py
+$ python app.py --settings=my_settings
 ```
 
 ```python
