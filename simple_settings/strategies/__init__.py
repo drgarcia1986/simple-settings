@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from . import python, cfg
 
-strategies = set([
+strategies = (
     python.strategy,
     cfg.strategy
-])
+)
