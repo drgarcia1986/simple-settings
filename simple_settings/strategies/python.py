@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import importlib
 import os
-from .types import SettingsStrategy
+from .types import SettingsLoadStrategy
 
 
 def _is_python_module(file_name):
@@ -21,7 +21,7 @@ def _load_python_module(settings_file):
     return result
 
 
-strategy = SettingsStrategy(
+strategy = SettingsLoadStrategy(
     name='python',
     is_valid_file=_is_python_module,
     load_settings_file=_load_python_module

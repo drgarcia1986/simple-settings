@@ -1,7 +1,7 @@
 from collections import namedtuple
 
 
-SettingsStrategy = namedtuple(
+SettingsLoadStrategy = namedtuple(
     'strategy',
     [
         'name',

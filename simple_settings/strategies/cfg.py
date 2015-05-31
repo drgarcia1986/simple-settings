@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import codecs
 import os
-from .types import SettingsStrategy
+from .types import SettingsLoadStrategy
 
 
 def _is_cfg_file(file_name):
@@ -26,7 +26,7 @@ def _load_cfg_file(settings_file):
     return result
 
 
-strategy = SettingsStrategy(
+strategy = SettingsLoadStrategy(
     name='cfg',
     is_valid_file=_is_cfg_file,
     load_settings_file=_load_cfg_file
