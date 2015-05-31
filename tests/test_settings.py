@@ -73,20 +73,20 @@ class TestSettings(object):
 
         assert settings.SIMPLE_INTEGER == 2
 
-    def test_load_a_complex_module_settings(self):
+    def test_should_load_a_complex_module_settings(self):
         settings = get_settings_by_cmd_line('tests.samples.complex')
 
         assert settings.COMPLEX_DICT['complex'] == 'settings'
         assert settings.COMPLEX_DICT['foo'] == 'bar'
 
-    def test_read_settings_by_method_as_dict(self):
+    def test_should_read_settings_by_method_as_dict(self):
         settings = get_settings_by_cmd_line('tests.samples.simple')
 
         settings_dict = settings.as_dict()
         assert settings_dict['SIMPLE_STRING'] == u'simple'
         assert settings_dict['SIMPLE_INTEGER'] == 1
 
-    def test_setting_override_by_environment(self):
+    def test_should_override_setting_by_environment(self):
         def _mock_env_side_effect(k, d=None):
             return u'simple from env' if k == 'SIMPLE_STRING' else d
 
@@ -95,13 +95,24 @@ class TestSettings(object):
 
         assert settings.SIMPLE_STRING == u'simple from env'
 
-    def test_setting_are_not_configured(self):
+    def test_should_load_settings_by_cfg_file(self):
+        settings = get_settings_by_cmd_line('tests/samples/key_value.cfg')
+
+        assert settings.SIMPLE_STRING == 'simple'
+        assert settings.TWO_WORDS == 'no problem'
+        assert settings.AFTER_LINEBREAK == 'ok'
+        assert settings.WITH_UTF8_CHAR == u'café'
+
+        with pytest.raises(KeyError):
+            settings.COMMENTARY
+
+    def test_should_raise_error_if_setting_are_not_configured(self):
         with patch.object(sys, 'argv', []):
             with pytest.raises(RuntimeError):
                 from simple_settings.core import _Settings
                 _Settings()
 
-    def test_setting_configured_wrong(self):
+    def test_should_raise_error_if_setting_configured_wrong(self):
         with patch.object(
             sys, 'argv', ['', '--settings', 'tests.samples.simple']
         ):
@@ -109,8 +120,14 @@ class TestSettings(object):
                 from simple_settings.core import _Settings
                 _Settings()
 
-    def test_setting_not_found(self):
+    def test_should_raise_error_if_setting_not_found(self):
         with patch.object(sys, 'argv', ['', '--settings=foo']):
-            with pytest.raises(ImportError):
+            with pytest.raises(RuntimeError):
+                from simple_settings.core import _Settings
+                _Settings()
+
+    def test_should_raise_error_if_dont_have_strategy_for_an_file(self):
+        with patch.object(sys, 'argv', ['', '--settings=foo.bar']):
+            with pytest.raises(RuntimeError):
                 from simple_settings.core import _Settings
                 _Settings()
