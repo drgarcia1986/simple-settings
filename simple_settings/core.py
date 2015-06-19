@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-import importlib
 import os
 import sys
+
+from .strategies import strategies
 
 
 def _get_settings_from_cmd_line():
@@ -30,14 +31,19 @@ class _Settings(object):
         self._load_settings_pipeline()
 
     def _load_settings_pipeline(self):
-        for settings_module in self._settings_list:
-            self._load_python_module(settings_module)
+        for settings_file in self._settings_list:
+            strategy = self._get_strategy_by_file(settings_file)
+            if strategy is None:
+                raise RuntimeError(
+                    'Invalid setting file [{}]'.format(settings_file)
+                )
+            settings = strategy.load_settings_file(settings_file)
+            self._dict.update(settings)
 
-    def _load_python_module(self, settings_module):
-        module = importlib.import_module(settings_module)
-        for setting in dir(module):
-            value = os.environ.get(setting, getattr(module, setting))
-            self._dict[setting] = value
+    def _get_strategy_by_file(self, settings_file):
+        for strategy in strategies:
+            if strategy.is_valid_file(settings_file):
+                return strategy
 
     def __getattr__(self, attr):
         return self._dict[attr]
