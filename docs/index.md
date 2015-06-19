@@ -101,6 +101,7 @@ But remember, the environment is still a priority.
 
 ### [NEXT_RELEASE]
  - Load multiple settings separated by comma (like a pipeline).
+ - Load settings of _cfg_ files.
 
 ### [0.1.1] - 2015-05-19
  - Fix parser_args error if using simple-settings with others command line arguments.
