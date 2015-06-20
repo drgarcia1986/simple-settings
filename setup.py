@@ -28,8 +28,11 @@ setup(
     description=description,
     long_description=long_description,
     download_url='https://github.com/drgarcia1986/simple-settings/tarball/master',
-    packages=['simple_settings'],
-    package_dir={'simple_settings': 'simple_settings'},
+    packages=['simple_settings', 'simple_settings.strategies'],
+    package_dir={
+        'simple_settings': 'simple_settings',
+        'strategies': 'simple_settings/strategies'
+    },
     classifiers=[
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
