@@ -82,9 +82,12 @@ class TestSettings(object):
     def test_should_read_settings_by_method_as_dict(self):
         settings = get_settings_by_cmd_line('tests.samples.simple')
 
-        settings_dict = settings.as_dict()
-        assert settings_dict['SIMPLE_STRING'] == u'simple'
-        assert settings_dict['SIMPLE_INTEGER'] == 1
+        expected_dict = {
+            'APPLICATION_NAME': u'Simple Settings',
+            'SIMPLE_STRING': u'simple',
+            'SIMPLE_INTEGER': 1
+        }
+        assert settings.as_dict() == expected_dict
 
     def test_should_override_setting_by_environment(self):
         def _mock_env_side_effect(k, d=None):
