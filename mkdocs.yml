@@ -1,6 +1,8 @@
-site_name: Simple Settings
+site_name: simple-settings
 site_description: A simple way to manage your project settings.
-repo_url: https://github.com/drgarcia1986/simple-settings
+site_author: Diego Garcia
+
+repo_url: https://github.com/drgarcia1986/simple-settings/
 site_url: http://simple-settings.readthedocs.org/en/latest/
 theme: readthedocs
 
