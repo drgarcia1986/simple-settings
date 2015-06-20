@@ -118,7 +118,7 @@ But remember, the environment is still a priority.
 
 ## Changelog
 
-### [NEXT_RELEASE]
+### [0.2.0] - 2015-06-19
 * Load multiple settings separated by comma (like a pipeline).
 * Load settings of _cfg_ files.
 * Filter python module attributes to read only user settings.
