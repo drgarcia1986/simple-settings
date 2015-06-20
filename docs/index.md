@@ -87,8 +87,16 @@ simple from env
 ```
 Check [examples](https://github.com/drgarcia1986/simple-settings/tree/master/examples), in project repository for more usage samples.
 
+## as_dict()
+You can check the loaded settings through method `settings.as_dict()`
+```python
+>>> settings.as_dict()
+{'SIMPLE_CONF': 'simple'}
+```
+
 ## Types of settings
 The simple-settings is prepared to play with the following files types:
+
 * python modules.
 * cfg files (simple `key=value` files).
 
@@ -113,6 +121,7 @@ But remember, the environment is still a priority.
 ### [NEXT_RELEASE]
 * Load multiple settings separated by comma (like a pipeline).
 * Load settings of _cfg_ files.
+* Filter python module attributes to read only user settings.
 
 ### [0.1.1] - 2015-05-19
 * Fix parser_args error if using simple-settings with others command line arguments.
