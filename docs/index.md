@@ -87,6 +87,11 @@ simple from env
 ```
 Check [examples](https://github.com/drgarcia1986/simple-settings/tree/master/examples), in project repository for more usage samples.
 
+## Types of settings
+The simple-settings is prepared to play with the following files types:
+* python modules.
+* cfg files (simple `key=value` files).
+
 ## Load multiple settings modules
 simple-settings can load more than one setting module without use import approach, just specify yours settings modules separated by comma.
 For example:
@@ -97,14 +102,20 @@ simple-setting will load all settings modules in order that was specified (`prod
 
 But remember, the environment is still a priority. 
 
+## Ignored settings
+* Python modules:
+	* Variables starting with `_`.
+* Cfg files:
+	* Keys starting with `#`.
+
 ## Changelog
 
 ### [NEXT_RELEASE]
- - Load multiple settings separated by comma (like a pipeline).
- - Load settings of _cfg_ files.
+* Load multiple settings separated by comma (like a pipeline).
+* Load settings of _cfg_ files.
 
 ### [0.1.1] - 2015-05-19
- - Fix parser_args error if using simple-settings with others command line arguments.
+* Fix parser_args error if using simple-settings with others command line arguments.
 
 ### [0.1.0] - 2015-05-14
- - First release.
+* First release.
