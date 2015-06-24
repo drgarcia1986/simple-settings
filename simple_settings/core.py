@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import copy
 import os
 import sys
 
@@ -49,7 +50,7 @@ class _Settings(object):
         return self._dict[attr]
 
     def as_dict(self):
-        return self._dict.copy()
+        return copy.deepcopy(self._dict)
 
 
 settings = _Settings()

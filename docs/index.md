@@ -117,6 +117,8 @@ But remember, the environment is still a priority.
 	* Keys starting with `#`.
 
 ## Changelog
+### [NEXT_RELEASE]
+* Deepcopy in `as_dict` method to anticipate unexpected changes.
 
 ### [0.2.0] - 2015-06-19
 * Load multiple settings separated by comma (like a pipeline).

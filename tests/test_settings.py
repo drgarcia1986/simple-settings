@@ -47,7 +47,7 @@ class TestSettings(object):
 
         assert settings._settings_list == expect_modules.split(',')
 
-    def test_load_a_simple_module_settings(self):
+    def test_should_load_a_simple_module_settings(self):
         settings = get_settings_by_cmd_line('tests.samples.simple')
 
         assert settings.SIMPLE_STRING == u'simple'
@@ -88,6 +88,14 @@ class TestSettings(object):
             'SIMPLE_INTEGER': 1
         }
         assert settings.as_dict() == expected_dict
+
+    def test_as_dict_should_keep_settings_if_change_a_mutable_variable(self):
+        settings = get_settings_by_cmd_line('tests.samples.complex')
+
+        settings_dict = settings.as_dict()
+        settings_dict['COMPLEX_DICT']['complex'] = 'barz'
+
+        assert settings.COMPLEX_DICT['complex'] == 'settings'
 
     def test_should_override_setting_by_environment(self):
         def _mock_env_side_effect(k, d=None):
