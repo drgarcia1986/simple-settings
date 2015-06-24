@@ -29,7 +29,12 @@ from simple_settings import settings
 print settings.FOO
 ```
 
+### Features
+* Settings by python modules.
+* Settings by cfg files.
+* Settings inheritance (like a pipeline).
+
 ### Quick links
- - [Documentation](http://simple-settings.readthedocs.org/en/latest/)
- - [Examples](https://github.com/drgarcia1986/simple-settings/tree/master/examples)
- - [Roadmap](https://github.com/drgarcia1986/simple-settings/tree/master/ROADMAP.md)
+* [Documentation](http://simple-settings.readthedocs.org/en/latest/)
+* [Examples](https://github.com/drgarcia1986/simple-settings/tree/master/examples)
+* [Roadmap](https://github.com/drgarcia1986/simple-settings/tree/master/ROADMAP.md)
