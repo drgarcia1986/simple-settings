@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import importlib
-import os
 from .types import SettingsLoadStrategy
 
 
@@ -16,8 +15,7 @@ def _load_python_module(settings_file):
     result = {}
     module = importlib.import_module(settings_file)
     for setting in (s for s in dir(module) if not s.startswith('_')):
-        value = os.environ.get(setting, getattr(module, setting))
-        result[setting] = value
+        result[setting] = getattr(module, setting)
     return result
 
 
