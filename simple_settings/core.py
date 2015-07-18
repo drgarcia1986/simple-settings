@@ -23,9 +23,9 @@ class _Settings(object):
 
     def _setup(self):
         settings_value = _get_settings_from_cmd_line()
-        if settings_value is None:
+        if not settings_value:
             settings_value = os.environ.get('settings')
-        if settings_value is None:
+        if not settings_value:
             raise RuntimeError('Settings are not configured')
 
         self._settings_list = settings_value.split(',')
@@ -34,7 +34,7 @@ class _Settings(object):
     def _load_settings_pipeline(self):
         for settings_file in self._settings_list:
             strategy = self._get_strategy_by_file(settings_file)
-            if strategy is None:
+            if not strategy:
                 raise RuntimeError(
                     'Invalid setting file [{}]'.format(settings_file)
                 )
