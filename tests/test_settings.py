@@ -97,15 +97,6 @@ class TestSettings(object):
 
         assert settings.COMPLEX_DICT['complex'] == 'settings'
 
-    def test_should_override_setting_by_environment(self):
-        def _mock_env_side_effect(k, d=None):
-            return u'simple from env' if k == 'SIMPLE_STRING' else d
-
-        with patch('os.environ.get', side_effect=_mock_env_side_effect):
-            settings = get_settings_by_cmd_line('tests.samples.simple')
-
-        assert settings.SIMPLE_STRING == u'simple from env'
-
     def test_should_load_settings_by_cfg_file(self):
         settings = get_settings_by_cmd_line('tests/samples/key_value.cfg')
 
@@ -142,3 +133,18 @@ class TestSettings(object):
             with pytest.raises(RuntimeError):
                 from simple_settings.core import _Settings
                 _Settings()
+
+
+class TestSpecialSettings(object):
+
+    def test_override_by_env(self):
+        def mock_env_side_effect(k, d=None):
+            return u'simple from env' if k == 'SIMPLE_STRING' else d
+
+        with patch('os.environ.get', side_effect=mock_env_side_effect):
+            settings = get_settings_by_cmd_line(
+                'tests.samples.special_settings'
+            )
+
+        assert settings.SIMPLE_STRING == u'simple from env'
+        assert settings.SIMPLE_INTEGER == 1

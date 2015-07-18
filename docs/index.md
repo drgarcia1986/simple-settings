@@ -76,15 +76,7 @@ $ export settings=project_settings
 $ python app.py
 simple
 ```
-### **Override settings value**
 
-You can override the values of your settings module with environment variables.
-
-```bash
-$ export SIMPLE_CONF="simple from env"
-$ python app.py --settings=project_settings
-simple from env
-```
 Check [examples](https://github.com/drgarcia1986/simple-settings/tree/master/examples), in project repository for more usage samples.
 
 ## as_dict()
@@ -116,9 +108,32 @@ But remember, the environment is still a priority.
 * Cfg files:
 	* Keys starting with `#`.
 
+## Special Settings
+simple-settings has a list of _special settings_ that change behavior os settings load.
+This _special settings_ they are part of `SIMPLE_SETTINGS` dict in settings file.
+
+```python
+SIMPLE_SETTINGS = {
+    'OVERRIDE_BY_ENV': True
+}
+```
+_Special settings is only available with settings based in python modules._
+
+### **Override settings value**
+You can override the values of your settings module with environment variables.
+You just need set the _special setting_ `OVERRIDE_BY_ENV` with `True` as value.
+
+```bash
+$ export SIMPLE_CONF="simple from env"
+$ python app.py --settings=project_settings
+simple from env
+```
+
 ## Changelog
 ### [NEXT_RELEASE]
 * Deepcopy in `as_dict` method to anticipate unexpected changes.
+* Special Settings Behaviors.
+	* Override settings values by environment.
 
 ### [0.2.0] - 2015-06-19
 * Load multiple settings separated by comma (like a pipeline).

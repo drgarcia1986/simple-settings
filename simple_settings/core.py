@@ -17,8 +17,11 @@ def _get_settings_from_cmd_line():
 
 class _Settings(object):
 
+    SPECIAL_SETTINGS_KEY = 'SIMPLE_SETTINGS'
+
     def __init__(self):
         self._dict = {}
+        self._settings_list = []
         self._setup()
 
     def _setup(self):
@@ -30,6 +33,18 @@ class _Settings(object):
 
         self._settings_list = settings_value.split(',')
         self._load_settings_pipeline()
+        self._process_special_settings()
+
+    def _override_settings_by_env(self):
+        for key, value in self._dict.items():
+            self._dict[key] = os.environ.get(key, value)
+
+    def _process_special_settings(self):
+        if self.SPECIAL_SETTINGS_KEY not in self._dict:
+            return
+
+        if self._dict[self.SPECIAL_SETTINGS_KEY].get('OVERRIDE_BY_ENV'):
+            self._override_settings_by_env()
 
     def _load_settings_pipeline(self):
         for settings_file in self._settings_list:
