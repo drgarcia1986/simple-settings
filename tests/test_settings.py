@@ -143,8 +143,18 @@ class TestSpecialSettings(object):
 
         with patch('os.environ.get', side_effect=mock_env_side_effect):
             settings = get_settings_by_cmd_line(
-                'tests.samples.special_settings'
+                'tests.samples.special_settings_override_by_env'
             )
 
         assert settings.SIMPLE_STRING == u'simple from env'
         assert settings.SIMPLE_INTEGER == 1
+
+    def test_required_settings_should_raise_value_error_for_a_lost_setting(
+        self
+    ):
+        with pytest.raises(ValueError) as exc:
+            get_settings_by_cmd_line(
+                'tests.samples.special_settings_required_settings'
+            )
+
+        assert 'LOST_SETTING' in str(exc)

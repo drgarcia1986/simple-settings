@@ -115,11 +115,12 @@ This _special settings_ they are part of `SIMPLE_SETTINGS` dict in settings file
 ```python
 SIMPLE_SETTINGS = {
     'OVERRIDE_BY_ENV': True
+	'REQUIRED_SETTINGS': ('API_TOKEN', 'DB_USER')
 }
 ```
 _Special settings is only available with settings based in python modules._
 
-### **Override settings value**
+### Override settings value
 You can override the values of your settings module with environment variables.
 You just need set the _special setting_ `OVERRIDE_BY_ENV` with `True` as value.
 
@@ -128,6 +129,10 @@ $ export SIMPLE_CONF="simple from env"
 $ python app.py --settings=project_settings
 simple from env
 ```
+### Required Settings
+You can determine a list of mandatory settings, i.e. settings that require a valid value.
+For this, set the _sepecial setting_ `REQUIRED_SETTINGS` with a list (or any iterable) of yours required settings.
+If any setting of this list have an invalid value (or it's not present in setting file) a `ValueError` is raised with a list of required settings not satify in settings file.
 
 ## Changelog
 ### [NEXT_RELEASE]
