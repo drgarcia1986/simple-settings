@@ -100,7 +100,7 @@ $ python app.py --settings=production,amazon,new_relic
 ```
 simple-setting will load all settings modules in order that was specified (`production`-> `amazon` -> `new_relic`) overriding possibles conflicts.
 
-But remember, the environment is still a priority. 
+But remember, the environment is still a priority.
 
 ## Ignored settings
 * Python modules:
@@ -139,6 +139,8 @@ If any setting of this list have an invalid value (or it's not present in settin
 * Deepcopy in `as_dict` method to anticipate unexpected changes.
 * Special Settings Behaviors.
 	* Override settings values by environment.
+    * Required settings validation.
+* Remove default behavior of override settings values by environment (now it's a special settings).
 
 ### [0.2.0] - 2015-06-19
 * Load multiple settings separated by comma (like a pipeline).

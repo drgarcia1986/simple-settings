@@ -49,7 +49,7 @@ class _Settings(object):
         if invalid_settings_list:
             raise ValueError(
                 'The following settings are required: {}'.format(
-                    ' '.join(invalid_settings_list)
+                    ', '.join(invalid_settings_list)
                 )
             )
 
