@@ -134,13 +134,44 @@ You can determine a list of mandatory settings, i.e. settings that require a val
 For this, set the _sepecial setting_ `REQUIRED_SETTINGS` with a list (or any iterable) of yours required settings.
 If any setting of this list have an invalid value (or it's not present in setting file) a `ValueError` is raised with a list of required settings not satify in settings file.
 
+## Utils
+### Settings Stub
+A simple context manager (and decorator) class useful in tests which is necessary to change some setting in the safe way.
+
+#### Context Manager example
+```python
+from simple_settings import settings
+from simple_settings.utils import settings_stub
+
+
+with settings_stub(SOME_SETTING='foo'):
+    assert settings.SOME_SETTING == 'foo'
+assert settings.SOME_SETTING == 'bar'
+```
+
+#### Decorator example
+```python
+from simple_settings import settings
+from simple_settings.utils import settings_stub
+
+
+@settings_stub(SOME_SETTING='foo')
+def get_some_setting():
+    return settings.SOME_SETTING
+
+assert get_some_setting() == 'foo'
+assert settings.SOME_SETTING == 'bar'
+```
+
 ## Changelog
 ### [NEXT_RELEASE]
 * Deepcopy in `as_dict` method to anticipate unexpected changes.
 * Special Settings Behaviors.
-	* Override settings values by environment.
+    * Override settings values by environment.
     * Required settings validation.
 * Remove default behavior of override settings values by environment (now it's a special settings).
+* Settings Stub (useful for tests)
+* Change bahavior of settings `__getattr__` (before may raise `KeyError` if simple-settings do not locate the setting, now raise `AttributeError`)
 
 ### [0.2.0] - 2015-06-19
 * Load multiple settings separated by comma (like a pipeline).
