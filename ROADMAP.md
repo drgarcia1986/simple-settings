@@ -16,3 +16,4 @@ Next versions
 -------------
 * Read settings from _yaml_ files.
 * Read settings from remote files.
+* Lazy load.

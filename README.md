@@ -29,10 +29,12 @@ from simple_settings import settings
 print settings.FOO
 ```
 
-### Features
+### Some features
 * Settings by python modules.
 * Settings by cfg files.
 * Settings inheritance (like a pipeline).
+* Special settings.
+* Check more features in [documentation](http://simple-settings.readthedocs.org/en/latest/).
 
 ### Quick links
 * [Documentation](http://simple-settings.readthedocs.org/en/latest/)
