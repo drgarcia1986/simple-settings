@@ -76,15 +76,7 @@ $ export settings=project_settings
 $ python app.py
 simple
 ```
-### **Override settings value**
 
-You can override the values of your settings module with environment variables.
-
-```bash
-$ export SIMPLE_CONF="simple from env"
-$ python app.py --settings=project_settings
-simple from env
-```
 Check [examples](https://github.com/drgarcia1986/simple-settings/tree/master/examples), in project repository for more usage samples.
 
 ## as_dict()
@@ -108,7 +100,7 @@ $ python app.py --settings=production,amazon,new_relic
 ```
 simple-setting will load all settings modules in order that was specified (`production`-> `amazon` -> `new_relic`) overriding possibles conflicts.
 
-But remember, the environment is still a priority. 
+But remember, the environment is still a priority.
 
 ## Ignored settings
 * Python modules:
@@ -116,9 +108,39 @@ But remember, the environment is still a priority.
 * Cfg files:
 	* Keys starting with `#`.
 
+## Special Settings
+simple-settings has a list of _special settings_ that change behavior os settings load.
+This _special settings_ they are part of `SIMPLE_SETTINGS` dict in settings file.
+
+```python
+SIMPLE_SETTINGS = {
+    'OVERRIDE_BY_ENV': True
+	'REQUIRED_SETTINGS': ('API_TOKEN', 'DB_USER')
+}
+```
+_Special settings is only available with settings based in python modules._
+
+### Override settings value
+You can override the values of your settings module with environment variables.
+You just need set the _special setting_ `OVERRIDE_BY_ENV` with `True` as value.
+
+```bash
+$ export SIMPLE_CONF="simple from env"
+$ python app.py --settings=project_settings
+simple from env
+```
+### Required Settings
+You can determine a list of mandatory settings, i.e. settings that require a valid value.
+For this, set the _sepecial setting_ `REQUIRED_SETTINGS` with a list (or any iterable) of yours required settings.
+If any setting of this list have an invalid value (or it's not present in setting file) a `ValueError` is raised with a list of required settings not satify in settings file.
+
 ## Changelog
 ### [NEXT_RELEASE]
 * Deepcopy in `as_dict` method to anticipate unexpected changes.
+* Special Settings Behaviors.
+	* Override settings values by environment.
+    * Required settings validation.
+* Remove default behavior of override settings values by environment (now it's a special settings).
 
 ### [0.2.0] - 2015-06-19
 * Load multiple settings separated by comma (like a pipeline).

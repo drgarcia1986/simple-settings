@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from mock import patch
 import pytest
 
 
@@ -23,14 +22,3 @@ class TestCfgStrategy(object):
         )
 
         assert settings['SIMPLE_STRING'] == 'simple'
-
-    def test_should_override_setting_by_environment(self, cfg_strategy):
-        def _mock_env_side_effect(k, d=None):
-            return u'simple from env' if k == 'SIMPLE_STRING' else d
-
-        with patch('os.environ.get', side_effect=_mock_env_side_effect):
-            settings = cfg_strategy.load_settings_file(
-                'tests/samples/key_value.cfg'
-            )
-
-        assert settings['SIMPLE_STRING'] == u'simple from env'

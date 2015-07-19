@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import codecs
-import os
 from .types import SettingsLoadStrategy
 
 
@@ -9,21 +8,21 @@ def _is_cfg_file(file_name):
 
 
 def _load_cfg_file(settings_file):
-    def is_valid_line(line):
-        clean_line = line.strip()
-        return bool(
-            clean_line
-            and not clean_line.startswith('#')
-            and len(clean_line.split('=')) == 2
-        )
-
     result = {}
     with codecs.open(settings_file, 'r', 'utf-8') as f:
-        for line in f:
-            if is_valid_line(line):
-                setting, value = [i.strip() for i in line.split('=')]
-                result[setting] = os.environ.get(setting, value)
+        settings = [line.split('=') for line in f if is_valid_line(line)]
+        for k, v in settings:
+            result[k.strip()] = v.strip()
     return result
+
+
+def is_valid_line(line):
+    clean_line = line.strip()
+    return bool(
+        clean_line
+        and not clean_line.startswith('#')
+        and len(clean_line.split('=')) == 2
+    )
 
 
 strategy = SettingsLoadStrategy(
