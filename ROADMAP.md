@@ -3,12 +3,16 @@ simple-settings roadmap
 
 Available for testing
 ---------------------
+* Special Settings
+    * override settings by env
+    * required settings
+* Stub settings (useful for tests)
+
 Use `pip install git+https://github.com/drgarcia1986/simple-settings.git` to test this features
+
+Read the [documentation](http://simple-settings.readthedocs.org/en/latest/) for more informations.
 
 Next versions
 -------------
-
-* Special Settings
-* Stub settings (for tests)
-* Read settings of _yaml_ files.
-* Read settings of remote files.
+* Read settings from _yaml_ files.
+* Read settings from remote files.
