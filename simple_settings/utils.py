@@ -24,14 +24,14 @@ class settings_stub(object):
 
     def __enter__(self):
         for key, value in self.new_settings.items():
-            if not hasattr(settings, key):
+            if key not in settings._dict:
                 raise ValueError(
                     'Your current settings do not '
                     'have a setting {}'.format(key)
                 )
-            self.old_settings[key] = getattr(settings, key)
-            setattr(settings, key, value)
+            self.old_settings[key] = settings._dict[key]
+            settings._dict[key] = value
 
     def __exit__(self, ext_type, exc_value, traceback):
         for key, value in self.old_settings.items():
-            setattr(settings, key, value)
+            settings._dict[key] = value

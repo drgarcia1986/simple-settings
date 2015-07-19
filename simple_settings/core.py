@@ -70,7 +70,7 @@ class _Settings(object):
             strategy = self._get_strategy_by_file(settings_file)
             if not strategy:
                 raise RuntimeError(
-                    'Invalid setting file [{}]'.format(settings_file)
+                    'Invalid settings file [{}]'.format(settings_file)
                 )
             settings = strategy.load_settings_file(settings_file)
             self._dict.update(settings)
