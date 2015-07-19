@@ -171,6 +171,7 @@ assert settings.SOME_SETTING == 'bar'
     * Required settings validation.
 * Remove default behavior of override settings values by environment (now it's a special settings).
 * Settings Stub (useful for tests)
+* Change bahavior of settings `__getattr__` (before may raise `KeyError` if simple-settings do not locate the setting, now raise `AttributeError`)
 
 ### [0.2.0] - 2015-06-19
 * Load multiple settings separated by comma (like a pipeline).

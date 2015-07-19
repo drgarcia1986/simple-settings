@@ -39,4 +39,4 @@ class TestSettingsUtils(object):
             with self.settings_stub(WRONG_SETTING='ops'):
                 pass
 
-        assert 'WRONG_SETTING' in exc.value.message
+        assert 'WRONG_SETTING' in str(exc)

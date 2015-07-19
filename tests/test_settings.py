@@ -105,7 +105,7 @@ class TestSettings(object):
         assert settings.AFTER_LINEBREAK == 'ok'
         assert settings.WITH_UTF8_CHAR == u'café'
 
-        with pytest.raises(KeyError):
+        with pytest.raises(AttributeError):
             settings.COMMENTARY
 
     def test_should_raise_error_if_setting_are_not_configured(self):

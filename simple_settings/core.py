@@ -81,6 +81,8 @@ class _Settings(object):
                 return strategy
 
     def __getattr__(self, attr):
+        if attr not in self._dict:
+            raise AttributeError('You do not set {} setting'.format(attr))
         return self._dict[attr]
 
     def as_dict(self):
