@@ -164,7 +164,7 @@ assert settings.SOME_SETTING == 'bar'
 ```
 
 ## Changelog
-### [NEXT_RELEASE]
+### [0.3.0] - 2015-07-19
 * Deepcopy in `as_dict` method to anticipate unexpected changes.
 * Special Settings Behaviors.
     * Override settings values by environment.
