@@ -3,10 +3,6 @@ simple-settings roadmap
 
 Available for testing
 ---------------------
-* Special Settings
-    * override settings by env
-    * required settings
-* Stub settings (useful for tests)
 
 Use `pip install git+https://github.com/drgarcia1986/simple-settings.git` to test this features
 
