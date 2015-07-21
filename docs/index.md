@@ -114,7 +114,7 @@ This _special settings_ they are part of `SIMPLE_SETTINGS` dict in settings file
 
 ```python
 SIMPLE_SETTINGS = {
-    'OVERRIDE_BY_ENV': True
+    'OVERRIDE_BY_ENV': True,
 	'REQUIRED_SETTINGS': ('API_TOKEN', 'DB_USER')
 }
 ```
