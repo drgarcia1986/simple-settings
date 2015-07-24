@@ -97,6 +97,13 @@ class TestSettings(object):
 
         assert settings.COMPLEX_DICT['complex'] == 'settings'
 
+    def test_dont_import_a_module_as_setting(self):
+        settings = get_settings_by_cmd_line(
+            'tests.samples.with_module_imported'
+        )
+
+        assert 'os' not in settings.as_dict()
+
     def test_should_load_settings_by_cfg_file(self):
         settings = get_settings_by_cmd_line('tests/samples/key_value.cfg')
 
