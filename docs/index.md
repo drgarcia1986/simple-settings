@@ -164,7 +164,7 @@ assert settings.SOME_SETTING == 'bar'
 ```
 
 ## Changelog
-### [NEXT_RELEASE]
+### [0.3.1] - 2015-07-23
 * Avoid to load python modules (as settings) in python files (with this, fix `deepcopy` bug in `as_dict()` method)
 
 ### [0.3.0] - 2015-07-19
