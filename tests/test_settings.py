@@ -3,20 +3,28 @@ import sys
 from mock import patch
 import pytest
 
+from simple_settings.core import _Settings
+
 
 def get_settings_by_cmd_line(module_name):
+    settings = _Settings()
+
     with patch.object(
         sys, 'argv', ['', '--settings={}'.format(module_name)]
     ):
-        from simple_settings.core import _Settings
-        return _Settings()
+        settings._setup()
+
+    return settings
 
 
 def get_settings_by_environment(module_name):
+    settings = _Settings()
+
     with patch('os.environ.get') as mock:
         mock.return_value = module_name
-        from simple_settings.core import _Settings
-        return _Settings()
+        settings._setup()
+
+    return settings
 
 
 class TestSettings(object):
@@ -116,30 +124,37 @@ class TestSettings(object):
             settings.COMMENTARY
 
     def test_should_raise_error_if_setting_are_not_configured(self):
+        settings = _Settings()
         with patch.object(sys, 'argv', []):
             with pytest.raises(RuntimeError):
-                from simple_settings.core import _Settings
-                _Settings()
+                settings.foo
 
     def test_should_raise_error_if_setting_configured_wrong(self):
+        settings = _Settings()
         with patch.object(
             sys, 'argv', ['', '--settings', 'tests.samples.simple']
         ):
             with pytest.raises(RuntimeError):
-                from simple_settings.core import _Settings
-                _Settings()
+                settings.foo
 
     def test_should_raise_error_if_setting_not_found(self):
+        settings = _Settings()
         with patch.object(sys, 'argv', ['', '--settings=foo']):
             with pytest.raises(RuntimeError):
-                from simple_settings.core import _Settings
-                _Settings()
+                settings.foo
 
     def test_should_raise_error_if_dont_have_strategy_for_an_file(self):
+        settings = _Settings()
         with patch.object(sys, 'argv', ['', '--settings=foo.bar']):
             with pytest.raises(RuntimeError):
-                from simple_settings.core import _Settings
-                _Settings()
+                settings.foo
+
+    def test_should_setup_setting_only_once(self):
+        settings = get_settings_by_cmd_line('tests.samples.simple')
+        with patch.object(settings, '_get_settings_from_cmd_line') as mock:
+            settings.SIMPLE_STRING
+
+        assert not mock.called
 
 
 class TestSpecialSettings(object):

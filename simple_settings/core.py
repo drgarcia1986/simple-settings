@@ -13,7 +13,7 @@ class _Settings(object):
     def __init__(self):
         self._dict = {}
         self._settings_list = []
-        self._setup()
+        self._initialized = False
 
     def _get_settings_from_cmd_line(self):
         for arg in sys.argv[1:]:
@@ -24,6 +24,9 @@ class _Settings(object):
                     return
 
     def _setup(self):
+        if self._initialized:
+            return
+
         settings_value = self._get_settings_from_cmd_line()
         if not settings_value:
             settings_value = os.environ.get('settings')
@@ -33,6 +36,8 @@ class _Settings(object):
         self._settings_list = settings_value.split(',')
         self._load_settings_pipeline()
         self._process_special_settings()
+
+        self._initialized = True
 
     def _override_settings_by_env(self):
         for key, value in self._dict.items():
@@ -76,12 +81,14 @@ class _Settings(object):
         raise RuntimeError('Invalid settings file [{}]'.format(settings_file))
 
     def __getattr__(self, attr):
+        self._setup()
         try:
             return self._dict[attr]
         except KeyError:
             raise AttributeError('You do not set {} setting'.format(attr))
 
     def as_dict(self):
+        self._setup()
         return deepcopy(self._dict)
 
 
