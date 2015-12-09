@@ -1,18 +1,9 @@
 # -*- coding: utf-8 -*-
-import copy
+from copy import deepcopy
 import os
 import sys
 
 from .strategies import strategies
-
-
-def _get_settings_from_cmd_line():
-    for arg in sys.argv[1:]:
-        if arg.startswith('--settings'):
-            try:
-                return arg.split('=')[1]
-            except IndexError:
-                return None
 
 
 class _Settings(object):
@@ -22,10 +13,21 @@ class _Settings(object):
     def __init__(self):
         self._dict = {}
         self._settings_list = []
-        self._setup()
+        self._initialized = False
+
+    def _get_settings_from_cmd_line(self):
+        for arg in sys.argv[1:]:
+            if arg.startswith('--settings'):
+                try:
+                    return arg.split('=')[1]
+                except IndexError:
+                    return
 
     def _setup(self):
-        settings_value = _get_settings_from_cmd_line()
+        if self._initialized:
+            return
+
+        settings_value = self._get_settings_from_cmd_line()
         if not settings_value:
             settings_value = os.environ.get('settings')
         if not settings_value:
@@ -34,6 +36,8 @@ class _Settings(object):
         self._settings_list = settings_value.split(',')
         self._load_settings_pipeline()
         self._process_special_settings()
+
+        self._initialized = True
 
     def _override_settings_by_env(self):
         for key, value in self._dict.items():
@@ -44,7 +48,7 @@ class _Settings(object):
             self._dict[self.SPECIAL_SETTINGS_KEY]['REQUIRED_SETTINGS']
         )
         invalid_settings_list = [
-            i for i in required_settings if not self._dict.get(i)
+            i for i in required_settings if i not in self._dict
         ]
         if invalid_settings_list:
             raise ValueError(
@@ -54,10 +58,9 @@ class _Settings(object):
             )
 
     def _process_special_settings(self):
-        if self.SPECIAL_SETTINGS_KEY not in self._dict:
+        special_settings = self._dict.get(self.SPECIAL_SETTINGS_KEY)
+        if not special_settings:
             return
-
-        special_settings = self._dict[self.SPECIAL_SETTINGS_KEY]
 
         if special_settings.get('OVERRIDE_BY_ENV'):
             self._override_settings_by_env()
@@ -68,10 +71,6 @@ class _Settings(object):
     def _load_settings_pipeline(self):
         for settings_file in self._settings_list:
             strategy = self._get_strategy_by_file(settings_file)
-            if not strategy:
-                raise RuntimeError(
-                    'Invalid settings file [{}]'.format(settings_file)
-                )
             settings = strategy.load_settings_file(settings_file)
             self._dict.update(settings)
 
@@ -79,14 +78,18 @@ class _Settings(object):
         for strategy in strategies:
             if strategy.is_valid_file(settings_file):
                 return strategy
+        raise RuntimeError('Invalid settings file [{}]'.format(settings_file))
 
     def __getattr__(self, attr):
-        if attr not in self._dict:
+        self._setup()
+        try:
+            return self._dict[attr]
+        except KeyError:
             raise AttributeError('You do not set {} setting'.format(attr))
-        return self._dict[attr]
 
     def as_dict(self):
-        return copy.deepcopy(self._dict)
+        self._setup()
+        return deepcopy(self._dict)
 
 
 settings = _Settings()

@@ -23,6 +23,7 @@ class settings_stub(object):
         return inner
 
     def __enter__(self):
+        settings._setup()
         for key, value in self.new_settings.items():
             if key not in settings._dict:
                 raise ValueError(
