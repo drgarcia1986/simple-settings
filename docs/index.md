@@ -164,7 +164,7 @@ assert settings.SOME_SETTING == 'bar'
 ```
 
 ## Changelog
-### [NEXT_RELEASE]
+### [0.4.0] - 2016-01-03
 * Lazy settings load.
 
 ### [0.3.1] - 2015-07-23
