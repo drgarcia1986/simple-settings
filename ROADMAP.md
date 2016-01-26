@@ -10,5 +10,8 @@ Read the [documentation](http://simple-settings.readthedocs.org/en/latest/) for 
 
 Next versions
 -------------
+* New env varible (`SIMPLE_SETTINGS` for example).
+* New command line arg (`simple_settings` for example).
 * Read settings from _yaml_ files.
 * Read settings from remote files.
+* Dynamic settings.
