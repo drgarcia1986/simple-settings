@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
-from . import python, cfg
+from . import cfg
+from .python import SettingsLoadStrategyPython
+
 
 strategies = (
-    python.strategy,
+    SettingsLoadStrategyPython(),
     cfg.strategy
 )
