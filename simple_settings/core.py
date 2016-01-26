@@ -6,7 +6,7 @@ import sys
 from .strategies import strategies
 
 
-class _Settings(object):
+class LazySettings(object):
 
     SPECIAL_SETTINGS_KEY = 'SIMPLE_SETTINGS'
 
@@ -92,4 +92,4 @@ class _Settings(object):
         return deepcopy(self._dict)
 
 
-settings = _Settings()
+settings = LazySettings()
