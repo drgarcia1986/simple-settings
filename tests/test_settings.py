@@ -3,11 +3,11 @@ import sys
 from mock import patch
 import pytest
 
-from simple_settings.core import _Settings
+from simple_settings.core import LazySettings
 
 
 def get_settings_by_cmd_line(module_name):
-    settings = _Settings()
+    settings = LazySettings()
 
     with patch.object(
         sys, 'argv', ['', '--settings={}'.format(module_name)]
@@ -18,7 +18,7 @@ def get_settings_by_cmd_line(module_name):
 
 
 def get_settings_by_environment(module_name):
-    settings = _Settings()
+    settings = LazySettings()
 
     with patch('os.environ.get') as mock:
         mock.return_value = module_name
@@ -124,13 +124,13 @@ class TestSettings(object):
             settings.COMMENTARY
 
     def test_should_raise_error_if_setting_are_not_configured(self):
-        settings = _Settings()
+        settings = LazySettings()
         with patch.object(sys, 'argv', []):
             with pytest.raises(RuntimeError):
                 settings.foo
 
     def test_should_raise_error_if_setting_configured_wrong(self):
-        settings = _Settings()
+        settings = LazySettings()
         with patch.object(
             sys, 'argv', ['', '--settings', 'tests.samples.simple']
         ):
@@ -138,13 +138,13 @@ class TestSettings(object):
                 settings.foo
 
     def test_should_raise_error_if_setting_not_found(self):
-        settings = _Settings()
+        settings = LazySettings()
         with patch.object(sys, 'argv', ['', '--settings=foo']):
             with pytest.raises(RuntimeError):
                 settings.foo
 
     def test_should_raise_error_if_dont_have_strategy_for_an_file(self):
-        settings = _Settings()
+        settings = LazySettings()
         with patch.object(sys, 'argv', ['', '--settings=foo.bar']):
             with pytest.raises(RuntimeError):
                 settings.foo

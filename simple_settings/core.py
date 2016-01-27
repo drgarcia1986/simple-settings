@@ -6,8 +6,16 @@ import sys
 from .strategies import strategies
 
 
-class _Settings(object):
+class LazySettings(object):
+    """
+    LazySettings is the main class of simple-settings
 
+    To use just create a instance and access the attributes
+    of your settings files.
+
+    Read the docs for more informations:
+        http://simple-settings.readthedocs.org/en/latest/
+    """
     SPECIAL_SETTINGS_KEY = 'SIMPLE_SETTINGS'
 
     def __init__(self):
@@ -92,4 +100,4 @@ class _Settings(object):
         return deepcopy(self._dict)
 
 
-settings = _Settings()
+settings = LazySettings()
