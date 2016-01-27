@@ -3,7 +3,10 @@ import codecs
 
 
 class SettingsLoadStrategyCfg(object):
-
+    """
+    This is the strategy used to read settings from cfg files
+    (simple `key=value` files)
+    """
     name = 'cfg'
 
     @classmethod

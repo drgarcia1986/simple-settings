@@ -4,7 +4,11 @@ import inspect
 
 
 class SettingsLoadStrategyPython(object):
+    """
+    This is the strategy used to read settings from python modules.
 
+    this strategy ignores settings starting with `_`
+    """
     name = 'python'
 
     @classmethod
