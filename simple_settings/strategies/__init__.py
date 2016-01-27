@@ -4,6 +4,6 @@ from .python import SettingsLoadStrategyPython
 
 
 strategies = (
-    SettingsLoadStrategyPython(),
-    SettingsLoadStrategyCfg()
+    SettingsLoadStrategyPython,
+    SettingsLoadStrategyCfg
 )

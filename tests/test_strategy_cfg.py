@@ -8,7 +8,7 @@ class TestCfgStrategy(object):
 
     @pytest.fixture
     def strategy_cfg(self):
-        return SettingsLoadStrategyCfg()
+        return SettingsLoadStrategyCfg
 
     def test_should_check_a_valid_cfg_file(self, strategy_cfg):
         assert strategy_cfg.is_valid_file('foo.cfg') is True

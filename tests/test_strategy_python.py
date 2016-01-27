@@ -8,7 +8,7 @@ class TestPythonStrategy(object):
 
     @pytest.fixture
     def strategy_python(self):
-        return SettingsLoadStrategyPython()
+        return SettingsLoadStrategyPython
 
     def test_should_check_a_valid_python_module(self, strategy_python):
         assert strategy_python.is_valid_file(
