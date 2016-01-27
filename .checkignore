@@ -1,0 +1,4 @@
+# config checkignore of quantifiedcode
+# Dirs to ignore
+tests/*
+examples/*
