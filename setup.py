@@ -17,6 +17,8 @@ except IOError:
     long_description = description
 
 
+download_url = 'https://github.com/drgarcia1986/simple-settings/tarball/master'
+
 setup(
     name='simple-settings',
     version='0.4.0',
@@ -27,7 +29,7 @@ setup(
     keywords='django flask bottle tornado settings configuration conf',
     description=description,
     long_description=long_description,
-    download_url='https://github.com/drgarcia1986/simple-settings/tarball/master',
+    download_url=download_url,
     packages=['simple_settings', 'simple_settings.strategies'],
     package_dir={
         'simple_settings': 'simple_settings',
@@ -39,5 +41,8 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
-    ]
+    ],
+    extras_require={
+        'yaml': ['PyYAML==3.11']
+    }
 )
