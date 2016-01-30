@@ -1,0 +1,9 @@
+COMPLEX_DICT:
+    complex: dict
+    foo: bar
+
+COMPLEX_LIST:
+    - foo
+    - bar
+
+SIMPLE_STRING: simple
