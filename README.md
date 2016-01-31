@@ -32,6 +32,7 @@ print settings.FOO
 ### Some features
 * Settings by python modules.
 * Settings by cfg files.
+* Settings by Yaml files.
 * Settings inheritance (like a pipeline).
 * Special settings.
 * Check more features in [documentation](http://simple-settings.readthedocs.org/en/latest/).
