@@ -12,7 +12,7 @@ class SettingsLoadStrategyYaml(object):
 
     @classmethod
     def is_valid_file(cls, file_name):
-        return file_name.endswith('.yaml')
+        return file_name.endswith('.yaml') or file_name.endswith('.yml')
 
     @classmethod
     def load_settings_file(cls, settings_file):

@@ -18,6 +18,9 @@ class TestYamlStrategy(object):
     def test_should_check_a_valid_yaml_file(self, strategy_yaml):
         assert strategy_yaml.is_valid_file('foo.yaml') is True
 
+    def test_should_check_a_valid_yaml_file_yml_extension(self, strategy_yaml):
+        assert strategy_yaml.is_valid_file('foo.yml') is True
+
     def test_should_check_a_invalid_yaml_file(self, strategy_yaml):
         assert strategy_yaml.is_valid_file('foo.bar') is False
 
