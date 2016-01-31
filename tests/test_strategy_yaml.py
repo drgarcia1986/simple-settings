@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from simple_settings.strategies.yaml_file import SettingsLoadStrategyYaml
+skip = False
+try:
+    from simple_settings.strategies.yaml_file import SettingsLoadStrategyYaml
+except ImportError:
+    skip = True
 
 
+@pytest.mark.skipif(skip, reason='Instaled without PyYaml')
 class TestYamlStrategy(object):
 
     @pytest.fixture
