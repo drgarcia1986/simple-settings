@@ -1,11 +1,19 @@
 # -*- coding: utf-8 -*-
 from .cfg import SettingsLoadStrategyCfg
 from .python import SettingsLoadStrategyPython
-from .yaml_file import SettingsLoadStrategyYaml
+
+yaml_strategy = None
+try:
+    from .yaml_file import SettingsLoadStrategyYaml
+    yaml_strategy = SettingsLoadStrategyYaml
+except ImportError:
+    pass
 
 
 strategies = (
     SettingsLoadStrategyPython,
     SettingsLoadStrategyCfg,
-    SettingsLoadStrategyYaml
 )
+
+if yaml_strategy:
+    strategies += (yaml_strategy,)
