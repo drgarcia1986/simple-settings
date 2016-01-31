@@ -6,7 +6,7 @@ yaml_strategy = None
 try:
     from .yaml_file import SettingsLoadStrategyYaml
     yaml_strategy = SettingsLoadStrategyYaml
-except ImportError:
+except ImportError:  # pragma: no cover
     pass
 
 
