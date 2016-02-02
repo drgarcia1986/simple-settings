@@ -3,6 +3,7 @@ language: python
 python:
     - "2.7"
     - "3.4"
+    - "3.5"
     - "pypy"
 
 cache:
@@ -13,7 +14,7 @@ install:
     - make requirements
     - pip install coveralls
 
-script: 
+script:
     - make test
 
 after_success:

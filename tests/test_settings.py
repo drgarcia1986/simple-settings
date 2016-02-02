@@ -29,9 +29,15 @@ def get_settings_by_environment(module_name):
 
 class TestSettings(object):
 
-    def test_should_read_cmd_line_settings_value(self):
+    @pytest.mark.parametrize('cmd_arg', ['settings', 'simple-settings'])
+    def test_should_read_cmd_line_settings_value(self, cmd_arg):
         expect_module = 'tests.samples.simple'
-        settings = get_settings_by_cmd_line(expect_module)
+
+        settings = LazySettings()
+        with patch.object(
+            sys, 'argv', ['', '--{}={}'.format(cmd_arg, expect_module)]
+        ):
+            settings._setup()
 
         assert settings._settings_list == [expect_module]
 
@@ -41,10 +47,14 @@ class TestSettings(object):
 
         assert settings._settings_list == expect_modules.split(',')
 
-    def test_should_read_environment_settings_value(self):
+    @pytest.mark.parametrize('env_var', ['settings', 'SIMPLE_SETTINGS'])
+    def test_should_read_environment_settings_value(self, env_var):
         expect_module = 'tests.samples.complex'
+
+        settings = LazySettings()
         with patch.object(sys, 'argv', []):
-            settings = get_settings_by_environment(expect_module)
+            with patch.dict('os.environ', {env_var: expect_module}):
+                settings._setup()
 
         assert settings._settings_list == [expect_module]
 

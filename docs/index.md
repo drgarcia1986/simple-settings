@@ -33,14 +33,19 @@ To load settings of this file you can run your project with command line arg `--
 
 ```bash
 $ python app.py --settings=settings.development
-```
 
-Or set the environment variable `settings`:
+```
+> simple-settings accepts `--simple-settings` command line arg also
+
+Or set the environment variable `SIMPLE_SETTINGS`:
 
 ```bash
-$ export settings=settings.development
+$ export SIMPLE_SETTINGS=settings.development
 $ python app.py
 ```
+
+> the `settings` environment variable is deprecated
+
 The `simple_settings.settings` object reads the command line and environment in this order (but simple-settings takes first value it encounters), to know which file to load.
 
 
@@ -170,6 +175,8 @@ assert settings.SOME_SETTING == 'bar'
 ### [NEXT_RELEASE]
 * Some refactors.
 * Load settings of _yaml_ files.
+* New `SIMPLE_SETTINGS` environment variable.
+* New `--simple-settings` command line arg.
 
 ### [0.4.0] - 2016-01-03
 * Lazy settings load.
