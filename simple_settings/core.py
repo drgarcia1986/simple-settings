@@ -25,7 +25,10 @@ class LazySettings(object):
 
     def _get_settings_from_cmd_line(self):
         for arg in sys.argv[1:]:
-            if arg.startswith('--settings'):
+            if (
+                arg.startswith('--settings')
+                or arg.startswith('--simple-settings')
+            ):
                 try:
                     return arg.split('=')[1]
                 except IndexError:
@@ -37,7 +40,10 @@ class LazySettings(object):
 
         settings_value = self._get_settings_from_cmd_line()
         if not settings_value:
-            settings_value = os.environ.get('settings')
+            settings_value = (
+                os.environ.get('settings')
+                or os.environ.get('SIMPLE_SETTINGS')
+            )
         if not settings_value:
             raise RuntimeError('Settings are not configured')
 
