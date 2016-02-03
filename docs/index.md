@@ -172,7 +172,7 @@ assert settings.SOME_SETTING == 'bar'
 ```
 
 ## Changelog
-### [NEXT_RELEASE]
+### [0.5.0] - 2016-02-03
 * Some refactors.
 * Load settings of _yaml_ files.
 * New `SIMPLE_SETTINGS` environment variable.
