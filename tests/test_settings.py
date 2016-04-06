@@ -19,9 +19,10 @@ def get_settings_by_cmd_line(module_name):
 
 def get_settings_by_environment(module_name):
     settings = LazySettings()
-
-    with patch('os.environ.get') as mock:
-        mock.return_value = module_name
+    mock_dict = {
+        key: module_name for key in LazySettings.ENVIRON_KEYS
+    }
+    with patch.dict('os.environ', mock_dict) as mock:
         settings._setup()
 
     return settings

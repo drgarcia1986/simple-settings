@@ -17,6 +17,8 @@ class LazySettings(object):
         http://simple-settings.readthedocs.org/en/latest/
     """
     SPECIAL_SETTINGS_KEY = 'SIMPLE_SETTINGS'
+    ENVIRON_KEYS = ('settings', 'SIMPLE_SETTINGS')
+    COMMAND_LINE_ARGS = ('--settings', '--simple-settings')
 
     def __init__(self):
         self._dict = {}
@@ -25,27 +27,35 @@ class LazySettings(object):
 
     def _get_settings_from_cmd_line(self):
         for arg in sys.argv[1:]:
-            if (
-                arg.startswith('--settings')
-                or arg.startswith('--simple-settings')
-            ):
-                try:
-                    return arg.split('=')[1]
-                except IndexError:
-                    return
+            for lib_arg in self.COMMAND_LINE_ARGS:
+                if arg.startswith(lib_arg):
+                    try:
+                        return arg.split('=')[1]
+                    except IndexError:
+                        return
+        return
+
+    def _get_settings_from_environ(self):
+        for key in self.ENVIRON_KEYS:
+            if key in os.environ:
+                return os.environ[key]
+        return
+
+    def _get_settings_value(self):
+        return (
+            self._get_settings_from_cmd_line() or
+            self._get_settings_from_environ()
+        )
 
     def _setup(self):
         if self._initialized:
             return
 
-        settings_value = self._get_settings_from_cmd_line()
-        if not settings_value:
-            settings_value = (
-                os.environ.get('settings')
-                or os.environ.get('SIMPLE_SETTINGS')
-            )
-        if not settings_value:
-            raise RuntimeError('Settings are not configured')
+        if not self._settings_list:
+            settings_value = self._get_settings_value()
+            if not settings_value:
+                raise RuntimeError('Settings are not configured')
+            self._settings_list = settings_value.split(',')
 
         self._settings_list = settings_value.split(',')
         self._load_settings_pipeline()
