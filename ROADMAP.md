@@ -10,5 +10,9 @@ Read the [documentation](http://simple-settings.readthedocs.org/en/latest/) for 
 
 Next versions
 -------------
+* Initialize LazySettings with `settings` as parameter:
+```python
+LazySettings('foo.setting','bar.cfg', 'barz.yml')
+```
 * Read settings from remote files.
 * Dynamic settings.
