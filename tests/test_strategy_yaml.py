@@ -8,7 +8,7 @@ except ImportError:
     skip = True
 
 
-@pytest.mark.skipif(skip, reason='Instaled without PyYaml')
+@pytest.mark.skipif(skip, reason='Installed without PyYaml')
 class TestYamlStrategy(object):
 
     @pytest.fixture
