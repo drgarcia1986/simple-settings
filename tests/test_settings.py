@@ -19,9 +19,10 @@ def get_settings_by_cmd_line(module_name):
 
 def get_settings_by_environment(module_name):
     settings = LazySettings()
-
-    with patch('os.environ.get') as mock:
-        mock.return_value = module_name
+    mock_dict = {
+        key: module_name for key in LazySettings.ENVIRON_KEYS
+    }
+    with patch.dict('os.environ', mock_dict):
         settings._setup()
 
     return settings
@@ -165,28 +166,3 @@ class TestSettings(object):
             settings.SIMPLE_STRING
 
         assert not mock.called
-
-
-class TestSpecialSettings(object):
-
-    def test_override_by_env(self):
-        def mock_env_side_effect(k, d=None):
-            return u'simple from env' if k == 'SIMPLE_STRING' else d
-
-        with patch('os.environ.get', side_effect=mock_env_side_effect):
-            settings = get_settings_by_cmd_line(
-                'tests.samples.special_settings_override_by_env'
-            )
-
-        assert settings.SIMPLE_STRING == u'simple from env'
-        assert settings.SIMPLE_INTEGER == 1
-
-    def test_required_settings_should_raise_value_error_for_a_lost_setting(
-        self
-    ):
-        with pytest.raises(ValueError) as exc:
-            get_settings_by_cmd_line(
-                'tests.samples.special_settings_required_settings'
-            )
-
-        assert 'LOST_SETTING' in str(exc)
