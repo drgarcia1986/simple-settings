@@ -173,7 +173,7 @@ assert settings.SOME_SETTING == 'bar'
 
 ## Changelog
 ### [NEXT_RELEASE]
-* Some refactores.
+* Some refactors.
 
 ### [0.5.0] - 2016-02-03
 * Some refactors.
