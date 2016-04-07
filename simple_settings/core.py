@@ -3,6 +3,7 @@ from copy import deepcopy
 import os
 import sys
 
+from .special_settings import process_special_settings
 from .strategies import strategies
 
 
@@ -16,7 +17,6 @@ class LazySettings(object):
     Read the docs for more informations:
         http://simple-settings.readthedocs.org/en/latest/
     """
-    SPECIAL_SETTINGS_KEY = 'SIMPLE_SETTINGS'
     ENVIRON_KEYS = ('settings', 'SIMPLE_SETTINGS')
     COMMAND_LINE_ARGS = ('--settings', '--simple-settings')
 
@@ -59,38 +59,10 @@ class LazySettings(object):
 
         self._settings_list = settings_value.split(',')
         self._load_settings_pipeline()
-        self._process_special_settings()
+
+        process_special_settings(self._dict)
 
         self._initialized = True
-
-    def _override_settings_by_env(self):
-        for key, value in self._dict.items():
-            self._dict[key] = os.environ.get(key, value)
-
-    def _required_settings(self):
-        required_settings = (
-            self._dict[self.SPECIAL_SETTINGS_KEY]['REQUIRED_SETTINGS']
-        )
-        invalid_settings_list = [
-            i for i in required_settings if i not in self._dict
-        ]
-        if invalid_settings_list:
-            raise ValueError(
-                'The following settings are required: {}'.format(
-                    ', '.join(invalid_settings_list)
-                )
-            )
-
-    def _process_special_settings(self):
-        special_settings = self._dict.get(self.SPECIAL_SETTINGS_KEY)
-        if not special_settings:
-            return
-
-        if special_settings.get('OVERRIDE_BY_ENV'):
-            self._override_settings_by_env()
-
-        if special_settings.get('REQUIRED_SETTINGS'):
-            self._required_settings()
 
     def _load_settings_pipeline(self):
         for settings_file in self._settings_list:
