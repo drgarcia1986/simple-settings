@@ -47,6 +47,16 @@ $ python app.py
 
 The `simple_settings.settings` object reads the command line and environment in this order (but simple-settings takes first value it encounters), to know which file to load.
 
+Another option is use class `LazySettings` instead singleton object `settings`.
+With `LazySettings` class is possible to determine settings files in object create:
+```python
+from simple_settings import LazySettings
+
+
+settings = LazySettings('settings.development')
+```
+If you don't pass any value in _LazySettings_ init argument, this class follow the same behavior of _settings_ object.
+
 
 ## Example
 This is a very dummy example, in real world you would use simple-settings in more complex cases.
@@ -65,7 +75,7 @@ You don't need specify which setting _simple-settings_ must load, you can do thi
 ```python
 from simple_settings import settings
 
-print settings.SIMPLE_CONF
+print(settings.SIMPLE_CONF)
 ```
 ### **Run**
 
@@ -107,7 +117,14 @@ $ python app.py --settings=production,amazon,new_relic
 ```
 simple-setting will load all settings modules in order that was specified (`production`-> `amazon` -> `new_relic`) overriding possibles conflicts.
 
-But remember, the environment is still a priority.
+This also work with _LazySettings_ class:
+```python
+from simple_settings import LazySettings
+
+
+settings = LazySettings('production', 'amazon', 'new_relic')
+```
+You can combine any type of settings (_python modules_, _yaml_, etc.).
 
 ## Ignored settings
 * Python modules:
@@ -173,6 +190,7 @@ assert settings.SOME_SETTING == 'bar'
 ## Changelog
 ### [NEXT_RELEASE]
 * Some refactors.
+* Determine settings files and modules directly in LazySettings object (to avoid use env or command line argument);
 
 ### [0.5.0] - 2016-02-03
 * Some refactors.
