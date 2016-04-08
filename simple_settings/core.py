@@ -47,7 +47,7 @@ class LazySettings(object):
             self._get_settings_from_environ()
         )
 
-    def _setup(self):
+    def setup(self):
         if self._initialized:
             return
 
@@ -77,14 +77,14 @@ class LazySettings(object):
         raise RuntimeError('Invalid settings file [{}]'.format(settings_file))
 
     def __getattr__(self, attr):
-        self._setup()
+        self.setup()
         try:
             return self._dict[attr]
         except KeyError:
             raise AttributeError('You do not set {} setting'.format(attr))
 
     def as_dict(self):
-        self._setup()
+        self.setup()
         return deepcopy(self._dict)
 
 

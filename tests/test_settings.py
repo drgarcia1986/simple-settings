@@ -12,7 +12,7 @@ def get_settings_by_cmd_line(module_name):
     with patch.object(
         sys, 'argv', ['', '--settings={}'.format(module_name)]
     ):
-        settings._setup()
+        settings.setup()
 
     return settings
 
@@ -23,7 +23,7 @@ def get_settings_by_environment(module_name):
         key: module_name for key in LazySettings.ENVIRON_KEYS
     }
     with patch.dict('os.environ', mock_dict):
-        settings._setup()
+        settings.setup()
 
     return settings
 
@@ -38,7 +38,7 @@ class TestSettings(object):
         with patch.object(
             sys, 'argv', ['', '--{}={}'.format(cmd_arg, expect_module)]
         ):
-            settings._setup()
+            settings.setup()
 
         assert settings._settings_list == [expect_module]
 
@@ -55,7 +55,7 @@ class TestSettings(object):
         settings = LazySettings()
         with patch.object(sys, 'argv', []):
             with patch.dict('os.environ', {env_var: expect_module}):
-                settings._setup()
+                settings.setup()
 
         assert settings._settings_list == [expect_module]
 

@@ -15,7 +15,7 @@ class TestSettingsUtils(object):
         with patch.object(
             sys, 'argv', ['', '--settings=tests.samples.simple']
         ):
-            settings._setup()
+            settings.setup()
         yield settings
         self._clean_simple_settings()
 
@@ -47,7 +47,7 @@ class TestSettingsUtils(object):
 
         assert 'WRONG_SETTING' in str(exc)
 
-    def test_stub_settings_shoud_setup_lazy_settings_object(self):
+    def test_stub_settings_should_setup_lazy_settings_object(self):
         with patch.object(
             sys, 'argv', ['', '--settings=tests.samples.simple']
         ):
