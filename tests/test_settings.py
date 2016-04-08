@@ -30,13 +30,28 @@ def get_settings_by_environment(module_name):
 
 class TestSettings(object):
 
-    @pytest.mark.parametrize('cmd_arg', ['settings', 'simple-settings'])
+    def test_should_read_init_settings_value(self):
+        expect_module = 'tests.samples.simple'
+        settings = LazySettings(expect_module)
+
+        assert settings._settings_list == [expect_module]
+        assert settings.SIMPLE_STRING == u'simple'
+
+    def test_should_read_init_multiples_settings_value(self):
+        expect_modules = 'tests.samples.simple,tests.samples.complex'
+        settings = LazySettings(*expect_modules.split(','))
+
+        assert settings._settings_list == expect_modules.split(',')
+        assert settings.SIMPLE_STRING == u'simple'
+        assert settings.COMPLEX_DICT['complex'] == 'settings'
+
+    @pytest.mark.parametrize('cmd_arg', LazySettings.COMMAND_LINE_ARGS)
     def test_should_read_cmd_line_settings_value(self, cmd_arg):
         expect_module = 'tests.samples.simple'
 
         settings = LazySettings()
         with patch.object(
-            sys, 'argv', ['', '--{}={}'.format(cmd_arg, expect_module)]
+            sys, 'argv', ['', '{}={}'.format(cmd_arg, expect_module)]
         ):
             settings.setup()
 
@@ -48,7 +63,7 @@ class TestSettings(object):
 
         assert settings._settings_list == expect_modules.split(',')
 
-    @pytest.mark.parametrize('env_var', ['settings', 'SIMPLE_SETTINGS'])
+    @pytest.mark.parametrize('env_var', LazySettings.ENVIRON_KEYS)
     def test_should_read_environment_settings_value(self, env_var):
         expect_module = 'tests.samples.complex'
 

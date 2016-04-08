@@ -20,10 +20,10 @@ class LazySettings(object):
     ENVIRON_KEYS = ('settings', 'SIMPLE_SETTINGS')
     COMMAND_LINE_ARGS = ('--settings', '--simple-settings')
 
-    def __init__(self):
-        self._dict = {}
-        self._settings_list = []
+    def __init__(self, *settings_list):
+        self._settings_list = list(settings_list)
         self._initialized = False
+        self._dict = {}
 
     def _get_settings_from_cmd_line(self):
         for arg in sys.argv[1:]:
@@ -57,11 +57,8 @@ class LazySettings(object):
                 raise RuntimeError('Settings are not configured')
             self._settings_list = settings_value.split(',')
 
-        self._settings_list = settings_value.split(',')
         self._load_settings_pipeline()
-
         process_special_settings(self._dict)
-
         self._initialized = True
 
     def _load_settings_pipeline(self):

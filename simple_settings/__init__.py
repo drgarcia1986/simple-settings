@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-from .core import settings  # noqa
+from .core import LazySettings, settings  # noqa
