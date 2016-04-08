@@ -8,7 +8,7 @@ Python Simple Settings
 A simple way to manage your project settings.
 
 It is inspired by Django's settings system but is generic for any python project.<br>
-With simple-settings you just need specify your settings module in `--settings` arg of command line (or `settings` of environment) and all settings will be available in `simple_settings.settings`.
+With simple-settings you just need specify your settings module in `--settings` arg of command line (or `SIMPLE_SETTINGS` of environment) and all settings will be available in `simple_settings.settings`.
 
 ### Installation
 Use `pip` (simple like this project :smile:).
@@ -23,10 +23,9 @@ $ python app.py --settings=my_settings
 ```
 
 ```python
-from simple_settings import settings
-
-
-print settings.FOO
+>>> from simple_settings import settings
+>>> print settings.FOO
+'some value in foo'
 ```
 
 ### Some features
