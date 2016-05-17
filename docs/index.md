@@ -202,6 +202,7 @@ assert settings.SOME_SETTING == 'bar'
 * Some refactors.
 * Determine settings files and modules directly in LazySettings object (to avoid use env or command line argument).
 * `configure` method to update settings.
+* Use `safe_load` instead `load` in yaml strategy.
 
 ### [0.5.0] - 2016-02-03
 * Some refactors.

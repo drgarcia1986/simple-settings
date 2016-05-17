@@ -17,4 +17,4 @@ class SettingsLoadStrategyYaml(object):
     @classmethod
     def load_settings_file(cls, settings_file):
         with codecs.open(settings_file, 'r') as f:
-            return yaml.load(f)
+            return yaml.safe_load(f)
