@@ -198,7 +198,7 @@ assert settings.SOME_SETTING == 'bar'
 ```
 
 ## Changelog
-### [NEXT_RELEASE]
+### [0.6.0] - 2016-05-17
 * Some refactors.
 * Determine settings files and modules directly in LazySettings object (to avoid use env or command line argument).
 * `configure` method to update settings.
