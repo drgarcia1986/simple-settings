@@ -138,6 +138,16 @@ class TestSettings(object):
 
         assert 'os' not in settings.as_dict()
 
+    def test_should_configure_settings_with_new_values(self):
+        settings = LazySettings('tests.samples.simple')
+
+        assert settings.SIMPLE_STRING == 'simple'
+        settings.configure(SIMPLE_STRING='simple2')
+        assert settings.SIMPLE_STRING == 'simple2'
+
+        settings.configure(NEW_VALUE='new')
+        assert settings.NEW_VALUE == 'new'
+
     def test_should_load_settings_by_cfg_file(self):
         settings = get_settings_by_cmd_line('tests/samples/key_value.cfg')
 
@@ -181,14 +191,3 @@ class TestSettings(object):
             settings.SIMPLE_STRING
 
         assert not mock.called
-
-    def test_configure(self):
-        expect_module = 'tests.samples.simple'
-        settings = LazySettings(expect_module)
-
-        assert settings.SIMPLE_STRING == 'simple'
-        settings.configure(SIMPLE_STRING='simple2')
-        assert settings.SIMPLE_STRING == 'simple2'
-
-        settings.configure(NEW_VALUE='new')
-        assert settings.NEW_VALUE == 'new'

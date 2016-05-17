@@ -100,6 +100,16 @@ You can check the loaded settings through method `settings.as_dict()`
 {'SIMPLE_CONF': 'simple'}
 ```
 
+## configure
+You can change any settings (and add new settings) in runtime with method `configure`:
+```python
+>>> settings.SOME_CONF
+foo
+>>> settings.configure(SOME_CONF='bar')
+>>> settings.SOME_CONF
+bar
+```
+
 ## Types of settings
 The simple-settings is prepared to play with the following files types:
 
@@ -190,7 +200,8 @@ assert settings.SOME_SETTING == 'bar'
 ## Changelog
 ### [NEXT_RELEASE]
 * Some refactors.
-* Determine settings files and modules directly in LazySettings object (to avoid use env or command line argument);
+* Determine settings files and modules directly in LazySettings object (to avoid use env or command line argument).
+* `configure` method to update settings.
 
 ### [0.5.0] - 2016-02-03
 * Some refactors.
