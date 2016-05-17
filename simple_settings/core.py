@@ -80,6 +80,9 @@ class LazySettings(object):
         except KeyError:
             raise AttributeError('You do not set {} setting'.format(attr))
 
+    def configure(self, **settings):
+        self._dict.update(settings)
+
     def as_dict(self):
         self.setup()
         return deepcopy(self._dict)

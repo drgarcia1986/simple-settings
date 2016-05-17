@@ -181,3 +181,14 @@ class TestSettings(object):
             settings.SIMPLE_STRING
 
         assert not mock.called
+
+    def test_configure(self):
+        expect_module = 'tests.samples.simple'
+        settings = LazySettings(expect_module)
+
+        assert settings.SIMPLE_STRING == 'simple'
+        settings.configure(SIMPLE_STRING='simple2')
+        assert settings.SIMPLE_STRING == 'simple2'
+
+        settings.configure(NEW_VALUE='new')
+        assert settings.NEW_VALUE == 'new'
