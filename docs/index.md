@@ -117,7 +117,7 @@ The simple-settings is prepared to play with the following files types:
 * cfg files (simple `key=value` files).
 * yaml files.
 
-> To settings-settings load settings of yaml files is necessary install with extras require _yaml_ ex: `pip install simple-settings[yaml]`
+> To simple-settings load settings of yaml files is necessary install with extras require _yaml_ ex: `pip install simple-settings[yaml]`
 
 ## Load multiple settings modules
 simple-settings can load more than one setting module without use import approach, just specify yours settings modules separated by comma.
