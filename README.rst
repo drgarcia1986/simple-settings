@@ -2,6 +2,10 @@ Python Simple Settings
 ======================
 .. _badges:
 
+.. image:: https://badge.fury.io/py/simple-settings.svg
+    :target: https://badge.fury.io/py/simple-settings
+    :alt: Package version
+
 .. image:: https://readthedocs.org/projects/simple-settings/badge/?version=latest
     :target: http://simple-settings.readthedocs.org/en/latest/
     :alt: Documentation Status
