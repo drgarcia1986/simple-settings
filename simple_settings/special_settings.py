@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
-
-SPECIAL_SETTINGS_KEY = 'SIMPLE_SETTINGS'
+from .constants import SPECIAL_SETTINGS_KEY
 
 
 def required_settings(settings_dict):

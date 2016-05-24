@@ -37,6 +37,13 @@ class TestSettings(object):
         assert settings._settings_list == [expect_module]
         assert settings.SIMPLE_STRING == u'simple'
 
+    def test_should_return_a_nice_repr(self):
+        settings = LazySettings('tests.samples.simple')
+
+        assert repr(settings) == '<SIMPLE-SETTINGS ({})>'.format(
+            settings.as_dict()
+        )
+
     def test_should_read_init_multiples_settings_value(self):
         expect_modules = 'tests.samples.simple,tests.samples.complex'
         settings = LazySettings(*expect_modules.split(','))

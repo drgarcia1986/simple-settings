@@ -149,7 +149,8 @@ This _special settings_ they are part of `SIMPLE_SETTINGS` dict in settings file
 ```python
 SIMPLE_SETTINGS = {
     'OVERRIDE_BY_ENV': True,
-	'REQUIRED_SETTINGS': ('API_TOKEN', 'DB_USER')
+    'REQUIRED_SETTINGS': ('API_TOKEN', 'DB_USER'),
+    'DYNAMIC_SETTINGS': ('ENV',)
 }
 ```
 _Special settings is only available with settings based in python modules._
@@ -163,10 +164,31 @@ $ export SIMPLE_CONF="simple from env"
 $ python app.py --settings=project_settings
 simple from env
 ```
+
+> This is not a dynamic behavior, because settings is only override in _"settings setup"_ time, see `dynamic settings` for a real dynamic behavior.
+
 ### Required Settings
 You can determine a list of mandatory settings, i.e. settings that require a valid value.
 For this, set the _sepecial setting_ `REQUIRED_SETTINGS` with a list (or any iterable) of yours required settings.
 If any setting of this list have an invalid value (or it's not present in setting file) a `ValueError` is raised with a list of required settings not satify in settings file.
+
+### Dynamic Settings
+simple-settings has a list of _dynamic settings_ mechanisms that change a value of setting dynamically.<br>
+The current dynamic mechanisms suported is:
+
+#### ENV (os environment)
+```python
+>>> from simple_settings import settings
+>>> settings.SIMPLE
+'simple string'
+>>> import os
+>>> os.environ['SIMPLE'] = 'simple dynamic'
+>>> settings.SIMPLE
+'simple dynamic
+>>> os.environ['SIMPLE'] = 'really dynamic'
+>>> settings.SIMPLE
+'really dynamic
+```
 
 ## Utils
 ### Settings Stub
@@ -198,6 +220,11 @@ assert settings.SOME_SETTING == 'bar'
 ```
 
 ## Changelog
+### [NEXT_RELEASE]
+* Nice python _REPR_ for _LazySettings_ objects.
+* Dynamic settings behaviors.
+    * By environment.
+
 ### [0.6.0] - 2016-05-17
 * Some refactors.
 * Determine settings files and modules directly in LazySettings object (to avoid use env or command line argument).
