@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
-
-DYNAMIC_SETTINGS_KEY = 'DYNAMIC_SETTINGS'
+from .constants import DYNAMIC_SETTINGS_KEY, SPECIAL_SETTINGS_KEY
 
 
 def get_by_env(setting):
@@ -15,7 +14,9 @@ DYNAMIC_SETTINGS_MAPPING = {
 
 
 def process_dynamic_settings(settings_dict, setting):
-    dynamic_settings_strategies = settings_dict.get(DYNAMIC_SETTINGS_KEY)
+    dynamic_settings_strategies = (
+        settings_dict.get(SPECIAL_SETTINGS_KEY, {}).get(DYNAMIC_SETTINGS_KEY)
+    )
     if not dynamic_settings_strategies:
         return
 

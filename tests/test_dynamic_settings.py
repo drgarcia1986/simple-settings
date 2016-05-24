@@ -11,7 +11,7 @@ class TestDynamicSettings(object):
     @pytest.fixture
     def settings_dict_to_override_by_env(self):
         return {
-            'DYNAMIC_SETTINGS': ['ENV'],
+            'SIMPLE_SETTINGS': {'DYNAMIC_SETTINGS': ['ENV']},
             'SIMPLE_STRING': 'simple',
         }
 
@@ -35,7 +35,7 @@ class TestDynamicSettings(object):
 
     def test_should_get_dynamic_setting_by_env(self):
         settings = LazySettings('tests.samples.simple')
-        settings.configure(DYNAMIC_SETTINGS=['ENV'])
+        settings.configure(SIMPLE_SETTINGS={'DYNAMIC_SETTINGS':['ENV']})
 
         assert settings.SIMPLE_STRING == 'simple'
 
