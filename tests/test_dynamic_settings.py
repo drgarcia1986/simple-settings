@@ -1,47 +1,64 @@
 # -*- coding: utf-8 -*-
 import pytest
-from mock import MagicMock, patch
 
 from simple_settings.core import LazySettings
 from simple_settings.dynamic_settings import process_dynamic_settings
 
+skip = False
+try:
+    from redis import StrictRedis
+except ImportError:
+    skip = True
 
-class TestDynamicSettings(object):
+
+@pytest.mark.skipif(skip, reason='Installed without redis')
+class TestDynamicRedisSettings(object):
 
     @pytest.fixture
-    def settings_dict_to_override_by_env(self):
+    def settings_dict_to_override_by_redis(self):
         return {
-            'SIMPLE_SETTINGS': {'DYNAMIC_SETTINGS': ['ENV']},
+            'SIMPLE_SETTINGS': {
+                'DYNAMIC_SETTINGS': {'backend': 'redis'}
+            },
             'SIMPLE_STRING': 'simple',
         }
 
-    def test_should_return_none_for_setting_without_env(
-        self, settings_dict_to_override_by_env
+    @pytest.yield_fixture
+    def redis(self):
+        redis = StrictRedis()
+
+        yield redis
+
+        redis.flushall()
+
+    def test_should_return_none_for_setting_without_redis_key(
+        self, settings_dict_to_override_by_redis
     ):
         assert process_dynamic_settings(
-            settings_dict_to_override_by_env, 'SIMPLE_STRING'
+            settings_dict_to_override_by_redis, 'SIMPLE_STRING'
         ) is None
 
-
-    def test_should_override_by_env(self, settings_dict_to_override_by_env):
+    def test_should_override_by_redis(
+        self, settings_dict_to_override_by_redis, redis
+    ):
+        key = 'SIMPLE_STRING'
         expected_setting = 'simple from env'
-        def mock_env_side_effect(k, d=None):
-            return expected_setting if k == 'SIMPLE_STRING' else d
+        redis.set(key, expected_setting)
 
-        with patch('os.environ.get', side_effect=mock_env_side_effect):
-            assert process_dynamic_settings(
-                settings_dict_to_override_by_env, 'SIMPLE_STRING'
-            ) == expected_setting
+        assert process_dynamic_settings(
+            settings_dict_to_override_by_redis, key
+        ) == expected_setting
 
-    def test_should_get_dynamic_setting_by_env(self):
+    def test_should_get_dynamic_setting_by_env(self, redis):
         settings = LazySettings('tests.samples.simple')
-        settings.configure(SIMPLE_SETTINGS={'DYNAMIC_SETTINGS':['ENV']})
+        settings.configure(
+            SIMPLE_SETTINGS={'DYNAMIC_SETTINGS': {'backend': 'redis'}}
+        )
 
         assert settings.SIMPLE_STRING == 'simple'
 
-        def mock_env_side_effect(k, d=None):
-            return 'dynamic' if k == 'SIMPLE_STRING' else d
+        redis.set('SIMPLE_STRING', 'dynamic')
+        assert settings.SIMPLE_STRING == 'dynamic'
 
-        with patch('os.environ.get', side_effect=mock_env_side_effect):
-            assert settings.SIMPLE_STRING == 'dynamic'
+        redis.delete('SIMPLE_STRING')
         assert settings.SIMPLE_STRING == 'simple'
