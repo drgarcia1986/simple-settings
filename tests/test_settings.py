@@ -38,8 +38,7 @@ class TestSettings(object):
         assert settings.SIMPLE_STRING == u'simple'
 
     def test_should_return_a_nice_repr(self):
-        expect_module = 'tests.samples.simple'
-        settings = LazySettings(expect_module)
+        settings = LazySettings('tests.samples.simple')
 
         assert repr(settings) == '<SIMPLE-SETTINGS ({})>'.format(
             settings.as_dict()
