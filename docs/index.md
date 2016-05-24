@@ -198,6 +198,9 @@ assert settings.SOME_SETTING == 'bar'
 ```
 
 ## Changelog
+### [NEXT_RELEASE]
+* Nice python _REPR_ for _LazySettings_ objects._
+
 ### [0.6.0] - 2016-05-17
 * Some refactors.
 * Determine settings files and modules directly in LazySettings object (to avoid use env or command line argument).

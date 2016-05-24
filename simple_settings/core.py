@@ -25,6 +25,9 @@ class LazySettings(object):
         self._initialized = False
         self._dict = {}
 
+    def __repr__(self):
+        return '<SIMPLE-SETTINGS ({})>'.format(self.as_dict())
+
     def _get_settings_from_cmd_line(self):
         for arg in sys.argv[1:]:
             for lib_arg in self.COMMAND_LINE_ARGS:
