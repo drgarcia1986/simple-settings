@@ -62,6 +62,7 @@ Some features
 * Settings by Yaml files.
 * Settings inheritance (like a pipeline).
 * Special settings.
+* Dynamic settings.
 * Check more features in `documentation <http://simple-settings.readthedocs.org/en/latest/>`_.
 
 Quick links
