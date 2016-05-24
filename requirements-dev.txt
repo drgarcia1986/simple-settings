@@ -1,4 +1,4 @@
--e .[yaml]
+-e .[all]
 cov-core==1.15.0
 coverage==3.7.1
 mock==1.0.1

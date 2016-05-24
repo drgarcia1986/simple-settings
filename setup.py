@@ -18,7 +18,7 @@ except IOError:
 
 
 YAML_REQUIRES = ['PyYAML==3.11']
-REDIS_REQUIRES = ['redis=2.10.5', 'six==1.10.0']
+REDIS_REQUIRES = ['redis==2.10.5', 'six==1.10.0']
 ALL_REQUIRES = YAML_REQUIRES + REDIS_REQUIRES
 
 
