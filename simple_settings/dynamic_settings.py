@@ -4,12 +4,8 @@ import os
 from .constants import DYNAMIC_SETTINGS_KEY, SPECIAL_SETTINGS_KEY
 
 
-def get_by_env(setting):
-    return os.environ.get(setting)
-
-
 DYNAMIC_SETTINGS_MAPPING = {
-    'ENV': get_by_env
+    'ENV': lambda setting: os.environ.get(setting)
 }
 
 

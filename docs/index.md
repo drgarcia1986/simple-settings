@@ -221,7 +221,7 @@ assert settings.SOME_SETTING == 'bar'
 
 ## Changelog
 ### [NEXT_RELEASE]
-* Nice python _REPR_ for _LazySettings_ objects._
+* Nice python _REPR_ for _LazySettings_ objects.
 * Dynamic settings behaviors.
     * By environment.
 
