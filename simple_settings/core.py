@@ -3,6 +3,7 @@ from copy import deepcopy
 import os
 import sys
 
+from .dynamic_settings import process_dynamic_settings
 from .special_settings import process_special_settings
 from .strategies import strategies
 
@@ -79,9 +80,11 @@ class LazySettings(object):
     def __getattr__(self, attr):
         self.setup()
         try:
-            return self._dict[attr]
+            result = self._dict[attr]
         except KeyError:
             raise AttributeError('You do not set {} setting'.format(attr))
+
+        return process_dynamic_settings(self._dict, attr) or result
 
     def configure(self, **settings):
         self._dict.update(settings)
