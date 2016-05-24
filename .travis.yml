@@ -19,3 +19,6 @@ script:
 
 after_success:
     - coveralls
+
+services:
+    - redis
