@@ -2,11 +2,14 @@
 import pytest
 
 from simple_settings.core import LazySettings
-from simple_settings.dynamic_settings import process_dynamic_settings
+from simple_settings.dynamic_settings import get_dynamic_reader
 
 skip = False
 try:
     from redis import StrictRedis
+    from simple_settings.dynamic_settings.redis_reader import (
+        Reader as RedisReader
+    )
 except ImportError:
     skip = True
 
@@ -20,7 +23,7 @@ class TestDynamicRedisSettings(object):
             'SIMPLE_SETTINGS': {
                 'DYNAMIC_SETTINGS': {'backend': 'redis'}
             },
-            'SIMPLE_STRING': 'simple',
+            'SIMPLE_STRING': 'simple'
         }
 
     @pytest.yield_fixture
@@ -31,25 +34,26 @@ class TestDynamicRedisSettings(object):
 
         redis.flushall()
 
-    def test_should_return_none_for_setting_without_redis_key(
+    @pytest.fixture
+    def reader(self, settings_dict_to_override_by_redis):
+        return get_dynamic_reader(settings_dict_to_override_by_redis)
+
+    def test_should_return_an_instance_of_redis_reader(
         self, settings_dict_to_override_by_redis
     ):
-        assert process_dynamic_settings(
-            settings_dict_to_override_by_redis, 'SIMPLE_STRING'
-        ) is None
+        reader = get_dynamic_reader(settings_dict_to_override_by_redis)
+        assert isinstance(reader, RedisReader)
 
-    def test_should_override_by_redis(
-        self, settings_dict_to_override_by_redis, redis
-    ):
+    def test_should_override_string_by_redis(self, redis, reader):
         key = 'SIMPLE_STRING'
-        expected_setting = 'simple from env'
+        expected_setting = 'simple from redis'
         redis.set(key, expected_setting)
 
-        assert process_dynamic_settings(
-            settings_dict_to_override_by_redis, key
-        ) == expected_setting
+        assert reader.get(key) == expected_setting
 
-    def test_should_get_dynamic_setting_by_env(self, redis):
+    def test_should_return_setting_by_redis_or_by_lazy_settings_obj(
+        self, redis
+    ):
         settings = LazySettings('tests.samples.simple')
         settings.configure(
             SIMPLE_SETTINGS={'DYNAMIC_SETTINGS': {'backend': 'redis'}}

@@ -13,7 +13,7 @@ DYNAMIC_SETTINGS_MAPPING = {
 }
 
 
-def process_dynamic_settings(settings_dict, setting):
+def get_dynamic_reader(settings_dict):
     dynamic_settings_conf = (
         settings_dict.get(SPECIAL_SETTINGS_KEY, {}).get(DYNAMIC_SETTINGS_KEY)
     )
@@ -25,7 +25,6 @@ def process_dynamic_settings(settings_dict, setting):
         reader_backend = DYNAMIC_SETTINGS_MAPPING[reader_backend]
 
     reader_module = importlib.import_module(reader_backend)
-    reader = reader_module.Reader()
-    reader.setup(dynamic_settings_conf)
+    reader = reader_module.Reader(dynamic_settings_conf)
 
-    return reader.get(setting)
+    return reader

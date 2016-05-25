@@ -150,7 +150,7 @@ This _special settings_ they are part of `SIMPLE_SETTINGS` dict in settings file
 SIMPLE_SETTINGS = {
     'OVERRIDE_BY_ENV': True,
     'REQUIRED_SETTINGS': ('API_TOKEN', 'DB_USER'),
-    'DYNAMIC_SETTINGS': ('ENV',)
+    'DYNAMIC_SETTINGS': {'backend': 'redis'}
 }
 ```
 _Special settings is only available with settings based in python modules._
@@ -174,21 +174,23 @@ If any setting of this list have an invalid value (or it's not present in settin
 
 ### Dynamic Settings
 simple-settings has a list of _dynamic settings_ mechanisms that change a value of setting dynamically.<br>
+If dynamic setting is activate, for all setting the dynamic reader is called.<br>
 The current dynamic mechanisms suported is:
 
-#### ENV (os environment)
+#### Redis
+You can read your settings dynamically in redis if you activate the `DYNAMIC_SETTINGS` special setting with `redis` backend:
 ```python
->>> from simple_settings import settings
->>> settings.SIMPLE
-'simple string'
->>> import os
->>> os.environ['SIMPLE'] = 'simple dynamic'
->>> settings.SIMPLE
-'simple dynamic
->>> os.environ['SIMPLE'] = 'really dynamic'
->>> settings.SIMPLE
-'really dynamic
+SIMPLE_SETTINGS = {
+    'DYNAMIC_SETTINGS': {
+        'backend': 'redis',
+        'host': 'locahost',
+        'port': 6379
+    }
+}
 ```
+> for `redis` backend `localhost` is default value for `host` and `6379` is the default value for `port`
+
+In redis dynamic reader the binary types is automatically decoded.
 
 ## Utils
 ### Settings Stub
@@ -222,8 +224,7 @@ assert settings.SOME_SETTING == 'bar'
 ## Changelog
 ### [NEXT_RELEASE]
 * Nice python _REPR_ for _LazySettings_ objects.
-* Dynamic settings behaviors.
-    * By environment.
+* Dynamic settings behaviors with `Redis`.
 
 ### [0.6.0] - 2016-05-17
 * Some refactors.
