@@ -149,7 +149,8 @@ This _special settings_ they are part of `SIMPLE_SETTINGS` dict in settings file
 ```python
 SIMPLE_SETTINGS = {
     'OVERRIDE_BY_ENV': True,
-	'REQUIRED_SETTINGS': ('API_TOKEN', 'DB_USER')
+    'REQUIRED_SETTINGS': ('API_TOKEN', 'DB_USER'),
+    'DYNAMIC_SETTINGS': {'backend': 'redis'}
 }
 ```
 _Special settings is only available with settings based in python modules._
@@ -163,10 +164,33 @@ $ export SIMPLE_CONF="simple from env"
 $ python app.py --settings=project_settings
 simple from env
 ```
+
+> This is not a dynamic behavior, because settings is only override in _"settings setup"_ time, see `dynamic settings` for a real dynamic behavior.
+
 ### Required Settings
 You can determine a list of mandatory settings, i.e. settings that require a valid value.
 For this, set the _sepecial setting_ `REQUIRED_SETTINGS` with a list (or any iterable) of yours required settings.
 If any setting of this list have an invalid value (or it's not present in setting file) a `ValueError` is raised with a list of required settings not satify in settings file.
+
+### Dynamic Settings
+simple-settings has a list of _dynamic settings_ mechanisms that change a value of setting dynamically.<br>
+If dynamic setting is activate, for all setting the dynamic reader is called.<br>
+The current dynamic mechanisms suported is:
+
+#### Redis
+You can read your settings dynamically in redis if you activate the `DYNAMIC_SETTINGS` special setting with `redis` backend:
+```python
+SIMPLE_SETTINGS = {
+    'DYNAMIC_SETTINGS': {
+        'backend': 'redis',
+        'host': 'locahost',
+        'port': 6379
+    }
+}
+```
+> for `redis` backend `localhost` is default value for `host` and `6379` is the default value for `port`
+
+In redis dynamic reader the binary types is automatically decoded.
 
 ## Utils
 ### Settings Stub
@@ -198,6 +222,10 @@ assert settings.SOME_SETTING == 'bar'
 ```
 
 ## Changelog
+### [NEXT_RELEASE]
+* Nice python _REPR_ for _LazySettings_ objects.
+* Dynamic settings behaviors with `Redis`.
+
 ### [0.6.0] - 2016-05-17
 * Some refactors.
 * Determine settings files and modules directly in LazySettings object (to avoid use env or command line argument).

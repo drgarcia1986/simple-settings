@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-from copy import deepcopy
 import os
 import sys
+from copy import deepcopy
 
+from .dynamic_settings import get_dynamic_reader
 from .special_settings import process_special_settings
 from .strategies import strategies
 
@@ -24,6 +25,9 @@ class LazySettings(object):
         self._settings_list = list(settings_list)
         self._initialized = False
         self._dict = {}
+
+    def __repr__(self):
+        return '<SIMPLE-SETTINGS ({})>'.format(self.as_dict())
 
     def _get_settings_from_cmd_line(self):
         for arg in sys.argv[1:]:
@@ -59,6 +63,7 @@ class LazySettings(object):
 
         self._load_settings_pipeline()
         process_special_settings(self._dict)
+        self._dynamic_reader = get_dynamic_reader(self._dict)
         self._initialized = True
 
     def _load_settings_pipeline(self):
@@ -76,9 +81,14 @@ class LazySettings(object):
     def __getattr__(self, attr):
         self.setup()
         try:
-            return self._dict[attr]
+            result = self._dict[attr]
         except KeyError:
             raise AttributeError('You do not set {} setting'.format(attr))
+
+        if self._dynamic_reader:
+            result = self._dynamic_reader.get(attr) or result
+
+        return result
 
     def configure(self, **settings):
         self._dict.update(settings)
