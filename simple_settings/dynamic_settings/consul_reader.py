@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import six
 import consulate
 
 
@@ -26,6 +25,4 @@ class Reader(object):
             result = self.session.kv[key]
         except KeyError:
             result = None
-        if isinstance(result, six.binary_type):
-            result = result.decode('utf-8')
         return result
