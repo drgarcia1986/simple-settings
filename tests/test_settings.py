@@ -4,6 +4,7 @@ from mock import patch
 import pytest
 
 from simple_settings.core import LazySettings
+from simple_settings.special_settings import SPECIAL_SETTINGS_KEY
 
 
 def get_settings_by_cmd_line(module_name):
@@ -144,6 +145,17 @@ class TestSettings(object):
         )
 
         assert 'os' not in settings.as_dict()
+
+    def test_dont_overwrite_special_settings_with_environ(self):
+        expect_module = 'tests.samples.special'
+
+        settings = LazySettings()
+        with patch.object(sys, 'argv', []):
+            with patch.dict('os.environ', {SPECIAL_SETTINGS_KEY: expect_module}):
+                settings.setup()
+
+        print(settings.as_dict())
+        assert isinstance(getattr(settings, SPECIAL_SETTINGS_KEY), dict)
 
     def test_should_configure_settings_with_new_values(self):
         settings = LazySettings('tests.samples.simple')
