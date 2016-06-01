@@ -23,7 +23,8 @@ def override_settings_by_env(settings_dict):
     if not settings_dict[SPECIAL_SETTINGS_KEY]['OVERRIDE_BY_ENV']:
         return
     for key, value in settings_dict.items():
-        settings_dict[key] = os.environ.get(key, value)
+        if key != SPECIAL_SETTINGS_KEY:
+            settings_dict[key] = os.environ.get(key, value)
 
 
 SPECIAL_SETTINGS_MAPPING = {
