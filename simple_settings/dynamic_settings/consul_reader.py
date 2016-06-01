@@ -16,13 +16,16 @@ class Reader(object):
 
     def __init__(self, conf):
         self._default_conf.update(conf)
-        self.session = consulate.Consul(host=self._default_conf['host'], port=self._default_conf['port'],
-                                        datacenter=self._default_conf.get('datacenter'),
-                                        token=self._default_conf.get('token'), scheme=self._default_conf['scheme'])
+        self.session = consulate.Consul(
+            host=self._default_conf['host'],
+            port=self._default_conf['port'],
+            datacenter=self._default_conf.get('datacenter'),
+            token=self._default_conf.get('token'),
+            scheme=self._default_conf['scheme']
+        )
 
     def get(self, key):
         try:
-            result = self.session.kv[key]
+            return self.session.kv[key]
         except KeyError:
-            result = None
-        return result
+            return None  # Just to be explicit.
