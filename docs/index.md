@@ -2,8 +2,11 @@ Python Simple Settings
 ======================
 A simple way to manage your project settings.
 
-It is inspired by Django's settings system but is generic for any python project.<br>
-With simple-settings you just need specify your settings module in `--settings` arg of command line (or `SIMPLE_SETTINGS` of environment) and all settings will be available in `simple_settings.settings`.
+**simple-settings** is inspired by Django's settings system but is generic for any python project.
+
+With simple-settings you just need to specify your settings module using the `--settings` commandline arg when
+invoking your python script (or `SIMPLE_SETTINGS` environment var) and all settings will be exposed as properties of the
+`simple_settings.settings` module.
 
 ```python
 >>> from simple_settings import settings
@@ -21,11 +24,11 @@ $ pip install simple-settings
 ## How this works
 
 simple-settings reads and stores all variables (or constants if you prefer) of a python module that you specify.
-For store your settings you need at least one python module.
+To store your settings you need at least one python module.
 The objects in this python module, work as a mapping to settings of project, because, for each object in this module,
 simple-settings will seek it's value in environment before assuming the value presenting in module.
 
-To specify your settings module you have two approaches, with command line or environment.
+To specify your settings module you have two approaches: with command line or environment.
 
 For example, imagine that you have a python module for your project settings and this file is in "_settings/development.py_" (a common example).
 To load settings of this file you can run your project with command line arg `--settings`:
@@ -143,8 +146,8 @@ You can combine any type of settings (_python modules_, _yaml_, etc.).
 	* Keys starting with `#`.
 
 ## Special Settings
-simple-settings has a list of _special settings_ that change behavior os settings load.
-This _special settings_ they are part of `SIMPLE_SETTINGS` dict in settings file.
+simple-settings has a list of _special settings_ that change how settings will load settings.
+This _special settings_ are specified using a `SIMPLE_SETTINGS` dict in the settings module.
 
 ```python
 SIMPLE_SETTINGS = {
@@ -153,7 +156,7 @@ SIMPLE_SETTINGS = {
     'DYNAMIC_SETTINGS': {'backend': 'redis'}
 }
 ```
-_Special settings is only available with settings based in python modules._
+_Note: special settings may only be specified in python settings files (not ini, yaml, etc.)._
 
 ### Override settings value
 You can override the values of your settings module with environment variables.
@@ -191,6 +194,22 @@ SIMPLE_SETTINGS = {
 > for `redis` backend `localhost` is default value for `host` and `6379` is the default value for `port`
 
 In redis dynamic reader the binary types is automatically decoded.
+
+#### Consul
+You can read your settings dynamically form a consul server if you activate the `DYNAMIC_SETTINGS` special setting
+with the `consul` backend (uses [consulate](https://github.com/gmr/consulate) library):
+```python
+SIMPLE_SETTINGS = {
+    'DYNAMIC_SETTINGS': {
+        'backend': 'consul',
+        'host': 'locahost',
+        'port': 8500
+    }
+}
+```
+> for `consul` backend `localhost` is default value for `host` and `8500` is the default value for `port`.
+
+Additional attributes for consul backend: `datacenter`, `token`, `scheme`
 
 ## Utils
 ### Settings Stub
