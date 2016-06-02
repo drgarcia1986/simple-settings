@@ -21,6 +21,8 @@ simple-settings is available on [Pypi](https://pypi.python.org/pypi/simple-setti
 $ pip install simple-settings
 ```
 
+> To install simple-settings with all dependencies use `pip install simple-settings[all]`
+
 ## How this works
 
 simple-settings reads and stores all variables (or constants if you prefer) of a python module that you specify.
@@ -194,6 +196,8 @@ SIMPLE_SETTINGS = {
 
 In redis dynamic reader the binary types is automatically decoded.
 
+> To install with redis dependencies use: `pip install simple-settings[redis]`
+
 #### Consul
 You can read your settings dynamically form a consul server if you activate the `DYNAMIC_SETTINGS` special setting
 with the `consul` backend (uses [consulate](https://github.com/gmr/consulate) library):
@@ -209,6 +213,8 @@ SIMPLE_SETTINGS = {
 > for `consul` backend `localhost` is default value for `host` and `8500` is the default value for `port`.
 
 Additional attributes for consul backend: `datacenter`, `token`, `scheme`
+
+> To install with consul dependencies use: `pip install simple-settings[consul]`
 
 > `pattern` is optional for all _dynamic settings_ backend, if you set some pattern the dynamic settings reader only get settings that match with this pattern
 
