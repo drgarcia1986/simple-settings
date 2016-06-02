@@ -242,7 +242,7 @@ assert settings.SOME_SETTING == 'bar'
 ```
 
 ## Changelog
-### [NEXT_RELEASE]
+### [0.7.0] - 2016-06-02
 * Nice python _REPR_ for _LazySettings_ objects.
 * Dynamic settings behaviors with `Redis`.
 * Dynamic settings behaviors with `Consul`.

@@ -19,7 +19,7 @@ except IOError:
 
 YAML_REQUIRES = ['PyYAML==3.11']
 REDIS_REQUIRES = ['redis==2.10.5', 'six==1.10.0']
-CONSUL_REQUIRES = ['consulate==0.6.0']
+CONSUL_REQUIRES = ['consulate==0.7.0']
 ALL_REQUIRES = YAML_REQUIRES + REDIS_REQUIRES + CONSUL_REQUIRES
 
 
@@ -27,7 +27,7 @@ download_url = 'https://github.com/drgarcia1986/simple-settings/tarball/master'
 
 setup(
     name='simple-settings',
-    version='0.6.0',
+    version='0.7.0',
     install_requires=[],
     url='https://github.com/drgarcia1986/simple-settings',
     author='Diego Garcia',
