@@ -153,8 +153,7 @@ This _special settings_ are specified using a `SIMPLE_SETTINGS` dict in the sett
 SIMPLE_SETTINGS = {
     'OVERRIDE_BY_ENV': True,
     'REQUIRED_SETTINGS': ('API_TOKEN', 'DB_USER'),
-    'DYNAMIC_SETTINGS': {'backend': 'redis'}
-}
+    'DYNAMIC_SETTINGS': {'backend': 'redis', 'pattern': 'DYNAMIC_*'}
 ```
 _Note: special settings may only be specified in python settings files (not ini, yaml, etc.)._
 
@@ -187,11 +186,11 @@ SIMPLE_SETTINGS = {
     'DYNAMIC_SETTINGS': {
         'backend': 'redis',
         'host': 'locahost',
-        'port': 6379
+        'port': 6379,
     }
 }
 ```
-> for `redis` backend `localhost` is default value for `host` and `6379` is the default value for `port`
+> for `redis` backend `localhost` is default value for `host` and `6379` is the default value for `port`.
 
 In redis dynamic reader the binary types is automatically decoded.
 
@@ -210,6 +209,8 @@ SIMPLE_SETTINGS = {
 > for `consul` backend `localhost` is default value for `host` and `8500` is the default value for `port`.
 
 Additional attributes for consul backend: `datacenter`, `token`, `scheme`
+
+> `pattern` is optional for all _dynamic settings_ backend, if you set some pattern the dynamic settings reader only get settings that match with this pattern
 
 ## Utils
 ### Settings Stub
@@ -244,6 +245,7 @@ assert settings.SOME_SETTING == 'bar'
 ### [NEXT_RELEASE]
 * Nice python _REPR_ for _LazySettings_ objects.
 * Dynamic settings behaviors with `Redis`.
+* Dynamic settings behaviors with `Consul`.
 
 ### [0.6.0] - 2016-05-17
 * Some refactors.
