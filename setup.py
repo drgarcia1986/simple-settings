@@ -19,7 +19,7 @@ except IOError:
 
 YAML_REQUIRES = ['PyYAML==3.11']
 REDIS_REQUIRES = ['redis==2.10.5', 'six==1.10.0']
-CONSUL_REQUIRES = ['consulate==0.7.0']
+CONSUL_REQUIRES = ['consulate==0.6.0']
 ALL_REQUIRES = YAML_REQUIRES + REDIS_REQUIRES + CONSUL_REQUIRES
 
 
