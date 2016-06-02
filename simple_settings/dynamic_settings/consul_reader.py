@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 import consulate
 
+from .base import BaseReader
 
-class Reader(object):
+
+class Reader(BaseReader):
     """
     Consul settings Reader
 
@@ -15,17 +17,18 @@ class Reader(object):
     }
 
     def __init__(self, conf):
-        self._default_conf.update(conf)
+        super(Reader, self).__init__(conf)
+
         self.session = consulate.Consul(
-            host=self._default_conf['host'],
-            port=self._default_conf['port'],
-            datacenter=self._default_conf.get('datacenter'),
-            token=self._default_conf.get('token'),
-            scheme=self._default_conf['scheme']
+            host=self.conf['host'],
+            port=self.conf['port'],
+            datacenter=self.conf.get('datacenter'),
+            token=self.conf.get('token'),
+            scheme=self.conf['scheme']
         )
 
-    def get(self, key):
+    def _get(self, key):
         try:
             return self.session.kv[key]
         except KeyError:
-            return None  # Just to be explicit.
+            return None

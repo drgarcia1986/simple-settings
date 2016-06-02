@@ -66,3 +66,24 @@ class TestDynamicRedisSettings(object):
 
         redis.delete('SIMPLE_STRING')
         assert settings.SIMPLE_STRING == 'simple'
+
+    def test_should_use_dynamic_setting_only_for_valid_setttings(
+        self, redis
+    ):
+        settings = LazySettings('tests.samples.dynamic')
+        settings.configure(
+            SIMPLE_SETTINGS={
+                'DYNAMIC_SETTINGS': {
+                    'backend': 'redis',
+                    'pattern': 'SIMPLE_*'
+                }
+            }
+        )
+
+        assert settings.ANOTHER_STRING == 'another'
+        redis.set('ANOTHER_STRING', 'dynamic')
+        assert settings.ANOTHER_STRING == 'another'
+
+        assert settings.SIMPLE_STRING == 'simple'
+        redis.set('SIMPLE_STRING', 'dynamic')
+        assert settings.SIMPLE_STRING == 'dynamic'

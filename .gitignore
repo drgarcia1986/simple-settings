@@ -59,3 +59,6 @@ target/
 
 # virtualenv
 venv*
+
+# Redis
+dump.rdb

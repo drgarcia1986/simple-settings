@@ -2,8 +2,10 @@
 import six
 from redis import StrictRedis
 
+from .base import BaseReader
 
-class Reader(object):
+
+class Reader(BaseReader):
     """
     Redis settings Reader
     A simple redis getter
@@ -11,14 +13,14 @@ class Reader(object):
     _default_conf = {'host': 'localhost', 'port': 6379}
 
     def __init__(self, conf):
-        self._default_conf.update(conf)
+        super(Reader, self).__init__(conf)
 
         self.redis = StrictRedis(
-            host=self._default_conf['host'],
-            port=self._default_conf['port']
+            host=self.conf['host'],
+            port=self.conf['port']
         )
 
-    def get(self, key):
+    def _get(self, key):
         result = self.redis.get(key)
         if isinstance(result, six.binary_type):
             result = result.decode('utf-8')
