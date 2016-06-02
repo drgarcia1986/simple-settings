@@ -28,7 +28,7 @@ class SettingsLoadStrategyCfg(object):
     def _is_valid_line(cls, line):
         clean_line = line.strip()
         return bool(
-            clean_line
-            and not clean_line.startswith('#')
-            and len(clean_line.split('=')) == 2
+            clean_line and not
+            clean_line.startswith('#') and
+            len(clean_line.split('=')) == 2
         )
