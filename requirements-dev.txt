@@ -8,3 +8,4 @@ pytest-cov==2.2.1
 bumpversion==0.5.3
 flake8==2.5.1
 mkdocs==0.15.3
+wheel==0.29.0
