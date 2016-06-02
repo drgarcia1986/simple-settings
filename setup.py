@@ -19,7 +19,8 @@ except IOError:
 
 YAML_REQUIRES = ['PyYAML==3.11']
 REDIS_REQUIRES = ['redis==2.10.5', 'six==1.10.0']
-ALL_REQUIRES = YAML_REQUIRES + REDIS_REQUIRES
+CONSUL_REQUIRES = ['consulate==0.6.0']
+ALL_REQUIRES = YAML_REQUIRES + REDIS_REQUIRES + CONSUL_REQUIRES
 
 
 download_url = 'https://github.com/drgarcia1986/simple-settings/tarball/master'
@@ -50,6 +51,7 @@ setup(
     extras_require={
         'yaml': YAML_REQUIRES,
         'redis': REDIS_REQUIRES,
+        'consul': CONSUL_REQUIRES,
         'all': ALL_REQUIRES
     }
 )
