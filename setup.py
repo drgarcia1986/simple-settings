@@ -36,10 +36,15 @@ setup(
     description=description,
     long_description=long_description,
     download_url=download_url,
-    packages=['simple_settings', 'simple_settings.strategies'],
+    packages=[
+        'simple_settings',
+        'simple_settings.strategies',
+        'simple_settings.dynamic_settings',
+    ],
     package_dir={
         'simple_settings': 'simple_settings',
-        'strategies': 'simple_settings/strategies'
+        'strategies': 'simple_settings/strategies',
+        'dynamic_settings': 'simple_settings/dynamic_settings',
     },
     classifiers=[
         'Intended Audience :: Developers',
