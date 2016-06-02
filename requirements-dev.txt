@@ -1,10 +1,10 @@
 -e .[all]
 cov-core==1.15.0
-coverage==3.7.1
-mock==1.0.1
+coverage==4.1
+mock==2.0.0
 py==1.4.31
-pytest==2.8.7
-pytest-cov==1.8.1
+pytest==2.9.2
+pytest-cov==2.2.1
 bumpversion==0.5.3
-flake8==2.4.0
-mkdocs==0.15.0
+flake8==2.5.1
+mkdocs==0.15.3
