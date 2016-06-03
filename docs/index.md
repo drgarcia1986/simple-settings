@@ -156,6 +156,7 @@ SIMPLE_SETTINGS = {
     'OVERRIDE_BY_ENV': True,
     'REQUIRED_SETTINGS': ('API_TOKEN', 'DB_USER'),
     'DYNAMIC_SETTINGS': {'backend': 'redis', 'pattern': 'DYNAMIC_*'}
+}
 ```
 _Note: special settings may only be specified in python settings files (not ini, yaml, etc.)._
 
