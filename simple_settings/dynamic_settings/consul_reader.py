@@ -1,7 +1,14 @@
 # -*- coding: utf-8 -*-
-import consulate
-
 from .base import BaseReader
+
+try:
+    import consulate
+except ImportError:  # pragma: no cover
+    raise ImportError(
+        'To use "consul" dynamic settings reader\n'
+        'you need to install simple-settings with consulate dependency:\n'
+        'pip install simple-settings[consul] or pip install consulate'
+    )
 
 
 class Reader(BaseReader):
