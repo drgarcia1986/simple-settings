@@ -6,7 +6,6 @@ from simple_settings.constants import (
     SPECIAL_SETTINGS_KEY
 )
 
-
 DYNAMIC_SETTINGS_MAPPING = {
     'consul': 'simple_settings.dynamic_settings.consul_reader',
     'database': 'simple_settings.dynamic_settings.database_reader',

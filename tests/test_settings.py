@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import sys
-from mock import patch
+
 import pytest
+from mock import patch
 
 from simple_settings.core import LazySettings
 from simple_settings.special_settings import SPECIAL_SETTINGS_KEY

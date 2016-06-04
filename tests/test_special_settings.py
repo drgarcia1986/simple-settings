@@ -3,10 +3,10 @@ import pytest
 from mock import MagicMock, patch
 
 from simple_settings.special_settings import (
+    SPECIAL_SETTINGS_MAPPING,
     override_settings_by_env,
     process_special_settings,
-    required_settings,
-    SPECIAL_SETTINGS_MAPPING,
+    required_settings
 )
 
 
