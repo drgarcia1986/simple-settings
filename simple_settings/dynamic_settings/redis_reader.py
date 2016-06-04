@@ -1,8 +1,15 @@
 # -*- coding: utf-8 -*-
-import six
-from redis import StrictRedis
-
 from .base import BaseReader
+
+try:
+    from redis import StrictRedis
+    import six
+except ImportError:  # pragma: no cover
+    raise ImportError(
+        'To use "redis" dynamic settings reader\n'
+        'you need to install simple-settings with redis dependency:\n'
+        'pip install simple-settings[redis] or pip install redis'
+    )
 
 
 class Reader(BaseReader):
