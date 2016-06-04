@@ -251,6 +251,7 @@ assert settings.SOME_SETTING == 'bar'
 ## Changelog
 ### [NEXT_RELEASE]
 * Better `ImportError` message if using a dynamic reader without your lib dependencies.
+* Refactor in Settings Stub.
 
 ### [0.7.0] - 2016-06-02
 * Nice python _REPR_ for _LazySettings_ objects.
