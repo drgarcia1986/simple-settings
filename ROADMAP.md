@@ -6,6 +6,7 @@ Available for testing
 
 Use `pip install git+https://github.com/drgarcia1986/simple-settings.git` to test this features
 
+* Dynamic settings with `database`
 
 Read the [documentation](http://simple-settings.readthedocs.org/en/latest/) for more informations.
 

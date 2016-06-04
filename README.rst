@@ -51,7 +51,7 @@ Usage
 .. code-block:: python
 
     >>> from simple_settings import settings
-    >>> print settings.FOO
+    >>> print(settings.FOO)
     'some value in foo'
 
 
