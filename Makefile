@@ -3,10 +3,16 @@ clean:
 	@find . -name "*.pyo" | xargs rm -rf
 	@find . -name "__pycache__" -type d | xargs rm -rf
 
+isort-check:
+	isort --check
+
+isort-fix:
+	isort -rc .
+
 flake8:
 	flake8 simple_settings/
 
-test: clean flake8
+test: clean flake8 isort-check
 	py.test --cov-config .coveragerc --cov-report term-missing --cov simple_settings/ tests/
 
 test-debug: clean
