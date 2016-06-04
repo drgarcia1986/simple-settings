@@ -8,8 +8,9 @@ from simple_settings.constants import (
 
 
 DYNAMIC_SETTINGS_MAPPING = {
+    'consul': 'simple_settings.dynamic_settings.consul_reader',
+    'database': 'simple_settings.dynamic_settings.database_reader',
     'redis': 'simple_settings.dynamic_settings.redis_reader',
-    'consul': 'simple_settings.dynamic_settings.consul_reader'
 }
 
 
