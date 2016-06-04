@@ -38,15 +38,6 @@ class TestSettingsUtils(object):
         assert get_simple_string_from_setting() == 'stubed'
         assert current_settings.SIMPLE_STRING == 'simple'
 
-    def test_stub_settings_should_raise_value_error_from_a_wrong_settings(
-        self, current_settings
-    ):
-        with pytest.raises(ValueError) as exc:
-            with settings_stub(WRONG_SETTING='ops'):
-                pass
-
-        assert 'WRONG_SETTING' in str(exc)
-
     def test_stub_settings_should_setup_lazy_settings_object(self):
         with patch.object(
             sys, 'argv', ['', '--settings=tests.samples.simple']

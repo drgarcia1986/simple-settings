@@ -4,7 +4,7 @@ from functools import wraps
 from .core import settings
 
 
-class settings_stub(object):
+class SettingsStub(object):
     """
     A simple context manager (and decorator) class useful
     in tests which is necessary to change some
@@ -24,15 +24,11 @@ class settings_stub(object):
 
     def __enter__(self):
         settings.setup()
-        for key, value in self.new_settings.items():
-            if key not in settings._dict:
-                raise ValueError(
-                    'Your current settings do not '
-                    'have a setting {}'.format(key)
-                )
-            self.old_settings[key] = settings._dict[key]
-            settings._dict[key] = value
+        self.old_settings = settings.as_dict()
+        settings.configure(**self.new_settings)
 
     def __exit__(self, ext_type, exc_value, traceback):
-        for key, value in self.old_settings.items():
-            settings._dict[key] = value
+        settings.configure(**self.old_settings)
+
+
+settings_stub = SettingsStub
