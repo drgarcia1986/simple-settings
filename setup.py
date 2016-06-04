@@ -61,9 +61,10 @@ setup(
         'Programming Language :: Python :: 3',
     ],
     extras_require={
-        'yaml': YAML_REQUIRES,
-        'redis': REDIS_REQUIRES,
+        'all': ALL_REQUIRES,
         'consul': CONSUL_REQUIRES,
-        'all': ALL_REQUIRES
+        'database': DATABASE_REQUIRES,
+        'redis': REDIS_REQUIRES,
+        'yaml': YAML_REQUIRES,
     }
 )
