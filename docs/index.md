@@ -121,6 +121,7 @@ The simple-settings is prepared to play with the following files types:
 * python modules.
 * cfg files (simple `key=value` files).
 * yaml files.
+* json files.
 
 > To simple-settings load settings of yaml files is necessary install with extras require _yaml_ ex: `pip install simple-settings[yaml]`
 
@@ -269,6 +270,7 @@ assert settings.SOME_SETTING == 'bar'
 * Better `ImportError` message if using a dynamic reader without your lib dependencies.
 * Refactor in Settings Stub.
 * Dynamic settings behaviors with `SQLAlchemy` (`database` backend).
+* Load settings of _json_ files.
 
 ### [0.7.0] - 2016-06-02
 * Nice python _REPR_ for _LazySettings_ objects.
