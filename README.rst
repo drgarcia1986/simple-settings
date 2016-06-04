@@ -57,9 +57,7 @@ Usage
 
 Some features
 -------------
-* Settings by python modules.
-* Settings by cfg files.
-* Settings by Yaml files.
+* Settings by Python modules, Cfg files, Yaml files or Json files.
 * Settings inheritance (like a pipeline).
 * Special settings.
 * Dynamic settings.
