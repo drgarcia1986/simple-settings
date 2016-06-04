@@ -219,6 +219,22 @@ Additional attributes for consul backend: `datacenter`, `token`, `scheme`
 
 > `pattern` is optional for all _dynamic settings_ backend, if you set some pattern the dynamic settings reader only get settings that match with this pattern
 
+#### DATABASE
+You can read your settings dynamically form a database if you activate the `DYNAMIC_SETTINGS` special setting
+with the `database` backend (uses [sqlalchey](http://docs.sqlalchemy.org/) library)
+
+```python
+SIMPLE_SETTINGS = {
+    'DYNAMIC_SETTINGS': {
+        'backend': 'database',
+        'sqlalchemy.url': 'sqlite:///:memory:',
+        ...
+    }
+}
+```
+
+> To install with database dependencies use: `pip install simple-settings[database]`
+
 ## Utils
 ### Settings Stub
 A simple context manager (and decorator) class useful in tests which is necessary to change some setting in the safe way.
