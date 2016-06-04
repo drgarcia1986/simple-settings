@@ -266,7 +266,7 @@ assert settings.SOME_SETTING == 'bar'
 ```
 
 ## Changelog
-### [NEXT_RELEASE]
+### [0.8.0] - 2016-06-04
 * Better `ImportError` message if using a dynamic reader without your lib dependencies.
 * Refactor in Settings Stub.
 * Dynamic settings behaviors with `SQLAlchemy` (`database` backend).
