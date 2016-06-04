@@ -1,0 +1,7 @@
+{
+    "SIMPLE_STRING": "simple",
+    "SIMPLE_INT": 1,
+    "SIMPLE_LIST": [1, 2, 3, 4],
+    "NULL_VALUE": null,
+    "NESTED_JSON": {"FOO": "BAR"}
+}
