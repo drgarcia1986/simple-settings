@@ -266,7 +266,7 @@ assert settings.SOME_SETTING == 'bar'
 ```
 
 ## Changelog
-### [NEXT_RELEASE]
+### [0.8.1] - 2016-06-04
 * Fix instalation with `database` extra requires
 
 ### [0.8.0] - 2016-06-04
