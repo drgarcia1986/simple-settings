@@ -41,4 +41,4 @@ class Reader(BaseReader):
             return None
 
     def _set(self, key, value):
-        self.session.set(key, value)
+        self.session.kv.set(key, value)

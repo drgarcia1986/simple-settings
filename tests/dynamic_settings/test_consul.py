@@ -15,7 +15,7 @@ except ImportError:
 
 
 @pytest.mark.skipif(skip, reason='Installed without consul')
-class TestDynamicRedisSettings(object):
+class TestDynamicConsulSettings(object):
 
     @pytest.fixture
     def settings_dict_to_override_by_consul(self):
