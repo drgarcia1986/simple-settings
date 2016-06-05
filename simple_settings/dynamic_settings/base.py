@@ -17,6 +17,10 @@ class BaseReader(object):
         if self._is_valid_key(key):
             return self._get(key)
 
+    def set(self, key, value):
+        if self._is_valid_key(key):
+            self._set(key, value)
+
     def _is_valid_key(self, key):
         pattern = self.conf.get('pattern')
         if not pattern:

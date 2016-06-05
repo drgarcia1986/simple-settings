@@ -88,3 +88,43 @@ class TestDynamicDatabaseSettings(object):
         assert settings.SIMPLE_STRING == 'simple'
         database.set('SIMPLE_STRING', 'dynamic')
         assert settings.SIMPLE_STRING == 'dynamic'
+
+    def test_should_update_setting_in_dynamic_storage_by_lazy_settings_obj(
+        self, database, sqlite_db
+    ):
+        settings = LazySettings('tests.samples.dynamic')
+        settings.configure(
+            SIMPLE_SETTINGS={
+                'DYNAMIC_SETTINGS': {
+                    'backend': 'database',
+                    'pattern': 'SIMPLE_*',
+                    'sqlalchemy.url': sqlite_db,
+                }
+            }
+        )
+        settings.setup()
+
+        database.set('SIMPLE_STRING', 'simple')
+        settings.configure(SIMPLE_STRING='dynamic')
+        assert settings.SIMPLE_STRING == 'dynamic'
+        assert database.get('SIMPLE_STRING') == 'dynamic'
+
+    def test_should_update_setting_in_dynamic_storage_if_match_pattern(
+        self, database, sqlite_db
+    ):
+        settings = LazySettings('tests.samples.dynamic')
+        settings.configure(
+            SIMPLE_SETTINGS={
+                'DYNAMIC_SETTINGS': {
+                    'backend': 'database',
+                    'pattern': 'SIMPLE_*',
+                    'sqlalchemy.url': sqlite_db,
+                }
+            }
+        )
+        settings.setup()
+
+        database.set('ANOTHER_STRING', 'another')
+        settings.configure(ANOTHER_STRING='dynamic')
+        assert settings.ANOTHER_STRING == 'dynamic'
+        assert database.get('ANOTHER_STRING') == 'another'

@@ -6,6 +6,7 @@ from simple_settings.dynamic_settings import get_dynamic_reader
 
 skip = False
 try:
+    import six
     from redis import StrictRedis
     from simple_settings.dynamic_settings.redis_reader import (
         Reader as RedisReader
@@ -37,6 +38,12 @@ class TestDynamicRedisSettings(object):
     @pytest.fixture
     def reader(self, settings_dict_to_override_by_redis):
         return get_dynamic_reader(settings_dict_to_override_by_redis)
+
+    def _value_from_redis(self, redis, key):
+        result = redis.get(key)
+        if isinstance(result, six.binary_type):
+            result = result.decode('utf-8')
+        return result
 
     def test_should_return_an_instance_of_redis_reader(
         self, settings_dict_to_override_by_redis
@@ -87,3 +94,41 @@ class TestDynamicRedisSettings(object):
         assert settings.SIMPLE_STRING == 'simple'
         redis.set('SIMPLE_STRING', 'dynamic')
         assert settings.SIMPLE_STRING == 'dynamic'
+
+    def test_should_update_setting_in_dynamic_storage_by_lazy_settings_obj(
+        self, redis
+    ):
+        settings = LazySettings('tests.samples.dynamic')
+        settings.configure(
+            SIMPLE_SETTINGS={
+                'DYNAMIC_SETTINGS': {
+                    'backend': 'redis',
+                    'pattern': 'SIMPLE_*',
+                }
+            }
+        )
+        settings.setup()
+
+        redis.set('SIMPLE_STRING', 'simple')
+        settings.configure(SIMPLE_STRING='dynamic')
+        assert settings.SIMPLE_STRING == 'dynamic'
+        assert self._value_from_redis(redis, 'SIMPLE_STRING') == 'dynamic'
+
+    def test_should_update_setting_in_dynamic_storage_only_if_match_pattern(
+        self, redis
+    ):
+        settings = LazySettings('tests.samples.dynamic')
+        settings.configure(
+            SIMPLE_SETTINGS={
+                'DYNAMIC_SETTINGS': {
+                    'backend': 'redis',
+                    'pattern': 'SIMPLE_*',
+                }
+            }
+        )
+        settings.setup()
+
+        redis.set('ANOTHER_STRING', 'another')
+        settings.configure(ANOTHER_STRING='dynamic')
+        assert settings.ANOTHER_STRING == 'dynamic'
+        assert self._value_from_redis(redis, 'ANOTHER_STRING') == 'another'

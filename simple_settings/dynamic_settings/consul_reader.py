@@ -39,3 +39,6 @@ class Reader(BaseReader):
             return self.session.kv[key]
         except KeyError:
             return None
+
+    def _set(self, key, value):
+        self.session.kv.set(key, value)
