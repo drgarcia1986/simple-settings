@@ -115,6 +115,8 @@ foo
 bar
 ```
 
+> If your use `dynamic settings` _configure_ method update changed setting value in dynamic storage too.
+
 ## Types of settings
 The simple-settings is prepared to play with the following files types:
 
@@ -266,8 +268,11 @@ assert settings.SOME_SETTING == 'bar'
 ```
 
 ## Changelog
+### [NEXT_RELEASE]
+* `configure` method now update settings in dynamic settings.
+
 ### [0.8.1] - 2016-06-04
-* Fix instalation with `database` extra requires
+* Fix instalation with `database` extra requires.
 
 ### [0.8.0] - 2016-06-04
 * Better `ImportError` message if using a dynamic reader without your lib dependencies.
