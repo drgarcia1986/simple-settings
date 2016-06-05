@@ -32,3 +32,6 @@ class Reader(BaseReader):
         if isinstance(result, six.binary_type):
             result = result.decode('utf-8')
         return result
+
+    def _set(self, key, value):
+        self.redis.set(key, value)

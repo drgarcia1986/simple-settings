@@ -25,6 +25,7 @@ class LazySettings(object):
         self._settings_list = list(settings_list)
         self._initialized = False
         self._dict = {}
+        self._dynamic_reader = None
 
     def __repr__(self):
         return '<SIMPLE-SETTINGS ({})>'.format(self.as_dict())
@@ -92,6 +93,9 @@ class LazySettings(object):
 
     def configure(self, **settings):
         self._dict.update(settings)
+        if self._dynamic_reader:
+            for key, value in settings.items():
+                self._dynamic_reader.set(key, value)
 
     def as_dict(self):
         self.setup()

@@ -70,3 +70,6 @@ class Reader(BaseReader):
 
     def _get(self, key):
         return self.db.get(key)
+
+    def _set(self, key, value):
+        self.db.set(key, value)
