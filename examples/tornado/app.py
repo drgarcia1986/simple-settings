@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from tornado.web import Application, RequestHandler
 from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
+from tornado.web import Application, RequestHandler
 
 from simple_settings import settings
 

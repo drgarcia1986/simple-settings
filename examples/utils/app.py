@@ -2,7 +2,6 @@
 from simple_settings import settings
 from simple_settings.utils import settings_stub
 
-
 # Stub examples
 with settings_stub(SOME_SETTING='foo'):
     assert settings.SOME_SETTING == 'foo'

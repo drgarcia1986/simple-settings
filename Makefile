@@ -3,6 +3,12 @@ clean:
 	@find . -name "*.pyo" | xargs rm -rf
 	@find . -name "__pycache__" -type d | xargs rm -rf
 
+isort-check:
+	isort --check
+
+isort-fix:
+	isort -rc .
+
 flake8:
 	flake8 simple_settings/
 
