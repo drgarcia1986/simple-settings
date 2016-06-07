@@ -88,7 +88,10 @@ class LazySettings(object):
             raise AttributeError('You do not set {} setting'.format(attr))
 
         if self._dynamic_reader:
-            result = self._dynamic_reader.get(attr) or result
+            dynamic_result = self._dynamic_reader.get(attr)
+            if dynamic_result:
+                self._dict[attr] = dynamic_result
+                result = dynamic_result
 
         return result
 
