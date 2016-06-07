@@ -23,8 +23,7 @@ class TestDynamicConsulSettings(object):
             'SIMPLE_SETTINGS': {
                 'DYNAMIC_SETTINGS': {'backend': 'consul'}
             },
-            'SIMPLE_STRING': 'simple',
-            'SIMPLE_BYTES': b'simple'
+            'SIMPLE_STRING': 'simple'
         }
 
     @pytest.yield_fixture
@@ -46,19 +45,21 @@ class TestDynamicConsulSettings(object):
         reader = get_dynamic_reader(settings_dict_to_override_by_consul)
         assert isinstance(reader, ConsulReader)
 
-    def test_should_override_string_by_consul(self, consul, reader):
+    def test_should_get_string_in_consul_by_reader(self, consul, reader):
         key = 'SIMPLE_STRING'
         expected_setting = 'simple from consul'
         consul.set(key, expected_setting)
 
         assert reader.get(key) == expected_setting
 
-        consul.set(key, expected_setting.encode('utf-8'))
-        assert reader.get(key) == expected_setting
+    def test_should_set_string_in_consul_by_reader(self, consul, reader):
+        key = 'SIMPLE_STRING'
+        expected_setting = 'simple from redis'
+        reader.set(key, expected_setting)
 
-    def test_should_return_setting_by_consul_or_by_lazy_settings_obj(
-        self, consul
-    ):
+        assert consul.get(key) == expected_setting
+
+    def test_should_use_consul_reader_with_simple_settings(self, consul):
         settings = LazySettings('tests.samples.simple')
         settings.configure(
             SIMPLE_SETTINGS={'DYNAMIC_SETTINGS': {'backend': 'consul'}}
@@ -69,43 +70,5 @@ class TestDynamicConsulSettings(object):
         consul.set('SIMPLE_STRING', 'dynamic')
         assert settings.SIMPLE_STRING == 'dynamic'
 
-        consul.delete('SIMPLE_STRING')
-        assert settings.SIMPLE_STRING == 'simple'
-
-    def test_should_update_setting_in_dynamic_storage_by_lazy_settings_obj(
-        self, consul
-    ):
-        settings = LazySettings('tests.samples.dynamic')
-        settings.configure(
-            SIMPLE_SETTINGS={
-                'DYNAMIC_SETTINGS': {
-                    'backend': 'consul',
-                    'pattern': 'SIMPLE_*',
-                }
-            }
-        )
-        settings.setup()
-
-        consul.set('SIMPLE_STRING', 'simple')
-        settings.configure(SIMPLE_STRING='dynamic')
-        assert settings.SIMPLE_STRING == 'dynamic'
-        assert consul.get('SIMPLE_STRING') == 'dynamic'
-
-    def test_should_update_setting_in_dynamic_storage_only_if_match_pattern(
-        self, consul
-    ):
-        settings = LazySettings('tests.samples.dynamic')
-        settings.configure(
-            SIMPLE_SETTINGS={
-                'DYNAMIC_SETTINGS': {
-                    'backend': 'consul',
-                    'pattern': 'SIMPLE_*',
-                }
-            }
-        )
-        settings.setup()
-
-        consul.set('ANOTHER_STRING', 'another')
-        settings.configure(ANOTHER_STRING='dynamic')
-        assert settings.ANOTHER_STRING == 'dynamic'
-        assert consul.get('ANOTHER_STRING') == 'another'
+        settings.configure(SIMPLE_STRING='foo')
+        assert consul.get('SIMPLE_STRING') == 'foo'

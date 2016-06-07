@@ -58,10 +58,6 @@ class DatabaseOperations(object):
         if data:
             return data.value
 
-    def delete(self, key):
-        self.session.query(SimpleSettings).filter_by(key=key).delete()
-        self.session.commit()
-
     def flush(self):
         self.session.query(SimpleSettings).delete()
         self.session.commit()

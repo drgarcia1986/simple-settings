@@ -39,7 +39,7 @@ class TestDynamicRedisSettings(object):
     def reader(self, settings_dict_to_override_by_redis):
         return get_dynamic_reader(settings_dict_to_override_by_redis)
 
-    def _value_from_redis(self, redis, key):
+    def _get_value_from_redis(self, redis, key):
         result = redis.get(key)
         if isinstance(result, six.binary_type):
             result = result.decode('utf-8')
@@ -51,16 +51,21 @@ class TestDynamicRedisSettings(object):
         reader = get_dynamic_reader(settings_dict_to_override_by_redis)
         assert isinstance(reader, RedisReader)
 
-    def test_should_override_string_by_redis(self, redis, reader):
+    def test_should_get_string_in_redis_by_reader(self, redis, reader):
         key = 'SIMPLE_STRING'
         expected_setting = 'simple from redis'
         redis.set(key, expected_setting)
 
         assert reader.get(key) == expected_setting
 
-    def test_should_return_setting_by_redis_or_by_lazy_settings_obj(
-        self, redis
-    ):
+    def test_should_set_string_in_redis_by_reader(self, redis, reader):
+        key = 'SIMPLE_STRING'
+        expected_setting = 'simple from redis'
+        reader.set(key, expected_setting)
+
+        assert self._get_value_from_redis(redis, key) == expected_setting
+
+    def test_should_use_redis_reader_with_simple_settings(self, redis):
         settings = LazySettings('tests.samples.simple')
         settings.configure(
             SIMPLE_SETTINGS={'DYNAMIC_SETTINGS': {'backend': 'redis'}}
@@ -71,64 +76,5 @@ class TestDynamicRedisSettings(object):
         redis.set('SIMPLE_STRING', 'dynamic')
         assert settings.SIMPLE_STRING == 'dynamic'
 
-        redis.delete('SIMPLE_STRING')
-        assert settings.SIMPLE_STRING == 'simple'
-
-    def test_should_use_dynamic_setting_only_for_valid_setttings(
-        self, redis
-    ):
-        settings = LazySettings('tests.samples.dynamic')
-        settings.configure(
-            SIMPLE_SETTINGS={
-                'DYNAMIC_SETTINGS': {
-                    'backend': 'redis',
-                    'pattern': 'SIMPLE_*'
-                }
-            }
-        )
-
-        assert settings.ANOTHER_STRING == 'another'
-        redis.set('ANOTHER_STRING', 'dynamic')
-        assert settings.ANOTHER_STRING == 'another'
-
-        assert settings.SIMPLE_STRING == 'simple'
-        redis.set('SIMPLE_STRING', 'dynamic')
-        assert settings.SIMPLE_STRING == 'dynamic'
-
-    def test_should_update_setting_in_dynamic_storage_by_lazy_settings_obj(
-        self, redis
-    ):
-        settings = LazySettings('tests.samples.dynamic')
-        settings.configure(
-            SIMPLE_SETTINGS={
-                'DYNAMIC_SETTINGS': {
-                    'backend': 'redis',
-                    'pattern': 'SIMPLE_*',
-                }
-            }
-        )
-        settings.setup()
-
-        redis.set('SIMPLE_STRING', 'simple')
-        settings.configure(SIMPLE_STRING='dynamic')
-        assert settings.SIMPLE_STRING == 'dynamic'
-        assert self._value_from_redis(redis, 'SIMPLE_STRING') == 'dynamic'
-
-    def test_should_update_setting_in_dynamic_storage_only_if_match_pattern(
-        self, redis
-    ):
-        settings = LazySettings('tests.samples.dynamic')
-        settings.configure(
-            SIMPLE_SETTINGS={
-                'DYNAMIC_SETTINGS': {
-                    'backend': 'redis',
-                    'pattern': 'SIMPLE_*',
-                }
-            }
-        )
-        settings.setup()
-
-        redis.set('ANOTHER_STRING', 'another')
-        settings.configure(ANOTHER_STRING='dynamic')
-        assert settings.ANOTHER_STRING == 'dynamic'
-        assert self._value_from_redis(redis, 'ANOTHER_STRING') == 'another'
+        settings.configure(SIMPLE_STRING='foo')
+        assert self._get_value_from_redis(redis, 'SIMPLE_STRING') == 'foo'

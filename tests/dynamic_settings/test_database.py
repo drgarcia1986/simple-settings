@@ -18,17 +18,20 @@ except ImportError:
 class TestDynamicDatabaseSettings(object):
 
     @pytest.fixture
-    def settings_dict_to_override_by_database(self):
+    def sqlite_db(self):
+        return 'sqlite:///database_test.db'
+
+    @pytest.fixture
+    def settings_dict_to_override_by_database(self, sqlite_db):
         return {
             'SIMPLE_SETTINGS': {
-                'DYNAMIC_SETTINGS': {'backend': 'database'}
+                'DYNAMIC_SETTINGS': {
+                    'backend': 'database',
+                    'sqlalchemy.url': sqlite_db
+                }
             },
             'SIMPLE_STRING': 'simple'
         }
-
-    @pytest.fixture
-    def sqlite_db(self):
-        return 'sqlite:///database_test.db'
 
     @pytest.yield_fixture
     def database(self, sqlite_db):
@@ -40,23 +43,39 @@ class TestDynamicDatabaseSettings(object):
 
         database.flush()
 
+    @pytest.fixture
+    def reader(self, settings_dict_to_override_by_database):
+        return get_dynamic_reader(settings_dict_to_override_by_database)
+
     def test_should_return_an_instance_of_database_reader(
         self, settings_dict_to_override_by_database
     ):
         reader = get_dynamic_reader(settings_dict_to_override_by_database)
         assert isinstance(reader, DatabaseReader)
 
-    def test_should_return_setting_by_redis_or_by_lazy_settings_obj(
+    def test_should_get_string_in_database_by_reader(self, database, reader):
+        key = 'SIMPLE_STRING'
+        expected_setting = 'simple from redis'
+        database.set(key, expected_setting)
+
+        assert reader.get(key) == expected_setting
+
+    def test_should_set_string_in_database_by_reader(self, database, reader):
+        key = 'SIMPLE_STRING'
+        expected_setting = 'simple from database'
+        reader.set(key, expected_setting)
+
+        assert database.get(key) == expected_setting
+
+    def test_should_use_database_reader_with_simple_settings(
         self, database, sqlite_db
     ):
         settings = LazySettings('tests.samples.simple')
         settings.configure(
-            SIMPLE_SETTINGS={
-                'DYNAMIC_SETTINGS': {
-                    'backend': 'database',
-                    'sqlalchemy.url': sqlite_db,
-                }
-            }
+            SIMPLE_SETTINGS={'DYNAMIC_SETTINGS': {
+                'backend': 'database',
+                'sqlalchemy.url': sqlite_db
+            }}
         )
 
         assert settings.SIMPLE_STRING == 'simple'
@@ -64,67 +83,5 @@ class TestDynamicDatabaseSettings(object):
         database.set('SIMPLE_STRING', 'dynamic')
         assert settings.SIMPLE_STRING == 'dynamic'
 
-        database.delete('SIMPLE_STRING')
-        assert settings.SIMPLE_STRING == 'simple'
-
-    def test_should_use_dynamic_setting_only_for_valid_setttings(
-        self, database, sqlite_db
-    ):
-        settings = LazySettings('tests.samples.dynamic')
-        settings.configure(
-            SIMPLE_SETTINGS={
-                'DYNAMIC_SETTINGS': {
-                    'backend': 'database',
-                    'pattern': 'SIMPLE_*',
-                    'sqlalchemy.url': sqlite_db,
-                }
-            }
-        )
-
-        assert settings.ANOTHER_STRING == 'another'
-        database.set('ANOTHER_STRING', 'dynamic')
-        assert settings.ANOTHER_STRING == 'another'
-
-        assert settings.SIMPLE_STRING == 'simple'
-        database.set('SIMPLE_STRING', 'dynamic')
-        assert settings.SIMPLE_STRING == 'dynamic'
-
-    def test_should_update_setting_in_dynamic_storage_by_lazy_settings_obj(
-        self, database, sqlite_db
-    ):
-        settings = LazySettings('tests.samples.dynamic')
-        settings.configure(
-            SIMPLE_SETTINGS={
-                'DYNAMIC_SETTINGS': {
-                    'backend': 'database',
-                    'pattern': 'SIMPLE_*',
-                    'sqlalchemy.url': sqlite_db,
-                }
-            }
-        )
-        settings.setup()
-
-        database.set('SIMPLE_STRING', 'simple')
-        settings.configure(SIMPLE_STRING='dynamic')
-        assert settings.SIMPLE_STRING == 'dynamic'
-        assert database.get('SIMPLE_STRING') == 'dynamic'
-
-    def test_should_update_setting_in_dynamic_storage_if_match_pattern(
-        self, database, sqlite_db
-    ):
-        settings = LazySettings('tests.samples.dynamic')
-        settings.configure(
-            SIMPLE_SETTINGS={
-                'DYNAMIC_SETTINGS': {
-                    'backend': 'database',
-                    'pattern': 'SIMPLE_*',
-                    'sqlalchemy.url': sqlite_db,
-                }
-            }
-        )
-        settings.setup()
-
-        database.set('ANOTHER_STRING', 'another')
-        settings.configure(ANOTHER_STRING='dynamic')
-        assert settings.ANOTHER_STRING == 'dynamic'
-        assert database.get('ANOTHER_STRING') == 'another'
+        settings.configure(SIMPLE_STRING='foo')
+        assert database.get('SIMPLE_STRING') == 'foo'
