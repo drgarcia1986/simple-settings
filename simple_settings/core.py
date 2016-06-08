@@ -73,7 +73,8 @@ class LazySettings(object):
             settings = strategy.load_settings_file(settings_file)
             self._dict.update(settings)
 
-    def _get_strategy_by_file(self, settings_file):
+    @staticmethod
+    def _get_strategy_by_file(settings_file):
         for strategy in strategies:
             if strategy.is_valid_file(settings_file):
                 return strategy

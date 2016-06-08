@@ -9,8 +9,8 @@ class SettingsLoadStrategyCfg(object):
     """
     name = 'cfg'
 
-    @classmethod
-    def is_valid_file(cls, file_name):
+    @staticmethod
+    def is_valid_file(file_name):
         return file_name.endswith('.cfg')
 
     @classmethod
@@ -24,8 +24,8 @@ class SettingsLoadStrategyCfg(object):
                 result[k.strip()] = v.strip()
         return result
 
-    @classmethod
-    def _is_valid_line(cls, line):
+    @staticmethod
+    def _is_valid_line(line):
         clean_line = line.strip()
         return bool(
             clean_line and not
