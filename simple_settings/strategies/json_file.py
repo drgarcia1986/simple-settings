@@ -9,11 +9,11 @@ class SettingsLoadStrategyJson(object):
     """
     name = 'json'
 
-    @classmethod
-    def is_valid_file(cls, file_name):
+    @staticmethod
+    def is_valid_file(file_name):
         return file_name.endswith('.json')
 
-    @classmethod
-    def load_settings_file(cls, settings_file):
+    @staticmethod
+    def load_settings_file(settings_file):
         with codecs.open(settings_file, 'r') as f:
             return json.loads(f.read())
