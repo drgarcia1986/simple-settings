@@ -26,7 +26,7 @@ class SimpleSettings(Base):
     __tablename__ = 'simple_settings'
 
     key = Column(String, primary_key=True)
-    value = Column(String, primary_key=True)
+    value = Column(String)
 
 
 class DatabaseOperations(object):
@@ -40,21 +40,23 @@ class DatabaseOperations(object):
 
         Base.metadata.create_all(self.db)
 
+    def _get(self, key):
+        return self.session.query(SimpleSettings).get(key)
+
     def set(self, key, value):
-        setting = SimpleSettings(key=key, value=value)
+        setting = self._get(key)
+        if not setting:
+            setting = SimpleSettings(key=key)
+        setting.value = value
 
         self.session.add(setting)
         self.session.commit()
 
     def get(self, key):
-        data = self.session.query(SimpleSettings).filter_by(key=key).first()
+        data = self._get(key)
 
         if data:
             return data.value
-
-    def delete(self, key):
-        self.session.query(SimpleSettings).filter_by(key=key).delete()
-        self.session.commit()
 
     def flush(self):
         self.session.query(SimpleSettings).delete()
