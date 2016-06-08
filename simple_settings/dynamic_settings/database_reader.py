@@ -17,6 +17,9 @@ Base = declarative_base()
 
 
 class SimpleSettings(Base):
+    """Database table representation
+    """
+
     __tablename__ = 'simple_settings'
 
     key = Column(String, primary_key=True)
@@ -24,6 +27,8 @@ class SimpleSettings(Base):
 
 
 class DatabaseOperations(object):
+    """Wrapper for database operations
+    """
 
     def __init__(self, database_config):
         self.db = engine_from_config(database_config)
