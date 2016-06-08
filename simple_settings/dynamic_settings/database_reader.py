@@ -3,7 +3,7 @@ from .base import BaseReader
 
 try:
     from sqlalchemy import engine_from_config, Column, String
-    from sqlalchemy.ext.declarative import declarative_base
+    from sqlalchemy.ext.declarative import as_declarative
     from sqlalchemy.orm import sessionmaker
 except ImportError:  # pragma: no cover
     raise ImportError(
@@ -13,7 +13,10 @@ except ImportError:  # pragma: no cover
     )
 
 
-Base = declarative_base()
+@as_declarative()
+class Base(object):
+    """Base class for declarative class definitions
+    """
 
 
 class SimpleSettings(Base):
@@ -33,8 +36,7 @@ class DatabaseOperations(object):
     def __init__(self, database_config):
         self.db = engine_from_config(database_config)
 
-        Session = sessionmaker(bind=self.db)
-        self.session = Session()
+        self.session = sessionmaker(bind=self.db)()
 
         Base.metadata.create_all(self.db)
 
