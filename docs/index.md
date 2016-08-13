@@ -282,6 +282,7 @@ assert settings.SOME_SETTING == 'bar'
 * `configure` method now update settings in dynamic settings.
 * On get setting value in dynamic setting update local settings with this value.
 * Auto casting value in dynamic storage to using complex types.
+* Add cache to method `is_valid_key` of dynamic settings base.
 
 ### [0.8.1] - 2016-06-04
 * Fix instalation with `database` extra requires.
