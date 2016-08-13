@@ -114,3 +114,15 @@ class TestDynamicSettings(object):
         settings.configure(ANOTHER_STRING='dynamic')
         assert settings.ANOTHER_STRING == 'dynamic'
         assert settings._dynamic_reader._get('ANOTHER_STRING') == 'another'
+
+    def test_should_auto_casting_values_in_dynamic_storage(
+        self, settings_dict, reader
+    ):
+        key = 'COMPLEX'
+        expected_setting = {'foo': 1, 'bar': ['b1', 2, 'b3'], 'simple': 'yes'}
+        reader.auto_casting = True
+
+        reader.set(key, expected_setting)
+        assert reader.get(key) == expected_setting
+
+        assert reader._dict['COMPLEX'] != expected_setting

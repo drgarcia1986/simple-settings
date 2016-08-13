@@ -158,7 +158,11 @@ This _special settings_ are specified using a `SIMPLE_SETTINGS` dict in the sett
 SIMPLE_SETTINGS = {
     'OVERRIDE_BY_ENV': True,
     'REQUIRED_SETTINGS': ('API_TOKEN', 'DB_USER'),
-    'DYNAMIC_SETTINGS': {'backend': 'redis', 'pattern': 'DYNAMIC_*'}
+    'DYNAMIC_SETTINGS': {
+        'backend': 'redis',
+        'pattern': 'DYNAMIC_*',
+        'auto_casting': True
+    }
 }
 ```
 _Note: special settings may only be specified in python settings files (not ini, yaml, etc.)._
@@ -184,6 +188,14 @@ If any setting of this list have an invalid value (or it's not present in settin
 simple-settings has a list of _dynamic settings_ mechanisms that change a value of setting dynamically.<br>
 If dynamic setting is activate, for all setting the dynamic reader is called.<br>
 The current dynamic mechanisms suported is:
+
+#### Default Dynamic Settings Configuration
+For all _dynamic settings_ backends _simple-settings_ accept this optional parameters:
+* `pattern`: if you set some pattern the dynamic settings reader only get settings that match with this pattern.
+* `auto_casting`: if you set this conf to `True` (default is `False`) _simple settings_ use
+[jsonpickle](https://github.com/jsonpickle/jsonpickle) to encode settings value before save in dynamic storage
+and decode after read from dynamic storage. With this bahavior you can use complex types (like _dict_ and _list_)
+in dynamic settings.
 
 #### Redis
 You can read your settings dynamically in redis if you activate the `DYNAMIC_SETTINGS` special setting with `redis` backend:
@@ -219,8 +231,6 @@ SIMPLE_SETTINGS = {
 Additional attributes for consul backend: `datacenter`, `token`, `scheme`
 
 > To install with consul dependencies use: `pip install simple-settings[consul]`
-
-> `pattern` is optional for all _dynamic settings_ backend, if you set some pattern the dynamic settings reader only get settings that match with this pattern
 
 #### DATABASE
 You can read your settings dynamically form a database if you activate the `DYNAMIC_SETTINGS` special setting
@@ -271,6 +281,7 @@ assert settings.SOME_SETTING == 'bar'
 ### [NEXT_RELEASE]
 * `configure` method now update settings in dynamic settings.
 * On get setting value in dynamic setting update local settings with this value.
+* Auto casting value in dynamic storage to using complex types.
 
 ### [0.8.1] - 2016-06-04
 * Fix instalation with `database` extra requires.

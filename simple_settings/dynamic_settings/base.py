@@ -2,6 +2,8 @@
 import re
 from copy import deepcopy
 
+import jsonpickle
+
 
 class BaseReader(object):
     """
@@ -12,17 +14,25 @@ class BaseReader(object):
     def __init__(self, conf):
         self.conf = deepcopy(self._default_conf)
         self.conf.update(conf)
+        self.key_pattern = self.conf.get('pattern')
+        self.auto_casting = self.conf.get('auto_casting')
 
     def get(self, key):
-        if self._is_valid_key(key):
-            return self._get(key)
+        if not self._is_valid_key(key):
+            return
+        result = self._get(key)
+        if self.auto_casting:
+            result = jsonpickle.decode(result)
+        return result
 
     def set(self, key, value):
-        if self._is_valid_key(key):
-            self._set(key, value)
+        if not self._is_valid_key(key):
+            return
+        if self.auto_casting:
+            value = jsonpickle.encode(value)
+        self._set(key, value)
 
     def _is_valid_key(self, key):
-        pattern = self.conf.get('pattern')
-        if not pattern:
+        if not self.key_pattern:
             return True
-        return bool(re.match(pattern, key))
+        return bool(re.match(self.key_pattern, key))
