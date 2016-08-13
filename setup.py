@@ -17,7 +17,7 @@ except IOError:
     long_description = description
 
 YAML_REQUIRES = ['PyYAML==3.11']
-DYNAMIC_SETTINGS_REQUIRES = ['jsonpickle==0.9.3']
+DYNAMIC_SETTINGS_REQUIRES = ['jsonpickle==0.9.3', 'functools32==3.2.3.post2']
 REDIS_REQUIRES = ['redis==2.10.5', 'six==1.10.0'] + DYNAMIC_SETTINGS_REQUIRES
 CONSUL_REQUIRES = ['consulate==0.6.0'] + DYNAMIC_SETTINGS_REQUIRES
 DATABASE_REQUIRES = ['SQLAlchemy==1.0.13'] + DYNAMIC_SETTINGS_REQUIRES

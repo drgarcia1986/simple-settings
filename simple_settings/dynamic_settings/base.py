@@ -4,6 +4,11 @@ from copy import deepcopy
 
 import jsonpickle
 
+try:
+    from functools import lru_cache
+except ImportError:
+    from functools32 import lru_cache
+
 
 class BaseReader(object):
     """
@@ -32,6 +37,7 @@ class BaseReader(object):
             value = jsonpickle.encode(value)
         self._set(key, value)
 
+    @lru_cache(maxsize=None)
     def _is_valid_key(self, key):
         if not self.key_pattern:
             return True
