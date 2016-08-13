@@ -191,6 +191,7 @@ The current dynamic mechanisms suported is:
 
 #### Default Dynamic Settings Configuration
 For all _dynamic settings_ backends _simple-settings_ accept this optional parameters:
+
 * `pattern`: if you set some pattern the dynamic settings reader only get settings that match with this pattern.
 * `auto_casting`: if you set this conf to `True` (default is `False`) _simple settings_ use
 [jsonpickle](https://github.com/jsonpickle/jsonpickle) to encode settings value before save in dynamic storage
