@@ -278,7 +278,7 @@ assert settings.SOME_SETTING == 'bar'
 ```
 
 ## Changelog
-### [NEXT_RELEASE]
+### [0.9.0] - 2016-08-12
 * `configure` method now update settings in dynamic settings.
 * On get setting value in dynamic setting update local settings with this value.
 * Auto casting value in dynamic storage to using complex types.
