@@ -211,3 +211,10 @@ class TestSettings(object):
             settings.SIMPLE_STRING
 
         assert not mock.called
+
+    def test_should_override_a_setting_without_accessing_it_first(self):
+        expect_module = 'tests.samples.simple'
+        settings = LazySettings(expect_module)
+
+        settings.configure(SIMPLE_STRING='overridden')
+        assert settings.SIMPLE_STRING == 'overridden'
