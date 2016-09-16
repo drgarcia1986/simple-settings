@@ -279,7 +279,7 @@ assert settings.SOME_SETTING == 'bar'
 ```
 
 ## Changelog
-### [NEXT_RELEASE]
+### [0.9.1] - 2016-09-15
 * 'configure` method now works even called before the LazySettings setup.
 
 ### [0.9.0] - 2016-08-12
