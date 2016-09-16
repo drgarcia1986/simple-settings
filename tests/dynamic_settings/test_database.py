@@ -77,6 +77,8 @@ class TestDynamicDatabaseSettings(object):
                 'sqlalchemy.url': sqlite_db
             }}
         )
+        settings._initialized = False
+        settings.setup()
 
         assert settings.SIMPLE_STRING == 'simple'
 

@@ -64,6 +64,8 @@ class TestDynamicConsulSettings(object):
         settings.configure(
             SIMPLE_SETTINGS={'DYNAMIC_SETTINGS': {'backend': 'consul'}}
         )
+        settings._initialized = False
+        settings.setup()
 
         assert settings.SIMPLE_STRING == 'simple'
 

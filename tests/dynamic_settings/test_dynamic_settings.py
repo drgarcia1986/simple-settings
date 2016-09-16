@@ -49,6 +49,8 @@ class TestDynamicSettings(object):
     def test_should_override_setting_by_reader_value(self, settings_dict):
         settings = LazySettings('tests.samples.simple')
         settings.configure(**settings_dict)
+        settings._initialized = False  # to load dynamic read
+        settings.setup()
 
         assert settings.SIMPLE_STRING == 'simple'
 
@@ -60,6 +62,8 @@ class TestDynamicSettings(object):
     ):
         settings = LazySettings('tests.samples.simple')
         settings.configure(**settings_dict)
+        settings._initialized = False  # to load dynamic read
+        settings.setup()
 
         assert settings.SIMPLE_STRING == 'simple'
 
@@ -79,6 +83,8 @@ class TestDynamicSettings(object):
         ]['DYNAMIC_SETTINGS']['pattern'] = 'SIMPLE_*'
 
         settings.configure(**settings_dict)
+        settings._initialized = False  # to load dynamic read
+        settings.setup()
 
         assert settings.ANOTHER_STRING == 'another'
         settings._dynamic_reader.set('ANOTHER_STRING', 'dynamic')
@@ -91,6 +97,7 @@ class TestDynamicSettings(object):
     def test_should_update_settings_in_dynamic_storage(self, settings_dict):
         settings = LazySettings('tests.samples.dynamic')
         settings.configure(**settings_dict)
+        settings._initialized = False  # to load dynamic read
         settings.setup()
 
         settings._dynamic_reader.set('SIMPLE_STRING', 'simple')
@@ -108,6 +115,7 @@ class TestDynamicSettings(object):
         ]['DYNAMIC_SETTINGS']['pattern'] = 'SIMPLE_*'
 
         settings.configure(**settings_dict)
+        settings._initialized = False  # to load dynamic read
         settings.setup()
 
         settings._dynamic_reader._set('ANOTHER_STRING', 'another')
