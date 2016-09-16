@@ -70,6 +70,8 @@ class TestDynamicRedisSettings(object):
         settings.configure(
             SIMPLE_SETTINGS={'DYNAMIC_SETTINGS': {'backend': 'redis'}}
         )
+        settings._initialized = False
+        settings.setup()
 
         assert settings.SIMPLE_STRING == 'simple'
 
