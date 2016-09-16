@@ -96,6 +96,7 @@ class LazySettings(object):
         return result
 
     def configure(self, **settings):
+        self.setup()
         self._dict.update(settings)
         if self._dynamic_reader:
             for key, value in settings.items():
