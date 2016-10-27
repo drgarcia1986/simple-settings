@@ -20,7 +20,8 @@ class Reader(BaseReader):
     _default_conf = {
         'host': consulate.DEFAULT_HOST,
         'port': consulate.DEFAULT_PORT,
-        'scheme': consulate.DEFAULT_SCHEME
+        'scheme': consulate.DEFAULT_SCHEME,
+        'prefix': ''
     }
 
     def __init__(self, conf):
@@ -34,11 +35,23 @@ class Reader(BaseReader):
             scheme=self.conf['scheme']
         )
 
+    def _qualified_key(self, key):
+        """
+        Prepends the prefix to the key (if applicable).
+
+        :param key: The unprefixed key.
+        :return: The qualifeid key.
+        """
+        if self.conf.get('prefix') is None:
+            return key
+        else:
+            return '{}{}'.format(self.conf['prefix'], key)
+
     def _get(self, key):
         try:
-            return self.session.kv[key]
+            return self.session.kv[self._qualified_key(key)]
         except KeyError:
             return None
 
     def _set(self, key, value):
-        self.session.kv.set(key, value)
+        self.session.kv.set(self._qualified_key(key), value)
