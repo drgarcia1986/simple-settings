@@ -223,13 +223,14 @@ SIMPLE_SETTINGS = {
     'DYNAMIC_SETTINGS': {
         'backend': 'consul',
         'host': 'locahost',
-        'port': 8500
+        'port': 8500,
+        'prefix': 'mynamespace/'      # Prefixes all key requests in consul with this value
     }
 }
 ```
 > for `consul` backend `localhost` is default value for `host` and `8500` is the default value for `port`.
 
-Additional attributes for consul backend: `datacenter`, `token`, `scheme`
+Additional attributes for consul backend: `datacenter`, `token`, `scheme`.
 
 > To install with consul dependencies use: `pip install simple-settings[consul]`
 
