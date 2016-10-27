@@ -45,7 +45,8 @@ class Reader(BaseReader):
         if self.conf.get('prefix') is None:
             return key
         else:
-            return '{}{}'.format(self.conf['prefix'], key)
+            qualified_key = '{}{}'.format(self.conf['prefix'], key)
+            return qualified_key.lstrip('/')
 
     def _get(self, key):
         try:
