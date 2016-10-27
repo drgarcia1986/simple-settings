@@ -133,3 +133,20 @@ class TestDynamicConsulSettings(object):
 
         settings.configure(SIMPLE_STRING='foo')
         assert consul.get('test/SIMPLE_STRING') == 'foo'
+
+
+    def test_should_use_consul_reader_with_null_prefix_with_simple_settings(self, consul):
+        settings = LazySettings('tests.samples.simple')
+        settings.configure(
+            SIMPLE_SETTINGS={'DYNAMIC_SETTINGS': {'backend': 'consul', 'prefix': None}}
+        )
+        settings._initialized = False
+        settings.setup()
+
+        assert settings.SIMPLE_STRING == 'simple'
+
+        consul.set('SIMPLE_STRING', 'dynamic')
+        assert settings.SIMPLE_STRING == 'dynamic'
+
+        settings.configure(SIMPLE_STRING='foo')
+        assert consul.get('SIMPLE_STRING') == 'foo'
