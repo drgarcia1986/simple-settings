@@ -45,4 +45,5 @@ class BaseReader(object):
         :param key: The unprefixed key.
         :return: The key with any configured prefix prepended.
         """
-        return '{}{}'.format(self.key_prefix if self.key_prefix is not None else '', key)
+        pfx = self.key_prefix if self.key_prefix is not None else ''
+        return '{}{}'.format(pfx, key)
