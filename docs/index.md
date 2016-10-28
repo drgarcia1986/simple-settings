@@ -160,7 +160,7 @@ SIMPLE_SETTINGS = {
     'REQUIRED_SETTINGS': ('API_TOKEN', 'DB_USER'),
     'DYNAMIC_SETTINGS': {
         'backend': 'redis',
-        'pattern': 'MYAPP_DYNAMIC_*',
+        'pattern': 'DYNAMIC_*',
         'auto_casting': True,
         'prefix': 'MYAPP_'
     }
@@ -194,7 +194,7 @@ The current dynamic mechanisms suported is:
 For all _dynamic settings_ backends _simple-settings_ accept this optional parameters:
 
 * `pattern`: if you set some regex pattern the dynamic settings reader only get settings that match with this pattern. (Note
-that any configured prefix will be prepended before key is checked against pattern.)
+that the pattern will be applied to key as entered, ignoring any configured `prefix` setting.)
 * `auto_casting`: if you set this conf to `True` (default is `False`) _simple settings_ use
 [jsonpickle](https://github.com/jsonpickle/jsonpickle) to encode settings value before save in dynamic storage
 and decode after read from dynamic storage. With this bahavior you can use complex types (like _dict_ and _list_)
@@ -202,7 +202,6 @@ in dynamic settings.
 * `prefix`: if you set a prefix this value will be prepended to the keys when looked up on the backend.  The value is
 prepended without any interpretation, so the key `key="MYKEY" and prefix="my/namespace/"` would resolve to
 `key="my/namespace/MYKEY"` and `key="MYKEY" and prefix="MY_NAMESPACE_"` would resolve to `key="MY_NAMESPACE_MYKEY"`.
-Some backends may implement a default `pattern` to prevent setting invalid prefixes.
 
 #### Redis
 You can read your settings dynamically in redis if you activate the `DYNAMIC_SETTINGS` special setting with `redis` backend:
