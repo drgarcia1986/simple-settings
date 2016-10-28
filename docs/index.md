@@ -161,7 +161,8 @@ SIMPLE_SETTINGS = {
     'DYNAMIC_SETTINGS': {
         'backend': 'redis',
         'pattern': 'DYNAMIC_*',
-        'auto_casting': True
+        'auto_casting': True,
+        'prefix': 'MYAPP_'
     }
 }
 ```
@@ -192,11 +193,15 @@ The current dynamic mechanisms suported is:
 #### Default Dynamic Settings Configuration
 For all _dynamic settings_ backends _simple-settings_ accept this optional parameters:
 
-* `pattern`: if you set some pattern the dynamic settings reader only get settings that match with this pattern.
+* `pattern`: if you set some regex pattern the dynamic settings reader only get settings that match with this pattern. (Note
+that the pattern will be applied to key as entered, ignoring any configured `prefix` setting.)
 * `auto_casting`: if you set this conf to `True` (default is `False`) _simple settings_ use
 [jsonpickle](https://github.com/jsonpickle/jsonpickle) to encode settings value before save in dynamic storage
 and decode after read from dynamic storage. With this bahavior you can use complex types (like _dict_ and _list_)
 in dynamic settings.
+* `prefix`: if you set a prefix this value will be prepended to the keys when looked up on the backend.  The value is
+prepended without any interpretation, so the key `key="MYKEY" and prefix="my/namespace/"` would resolve to
+`key="my/namespace/MYKEY"` and `key="MYKEY" and prefix="MY_NAMESPACE_"` would resolve to `key="MY_NAMESPACE_MYKEY"`.
 
 #### Redis
 You can read your settings dynamically in redis if you activate the `DYNAMIC_SETTINGS` special setting with `redis` backend:
@@ -223,13 +228,14 @@ SIMPLE_SETTINGS = {
     'DYNAMIC_SETTINGS': {
         'backend': 'consul',
         'host': 'locahost',
-        'port': 8500
+        'port': 8500,
+        'prefix': 'mynamespace/'
     }
 }
 ```
 > for `consul` backend `localhost` is default value for `host` and `8500` is the default value for `port`.
 
-Additional attributes for consul backend: `datacenter`, `token`, `scheme`
+Additional attributes for consul backend: `datacenter`, `token`, `scheme`.
 
 > To install with consul dependencies use: `pip install simple-settings[consul]`
 
@@ -279,6 +285,10 @@ assert settings.SOME_SETTING == 'bar'
 ```
 
 ## Changelog
+
+### [NEXT_RELEASE]
+* Support configuring dynamic backends with an optional _prefix_.
+
 ### [0.9.1] - 2016-09-15
 * `configure` method now works even called before the LazySettings setup.
 

@@ -20,7 +20,7 @@ class Reader(BaseReader):
     _default_conf = {
         'host': consulate.DEFAULT_HOST,
         'port': consulate.DEFAULT_PORT,
-        'scheme': consulate.DEFAULT_SCHEME
+        'scheme': consulate.DEFAULT_SCHEME,
     }
 
     def __init__(self, conf):
@@ -42,3 +42,15 @@ class Reader(BaseReader):
 
     def _set(self, key, value):
         self.session.kv.set(key, value)
+
+    def _qualified_key(self, key):
+        """
+        Prepends the configured prefix to the key (if applicable).
+
+        For Consul we also lstrip any '/' chars from the prefixed key.
+
+        :param key: The unprefixed key.
+        :return: The key with any configured prefix prepended.
+        """
+        fq_key = super(Reader, self)._qualified_key(key)
+        return fq_key.lstrip('/')

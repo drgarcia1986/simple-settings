@@ -87,3 +87,25 @@ class TestDynamicDatabaseSettings(object):
 
         settings.configure(SIMPLE_STRING='foo')
         assert database.get('SIMPLE_STRING') == 'foo'
+
+    def test_should_use_database_reader_with_prefix_with_simple_settings(
+        self, database, sqlite_db
+    ):
+        settings = LazySettings('tests.samples.simple')
+        settings.configure(
+            SIMPLE_SETTINGS={'DYNAMIC_SETTINGS': {
+                'backend': 'database',
+                'sqlalchemy.url': sqlite_db,
+                'prefix': 'MYAPP_'
+            }}
+        )
+        settings._initialized = False
+        settings.setup()
+
+        assert settings.SIMPLE_STRING == 'simple'
+
+        database.set('MYAPP_SIMPLE_STRING', 'dynamic')
+        assert settings.SIMPLE_STRING == 'dynamic'
+
+        settings.configure(SIMPLE_STRING='foo')
+        assert database.get('MYAPP_SIMPLE_STRING') == 'foo'
