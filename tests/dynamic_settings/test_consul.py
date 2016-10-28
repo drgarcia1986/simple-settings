@@ -74,7 +74,7 @@ class TestDynamicConsulSettings(object):
 
     def test_should_set_string_in_consul_by_reader(self, consul, reader):
         key = 'SIMPLE_STRING'
-        expected_setting = 'simple from redis'
+        expected_setting = 'simple from consul'
         reader.set(key, expected_setting)
 
         assert consul.get(key) == expected_setting

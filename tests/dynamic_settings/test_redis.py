@@ -80,3 +80,19 @@ class TestDynamicRedisSettings(object):
 
         settings.configure(SIMPLE_STRING='foo')
         assert self._get_value_from_redis(redis, 'SIMPLE_STRING') == 'foo'
+
+    def test_should_use_redis_reader_with_prefix_with_simple_settings(self, redis):
+        settings = LazySettings('tests.samples.simple')
+        settings.configure(
+            SIMPLE_SETTINGS={'DYNAMIC_SETTINGS': {'backend': 'redis', 'prefix': 'MYAPP_'}}
+        )
+        settings._initialized = False
+        settings.setup()
+
+        assert settings.SIMPLE_STRING == 'simple'
+
+        redis.set('MYAPP_SIMPLE_STRING', 'dynamic')
+        assert settings.SIMPLE_STRING == 'dynamic'
+
+        settings.configure(SIMPLE_STRING='foo')
+        assert self._get_value_from_redis(redis, 'MYAPP_SIMPLE_STRING') == 'foo'
