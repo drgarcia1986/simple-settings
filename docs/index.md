@@ -286,7 +286,7 @@ assert settings.SOME_SETTING == 'bar'
 
 ## Changelog
 
-### [NEXT_RELEASE]
+### [0.10.0] - 2016-10-28
 * Support configuring dynamic backends with an optional _prefix_.
 
 ### [0.9.1] - 2016-09-15
