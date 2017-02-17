@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import logging.config
 import os
 
 from .constants import SPECIAL_SETTINGS_KEY
@@ -27,9 +28,18 @@ def override_settings_by_env(settings_dict):
             settings_dict[key] = os.environ.get(key, value)
 
 
+def configure_logging(settings_dict):
+    if not settings_dict[SPECIAL_SETTINGS_KEY]['CONFIGURE_LOGGING']:
+        return
+    cfg = settings_dict.get('LOGGING')
+    if cfg and isinstance(cfg, dict):
+        logging.config.dictConfig(cfg)
+
+
 SPECIAL_SETTINGS_MAPPING = {
     'OVERRIDE_BY_ENV': override_settings_by_env,
-    'REQUIRED_SETTINGS': required_settings
+    'REQUIRED_SETTINGS': required_settings,
+    'CONFIGURE_LOGGING': configure_logging
 }
 
 

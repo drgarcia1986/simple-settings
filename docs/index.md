@@ -157,6 +157,7 @@ This _special settings_ are specified using a `SIMPLE_SETTINGS` dict in the sett
 ```python
 SIMPLE_SETTINGS = {
     'OVERRIDE_BY_ENV': True,
+    'CONFIGURE_LOGGING': True,
     'REQUIRED_SETTINGS': ('API_TOKEN', 'DB_USER'),
     'DYNAMIC_SETTINGS': {
         'backend': 'redis',
@@ -167,6 +168,55 @@ SIMPLE_SETTINGS = {
 }
 ```
 _Note: special settings may only be specified in python settings files (not ini, yaml, etc.)._
+
+### Configure logging
+If you set the _special setting_ `CONFIGURE_LOGGING` with `True`, _simple-settings_ will configure python logging for you.
+You just need to define your logging configuration with
+[Python dictConfig format](https://docs.python.org/3.5/library/logging.config.html#configuration-dictionary-schema>)
+and place in `LOGGING` setting, e.g.
+```python
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'default': {
+            'format': '%(asctime)s %(levelname)s %(name)s %(message)s'
+        },
+    },
+    'handlers': {
+        'logfile': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'my_log.log',
+            'maxBytes': 50 * 1024 * 1024,
+            'backupCount': 10,
+            'formatter': 'default'
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['logfile'],
+            'level': 'ERROR'
+        },
+        'my_project': {
+            'level': 'INFO',
+            'propagate': True,
+        },
+    }
+}
+```
+To use just get logger with `logging.getLogger()`, e.g.
+
+```python
+import logging
+logger = logging.getLogger('my_project')
+
+
+logger.info('Hello')
+```
+
+> Don't forget, _simple-settings_ is lazy and it only configures logging after runs `setup()` method
+> or after reads some setting.
 
 ### Override settings value
 You can override the values of your settings module with environment variables.
@@ -285,6 +335,8 @@ assert settings.SOME_SETTING == 'bar'
 ```
 
 ## Changelog
+### [NEXT_RELEASE]
+* Autoconfigure python logging with `CONFIGURE_LOGGING` _special setting_.
 
 ### [0.10.0] - 2016-10-28
 * Support configuring dynamic backends with an optional _prefix_.
