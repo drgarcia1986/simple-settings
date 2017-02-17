@@ -4,6 +4,7 @@ from mock import MagicMock, patch
 
 from simple_settings.special_settings import (
     SPECIAL_SETTINGS_MAPPING,
+    configure_logging,
     override_settings_by_env,
     process_special_settings,
     required_settings
@@ -25,6 +26,26 @@ class TestSpecialSettings(object):
         return {'SIMPLE_SETTINGS': {
             'REQUIRED_SETTINGS': ('SIMPLE_STRING', 'LOST_SETTING')
         }}
+
+    @pytest.fixture
+    def settings_dict_logging(self):
+        return {
+            'SIMPLE_SETTINGS': {'CONFIGURE_LOGGING': True},
+            'LOGGING': {'dummy': 'dict'}
+        }
+
+    def test_should_autoconfig_python_logging(self, settings_dict_logging):
+        with patch('logging.config.dictConfig') as mock:
+            configure_logging(settings_dict_logging)
+        mock.assert_called_once_with(settings_dict_logging['LOGGING'])
+
+    def test_should_dont_autoconfig_python_logging_if_dont_have_special_key(
+        self, settings_dict_logging
+    ):
+        settings_dict_logging['SIMPLE_SETTINGS']['CONFIGURE_LOGGING'] = False
+        with patch('logging.config.dictConfig') as mock:
+            configure_logging(settings_dict_logging)
+        assert not mock.called
 
     def test_should_override_by_env(self, settings_dict_to_override):
         def mock_env_side_effect(k, d=None):
