@@ -335,7 +335,7 @@ assert settings.SOME_SETTING == 'bar'
 ```
 
 ## Changelog
-### [NEXT_RELEASE]
+### [0.11.0] - 2017-02-17
 * Autoconfigure python logging with `CONFIGURE_LOGGING` _special setting_.
 
 ### [0.10.0] - 2016-10-28
