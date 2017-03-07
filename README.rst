@@ -27,7 +27,7 @@ Python Simple Settings
 A simple way to manage your project settings.
 
 It is inspired by Django's settings system but is generic for any python project.
-With simple-settings you just need specify your settings module in ``--settings`` arg of command line (or ``SIMPLE_SETTINGS`` of environment) and all settings will be available in ``simple_settings.settings``.
+With simple-settings you just need specify your settings module in ``--simple-settings`` arg of command line (or ``SIMPLE_SETTINGS`` of environment) and all settings will be available in ``simple_settings.settings``.
 
 Installation
 ------------
@@ -45,7 +45,7 @@ Usage
 
 .. code-block:: bash
 
-    $ python app.py --settings=my_settings
+    $ python app.py --simple-settings=my_settings
 
 
 .. code-block:: python
@@ -57,7 +57,7 @@ Usage
 
 Some features
 -------------
-* Settings by Python modules, Cfg files, Yaml files or Json files.
+* Settings by Python modules, Cfg, Yaml, Toml or Json files.
 * Settings inheritance (like a pipeline).
 * Special settings.
 * Dynamic settings.

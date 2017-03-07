@@ -10,6 +10,13 @@ try:
 except ImportError:  # pragma: no cover
     pass
 
+toml_strategy = None
+try:
+    from .toml_file import SettingsLoadStrategyToml
+    toml_strategy = SettingsLoadStrategyToml
+except ImportError:  # pragma: no cover
+    pass
+
 
 strategies = (
     SettingsLoadStrategyPython,
@@ -19,3 +26,6 @@ strategies = (
 
 if yaml_strategy:
     strategies += (yaml_strategy,)
+
+if toml_strategy:
+    strategies += (toml_strategy,)
