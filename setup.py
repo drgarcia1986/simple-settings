@@ -17,6 +17,7 @@ except IOError:
     long_description = description
 
 YAML_REQUIRES = ['PyYAML==3.11']
+TOML_REQUIRES = ['toml==0.9.2']
 DYNAMIC_SETTINGS_REQUIRES = ['jsonpickle==0.9.3']
 REDIS_REQUIRES = ['redis==2.10.5', 'six==1.10.0'] + DYNAMIC_SETTINGS_REQUIRES
 CONSUL_REQUIRES = ['consulate==0.6.0'] + DYNAMIC_SETTINGS_REQUIRES
@@ -24,6 +25,7 @@ DATABASE_REQUIRES = ['SQLAlchemy==1.0.13'] + DYNAMIC_SETTINGS_REQUIRES
 
 ALL_REQUIRES = set(
     YAML_REQUIRES +
+    TOML_REQUIRES +
     REDIS_REQUIRES +
     CONSUL_REQUIRES +
     DATABASE_REQUIRES
@@ -66,5 +68,6 @@ setup(
         'database': DATABASE_REQUIRES,
         'redis': REDIS_REQUIRES,
         'yaml': YAML_REQUIRES,
+        'toml': TOML_REQUIRES,
     }
 )

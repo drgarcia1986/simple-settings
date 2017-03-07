@@ -124,8 +124,10 @@ The simple-settings is prepared to play with the following files types:
 * cfg files (simple `key=value` files).
 * yaml files.
 * json files.
+* toml files.
 
-> To simple-settings load settings of yaml files is necessary install with extras require _yaml_ ex: `pip install simple-settings[yaml]`
+> To simple-settings load settings of yaml files is necessary install with extras require _yaml_ ex: `pip install simple-settings[yaml]`  
+> For toml files is necessary install with extras require _toml_ ex: `pip install simple-settings[toml]`
 
 ## Load multiple settings modules
 simple-settings can load more than one setting module without use import approach, just specify yours settings modules separated by comma.
@@ -335,6 +337,9 @@ assert settings.SOME_SETTING == 'bar'
 ```
 
 ## Changelog
+### [NEXT_RELEASE]
+* Load settings from _toml_ files.
+
 ### [0.11.0] - 2017-02-17
 * Autoconfigure python logging with `CONFIGURE_LOGGING` _special setting_.
 
