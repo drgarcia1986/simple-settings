@@ -337,7 +337,7 @@ assert settings.SOME_SETTING == 'bar'
 ```
 
 ## Changelog
-### [NEXT_RELEASE]
+### [0.12.0] - 2017-03-07
 * Load settings from _toml_ files.
 
 ### [0.11.0] - 2017-02-17
