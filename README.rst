@@ -10,8 +10,8 @@ Python Simple Settings
     :target: http://simple-settings.readthedocs.org/en/latest/
     :alt: Documentation Status
 
-.. image:: http://www.quantifiedcode.com/api/v1/project/1b5307f0f1584c3b9c736f976b57e973/badge.svg
-    :target: http://www.quantifiedcode.com/app/project/1b5307f0f1584c3b9c736f976b57e973
+.. image:: https://api.codacy.com/project/badge/Grade/d5d1a3dece0e48478de9797563b49310
+    :target: https://www.codacy.com/app/drgarcia1986/simple-settings?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=drgarcia1986/simple-settings&amp;utm_campaign=Badge_Grade
     :alt: Code Issues
 
 .. image:: https://travis-ci.org/drgarcia1986/simple-settings.svg
