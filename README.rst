@@ -1,5 +1,9 @@
 Python Simple Settings
 ======================
+
+.. image:: https://api.codacy.com/project/badge/Grade/d5d1a3dece0e48478de9797563b49310
+   :alt: Codacy Badge
+   :target: https://www.codacy.com/app/drgarcia1986/simple-settings?utm_source=github.com&utm_medium=referral&utm_content=drgarcia1986/simple-settings&utm_campaign=badger
 .. _badges:
 
 .. image:: https://badge.fury.io/py/simple-settings.svg
