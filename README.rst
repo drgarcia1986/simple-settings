@@ -6,10 +6,6 @@ Python Simple Settings
     :target: https://badge.fury.io/py/simple-settings
     :alt: Package version
 
-.. image:: https://readthedocs.org/projects/simple-settings/badge/?version=latest
-    :target: http://simple-settings.readthedocs.org/en/latest/
-    :alt: Documentation Status
-
 .. image:: https://api.codacy.com/project/badge/Grade/d5d1a3dece0e48478de9797563b49310
     :target: https://www.codacy.com/app/drgarcia1986/simple-settings?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=drgarcia1986/simple-settings&amp;utm_campaign=Badge_Grade
     :alt: Code Issues
