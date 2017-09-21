@@ -46,7 +46,8 @@ simple-settings is available on
 
     $ pip install simple-settings
 
-.. block::
+..
+
     To install simple-settings with all dependencies use ``pip install simple-settings[all]``
 
 **simple-settings** is tested with Python 2.7, 3.4, 3.5 and PyPy.
@@ -78,7 +79,8 @@ Or set the environment variable ``SIMPLE_SETTINGS``:
     $ export SIMPLE_SETTINGS=settings.development
     $ python app.py
 
-.. block::
+..
+
     the ``settings`` environment variable is deprecated
 
 The ``simple_settings.settings`` object reads both the command line and
@@ -173,7 +175,8 @@ method ``configure``:
     >>> settings.SOME_CONF
     bar
 
-.. block::
+..
+
     If your use ``dynamic settings`` the *configure* method update setting value in dynamic storage too.
 
 Types of settings
@@ -187,8 +190,12 @@ The simple-settings is prepared to play with the following files types:
 -  json files.
 -  toml files.
 
-.. block::
+..
+
     To simple-settings load settings of yaml files is necessary to install with extra require *yaml*, e.g.: ``pip install simple-settings[yaml]``
+
+..
+
     For toml files is necessary to install with extras require *toml*, e.g.: ``pip install simple-settings[toml]``
 
 Load multiple settings modules
@@ -258,7 +265,7 @@ Configure logging
 If you set the *special setting* ``CONFIGURE_LOGGING`` with ``True``,
 *simple-settings* will configure the python logging to you. You just need
 to define your logging configuration with 
-`Python dictConfig format <https://docs.python.org/3.5/library/logging.config.html#configuration-dictionary-schema>>`__
+`Python dictConfig format <https://docs.python.org/3.5/library/logging.config.html#configuration-dictionary-schema>`__
 and place in ``LOGGING`` setting, e.g.
 
 .. code:: python
@@ -303,7 +310,8 @@ To use just get logger with ``logging.getLogger()``, e.g.
 
     logger.info('Hello')
 
-.. block::
+..
+
     Don't forget, *simple-settings* is lazy and it only configures logging after runs ``setup()`` method or after reads some setting.
 
 Override settings value
@@ -319,7 +327,8 @@ with ``True`` as value.
     $ python app.py --settings=project_settings
     simple from env
 
-.. block::
+..
+
     This is not a dynamic behavior, because settings is only override in *"settings setup"* time, see ``dynamic settings`` for a real dynamic behavior.
 
 Required Settings
@@ -380,7 +389,8 @@ You can read your settings dynamically in redis if you activate the
         }
     }
 
-.. block::
+..
+
     for ``redis`` backend ``localhost`` is default value for ``host`` and ``6379`` is the default value for ``port``.
 
 In redis dynamic reader the binary types is automatically decoded.
@@ -406,7 +416,8 @@ backend (uses `consulate <https://github.com/gmr/consulate>`__ library):
         }
     }
 
-.. block::
+..
+
     for ``consul`` backend ``localhost`` is default value for ``host`` and ``8500`` is the default value for ``port``.
 
 Additional attributes for consul backend: ``datacenter``, ``token``,
@@ -432,7 +443,8 @@ the ``DYNAMIC_SETTINGS`` special setting with the ``database`` backend
         }
     }
 
-.. block::
+..
+
     To install with database dependencies use: ``pip install simple-settings[database]``
 
 Utils
