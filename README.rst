@@ -50,7 +50,7 @@ simple-settings is available on
 
     To install simple-settings with all dependencies use ``pip install simple-settings[all]``
 
-**simple-settings** is tested with Python 2.7, 3.4, 3.5 and PyPy.
+**simple-settings** is tested with Python 2.7, 3.4, 3.5, 3.6 and PyPy.
 
 How this works
 --------------
@@ -264,7 +264,7 @@ Configure logging
 
 If you set the *special setting* ``CONFIGURE_LOGGING`` with ``True``,
 *simple-settings* will configure the python logging to you. You just need
-to define your logging configuration with 
+to define your logging configuration with
 `Python dictConfig format <https://docs.python.org/3.5/library/logging.config.html#configuration-dictionary-schema>`__
 and place in ``LOGGING`` setting, e.g.
 
