@@ -35,3 +35,12 @@ after_success:
 services:
     - redis
     - docker
+
+deploy:
+  provider: pypi
+  user: drgarcia1986
+  distributions: "sdist bdist_wheel"
+  on:
+    tags: true
+    repo: drgarcia1986/simple-settings
+  skip_cleanup: true
