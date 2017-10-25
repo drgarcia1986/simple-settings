@@ -19,7 +19,7 @@ test-debug: clean
 	py.test -x --pdb simple_settings/ tests/
 
 requirements: clean
-	pip install -r requirements-dev.txt
+	pip install -U -r requirements-dev.txt
 
 release-patch:
 	bumpversion patch

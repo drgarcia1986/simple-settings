@@ -1,11 +1,10 @@
 -e .[all]
 bumpversion==0.5.3
 cov-core==1.15.0
-coverage==4.1
-flake8==2.5.1
-isort==4.2.5
+flake8==3.5.0
+isort==4.2.15
 mock==2.0.0
-py==1.4.31
-pytest-cov==2.2.1
-pytest==2.9.2
-wheel==0.29.0
+py==1.4.34
+pytest-cov==2.5.1
+pytest==3.2.3
+wheel==0.30.0
