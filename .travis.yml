@@ -6,8 +6,10 @@ python:
     - "2.7"
     - "3.4"
     - "3.5"
+    - "3.6"
     - "pypy"
     - "pypy3"
+    - "nightly"
 
 matrix:
     allow_failures:
@@ -26,7 +28,7 @@ install:
     - pip install coveralls
 
 script:
-    - if [[ $TRAVIS_PYTHON_VERSION == '3.5' ]]; then make isort-check; fi
+    - if [[ $TRAVIS_PYTHON_VERSION == '3.6' ]]; then make isort-check; fi
     - make test
 
 after_success:
