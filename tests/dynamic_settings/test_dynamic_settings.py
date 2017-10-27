@@ -57,6 +57,20 @@ class TestDynamicSettings(object):
         settings._dynamic_reader.set('SIMPLE_STRING', 'dynamic')
         assert settings.SIMPLE_STRING == 'dynamic'
 
+    @pytest.mark.parametrize('value', (False, '', 0))
+    def test_should_return_a_zero_value_by_reader_value(
+        self, settings_dict, value
+    ):
+        settings = LazySettings('tests.samples.simple')
+        settings.configure(**settings_dict)
+        settings._initialized = False  # to load dynamic read
+        settings.setup()
+
+        assert settings.SIMPLE_STRING == 'simple'
+
+        settings._dynamic_reader.set('SIMPLE_STRING', value)
+        assert settings.SIMPLE_STRING == value
+
     def test_should_update_setting_by_last_reader_value(
         self, settings_dict, reader
     ):
