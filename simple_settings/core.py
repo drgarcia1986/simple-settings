@@ -89,7 +89,7 @@ class LazySettings(object):
 
         if self._dynamic_reader:
             dynamic_result = self._dynamic_reader.get(attr)
-            if dynamic_result:
+            if dynamic_result is not None:
                 self._dict[attr] = dynamic_result
                 result = dynamic_result
 
