@@ -82,18 +82,15 @@ class LazySettings(object):
 
     def __getattr__(self, attr):
         self.setup()
-        try:
-            result = self._dict[attr]
-        except KeyError:
-            raise AttributeError('You do not set {} setting'.format(attr))
-
         if self._dynamic_reader:
             dynamic_result = self._dynamic_reader.get(attr)
             if dynamic_result is not None:
                 self._dict[attr] = dynamic_result
-                result = dynamic_result
 
-        return result
+        try:
+            return self._dict[attr]
+        except KeyError:
+            raise AttributeError('You do not set {} setting'.format(attr))
 
     def configure(self, **settings):
         self.setup()
