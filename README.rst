@@ -488,7 +488,7 @@ Decorator example
 Changelog
 ---------
 
-[NEXT_RELEASE]
+[0.12.1] - 2017-10-27
 ~~~~~~~~~~~~~~~~~~~~~
 
 - Fix dynamic settings read behavior to ignore only ``None`` values and not ``zeros`` values ( `#68 <https://github.com/drgarcia1986/simple-settings/issues/68>`__)
