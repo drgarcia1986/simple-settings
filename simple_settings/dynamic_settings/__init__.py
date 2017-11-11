@@ -10,6 +10,7 @@ DYNAMIC_SETTINGS_MAPPING = {
     'consul': 'simple_settings.dynamic_settings.consul_reader',
     'database': 'simple_settings.dynamic_settings.database_reader',
     'redis': 'simple_settings.dynamic_settings.redis_reader',
+    's3': 'simple_settings.dynamic_settings.s3_reader'
 }
 
 
