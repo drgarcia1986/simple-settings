@@ -431,7 +431,7 @@ DATABASE
 
 You can read your settings dynamically form a database if you activate
 the ``DYNAMIC_SETTINGS`` special setting with the ``database`` backend
-(uses `sqlalchey <http://docs.sqlalchemy.org/>`__ library)
+(uses `sqlalchemy <http://docs.sqlalchemy.org/>`__ library)
 
 .. code:: python
 
@@ -446,6 +446,29 @@ the ``DYNAMIC_SETTINGS`` special setting with the ``database`` backend
 ..
 
     To install with database dependencies use: ``pip install simple-settings[database]``
+
+
+AWS S3
+^^^^^^
+
+You can read your settings dynamically form a AWS S3 bucket if you activate
+the ``DYNAMIC_SETTINGS`` special setting with the ``s3`` backend
+(uses `boto3 <http://boto3.readthedocs.io/en/latest/>`__ library)
+
+.. code:: python
+
+    SIMPLE_SETTINGS = {
+        'DYNAMIC_SETTINGS': {
+            'backend': 's3',
+            'bucket_name': 'simple-settings',
+            'region': 'us-east-1'
+            ...
+        }
+    }
+
+..
+
+    To install with s3 dependencies use: ``pip install simple-settings[s3]``
 
 Utils
 -----
@@ -487,6 +510,11 @@ Decorator example
 
 Changelog
 ---------
+
+[NEXT_RELEASE]
+~~~~~~~~~~~~~~~~~~~~~
+
+- Dynamic settings behaviors with ``AWS S3``.
 
 [0.12.1] - 2017-10-27
 ~~~~~~~~~~~~~~~~~~~~~
