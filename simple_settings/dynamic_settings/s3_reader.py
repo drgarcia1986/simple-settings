@@ -13,6 +13,26 @@ except ImportError:  # pragma: no cover
     )
 
 
+def _get_or_create_bucket(region, bucket_name):
+    s3 = resource(
+        service_name='s3',
+        region_name=region
+    )
+
+    try:
+        s3.meta.client.head_bucket(Bucket=bucket_name)
+    except ClientError as e:
+        if e.response['Error']['Code'] == '404':
+            s3.create_bucket(
+                Bucket=bucket_name,
+                CreateBucketConfiguration={
+                    'LocationConstraint': region
+                }
+            )
+
+    return s3
+
+
 class Reader(BaseReader):
     """
     S3 settings Reader
@@ -27,7 +47,7 @@ class Reader(BaseReader):
     def __init__(self, conf):
         super(Reader, self).__init__(conf)
 
-        self.s3 = self._get_or_create_bucket(
+        self.s3 = _get_or_create_bucket(
             region=self.conf['region'],
             bucket_name=self.conf['bucket_name']
         )
@@ -55,22 +75,3 @@ class Reader(BaseReader):
         ).put(
             Body=bytes_value
         )
-
-    def _get_or_create_bucket(self, region, bucket_name):
-        s3 = resource(
-            service_name='s3',
-            region_name=region
-        )
-
-        try:
-            s3.meta.client.head_bucket(Bucket=bucket_name)
-        except ClientError as e:
-            if e.response['Error']['Code'] == '404':
-                    s3.create_bucket(
-                        Bucket=bucket_name,
-                        CreateBucketConfiguration={
-                            'LocationConstraint': region
-                        }
-                    )
-
-        return s3
