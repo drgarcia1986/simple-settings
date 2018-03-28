@@ -85,7 +85,7 @@ class LazySettings(object):
         try:
             result = self._dict[attr]
         except KeyError:
-            raise AttributeError('You do not set {} setting'.format(attr))
+            raise AttributeError('You did not set {} setting'.format(attr))
 
         if self._dynamic_reader:
             dynamic_result = self._dynamic_reader.get(attr)
