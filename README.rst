@@ -511,7 +511,7 @@ Decorator example
 Changelog
 ---------
 
-[NEXT_RELEASE]
+[0.13.0] - 2018-03-28
 ~~~~~~~~~~~~~~~~~~~~~
 
 - Dynamic settings behaviors with ``AWS S3``.
