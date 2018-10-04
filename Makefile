@@ -32,3 +32,6 @@ release-major:
 
 sdist: test
 	@python setup.py sdist bdist_wheel upload
+
+outdated:
+	@pip list --outdated --format=columns
