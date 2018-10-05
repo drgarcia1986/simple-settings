@@ -509,6 +509,30 @@ the ``DYNAMIC_SETTINGS`` special setting with the ``s3`` backend
 
     To install with s3 dependencies use: ``pip install simple-settings[s3]``
 
+
+Memcached
+^^^^^^
+
+You can read your settings dynamically with memcached if you activate
+the ``DYNAMIC_SETTINGS`` special setting with the ``memcached`` backend
+(uses `pymemcached <https://pymemcache.readthedocs.io/en/latest/index.html>`__ library)
+
+.. code:: python
+
+    SIMPLE_SETTINGS = {
+        'DYNAMIC_SETTINGS': {
+            'backend': 'memcached',
+            'host': 'localhost',
+            'port': 11211
+            ...
+        }
+    }
+
+..
+
+    To install with memcached dependencies use: ``pip install simple-settings[memcached]``
+
+
 Utils
 -----
 
@@ -554,9 +578,10 @@ Changelog
 ~~~~~~~~~~~~~~
 
 - Enforce ordering of special settings being applied
+- Dynamic settings behaviors with ``memcached``.
 
 [0.14.0] - 2019-01-31
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
 
 - Required not none special setting
 - Required types special setting and type conversion

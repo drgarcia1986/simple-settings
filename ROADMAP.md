@@ -12,6 +12,5 @@ Read the [documentation](http://simple-settings.readthedocs.org/en/latest/) for 
 
 Next versions
 -------------
-* Dynamic settings (with `memcached`).
 * Read settings from remote files.
 * Web interface to show and update settings.
