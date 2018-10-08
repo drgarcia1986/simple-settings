@@ -30,6 +30,7 @@ after_success:
 services:
 - redis
 - docker
+- memcached
 deploy:
   provider: pypi
   user: drgarcia1986
