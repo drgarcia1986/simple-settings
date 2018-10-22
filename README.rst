@@ -175,9 +175,13 @@ method ``configure``:
     >>> settings.SOME_CONF
     bar
 
+
+Keep in mind that this only modifies the settings during runtime, and any
+modifications using configure will be lost on program exit.
+
 ..
 
-    If your use ``dynamic settings`` the *configure* method update setting value in dynamic storage too.
+    If you're using ``dynamic settings`` the *configure* method will update the setting value in dynamic storage as well.
 
 Types of settings
 -----------------
