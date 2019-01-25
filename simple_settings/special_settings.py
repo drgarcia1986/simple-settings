@@ -20,6 +20,58 @@ def required_settings(settings_dict):
         )
 
 
+def required_not_none_settings(settings_dict):
+    required_not_none_settings = (
+        settings_dict[SPECIAL_SETTINGS_KEY]['REQUIRED_NOT_NONE_SETTINGS']
+    )
+    invalid_settings_list = [
+        i for i in required_not_none_settings if settings_dict.get(i) is None
+    ]
+    if invalid_settings_list:
+        raise ValueError(
+            'The following settings are required to be not none: {}'.format(
+                ', '.join(invalid_settings_list)
+            )
+        )
+
+
+SETTINGS_TYPES = {
+    'bool': bool,
+    'float': float,
+    'int': int,
+    'str': str,
+}
+
+
+def required_settings_types(settings_dict):
+    required_settings_types = (
+        settings_dict[SPECIAL_SETTINGS_KEY]['REQUIRED_SETTINGS_TYPES']
+    )
+    invalid_types = [
+        i for i in required_settings_types.keys() if i not in SETTINGS_TYPES
+    ]
+    if invalid_types:
+        raise ValueError(
+            'The following settings types are not valid '
+            '(supported types are {}): {}'.format(
+                ', '.join(SETTINGS_TYPES.keys())
+            )
+        )
+
+    invalid_settings_list = []
+    for key, value in settings_dict.items():
+        if key in required_settings_types:
+            required_type = 
+            if not isinstance(value, )
+
+    if invalid_settings_list:
+        raise ValueError(
+            'The following settings are required: {}'.format(
+                ', '.join(invalid_settings_list)
+            )
+        )
+
+
 def override_settings_by_env(settings_dict):
     if not settings_dict[SPECIAL_SETTINGS_KEY]['OVERRIDE_BY_ENV']:
         return
