@@ -29,17 +29,26 @@ def required_not_none_settings(settings_dict):
     ]
     if invalid_settings_list:
         raise ValueError(
-            'The following settings are required to be not none: {}'.format(
+            'The following settings are required '
+            'to have a value that is not none: {}'.format(
                 ', '.join(invalid_settings_list)
             )
         )
 
 
+def bool_parser(value):
+    if value.lower() == 'true':
+        return True
+    elif value.lower() == 'false':
+        return False
+    raise ValueError()
+
+
 SETTINGS_TYPES = {
-    'bool': bool,
-    'float': float,
-    'int': int,
-    'str': str,
+    'bool': (bool, bool_parser),
+    'float': (float, float),
+    'int': (int, int),
+    'str': (str, str)
 }
 
 
@@ -47,27 +56,41 @@ def required_settings_types(settings_dict):
     required_settings_types = (
         settings_dict[SPECIAL_SETTINGS_KEY]['REQUIRED_SETTINGS_TYPES']
     )
-    invalid_types = [
-        i for i in required_settings_types.keys() if i not in SETTINGS_TYPES
+    unsupported_types = [
+        key for key, value in required_settings_types.items()
+        if value not in SETTINGS_TYPES
     ]
-    if invalid_types:
+    if unsupported_types:
         raise ValueError(
-            'The following settings types are not valid '
+            'The following settings types are not unsupported '
             '(supported types are {}): {}'.format(
-                ', '.join(SETTINGS_TYPES.keys())
+                ', '.join(SETTINGS_TYPES.keys()), ', '.join(unsupported_types)
             )
         )
 
     invalid_settings_list = []
     for key, value in settings_dict.items():
         if key in required_settings_types:
-            required_type = 
-            if not isinstance(value, )
+            required_type = required_settings_types[key]
+            type, parser = SETTINGS_TYPES[required_type]
+            # None values are allowed as they can be of any type
+            if value is not None and not isinstance(value, type):
+                try:
+                    # only attempt conversion from string
+                    if not isinstance(value, str):
+                        raise ValueError
+                    settings_dict[key] = parser(value)
+                except ValueError:
+                    invalid_settings_list.append((key, required_type))
 
     if invalid_settings_list:
         raise ValueError(
-            'The following settings are required: {}'.format(
-                ', '.join(invalid_settings_list)
+            'The following settings are required '
+            'to have a value of a specific type: {}'.format(
+                ', '.join(
+                    '{} ({})'.format(key, required_type)
+                    for key, required_type in invalid_settings_list
+                )
             )
         )
 
@@ -91,6 +114,8 @@ def configure_logging(settings_dict):
 SPECIAL_SETTINGS_MAPPING = {
     'OVERRIDE_BY_ENV': override_settings_by_env,
     'REQUIRED_SETTINGS': required_settings,
+    'REQUIRED_NOT_NONE_SETTINGS': required_not_none_settings,
+    'REQUIRED_SETTINGS_TYPES': required_settings_types,
     'CONFIGURE_LOGGING': configure_logging
 }
 
