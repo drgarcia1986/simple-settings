@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 import pytest
-from mock import MagicMock, patch
 
+from mock import MagicMock, patch
 from simple_settings.special_settings import (
-    SPECIAL_SETTINGS_MAPPING, configure_logging, override_settings_by_env,
-    process_special_settings, required_settings, required_not_none_settings,
+    SPECIAL_SETTINGS_MAPPING,
+    configure_logging,
+    override_settings_by_env,
+    process_special_settings,
+    required_not_none_settings,
+    required_settings,
     required_settings_types
 )
 
