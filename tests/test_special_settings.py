@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
-
 from mock import MagicMock, patch
+
 from simple_settings.special_settings import (
     SPECIAL_SETTINGS_MAPPING,
     configure_logging,
