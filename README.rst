@@ -333,17 +333,52 @@ with ``True`` as value.
 
 ..
 
-    This is not a dynamic behavior, because settings is only override in *"settings setup"* time, see ``dynamic settings`` for a real dynamic behavior.
+    This is not a dynamic behavior, because settings are only overriden at
+    *"settings setup"* time; see ``dynamic settings`` for a real dynamic
+    behavior.
 
 Required Settings
 ~~~~~~~~~~~~~~~~~
 
 You can determine a list of mandatory settings, i.e. settings that
-require a valid value. For this, set the *sepecial setting*
-``REQUIRED_SETTINGS`` with a list (or any iterable) of yours required
-settings. If any setting of this list have an invalid value (or is not
-present in setting file) a ``ValueError`` is raised with a list of
-required settings not satify in settings file.
+require a valid value. For this, set the *special setting*
+``REQUIRED_SETTINGS`` to a list (or any iterable) of your required
+settings. If any setting in this list has an invalid value (or is not
+present in setting file) then a ``ValueError`` is raised with a list of
+required settings not satified in the settings file.
+
+Required Not None Settings
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can also determine a list mandatory settings that must have a not none
+value, i.e. settings that cannot be set as none. For this, set the *special
+setting* ``REQUIRED_NOT_NONE_SETTINGS`` to a list (or any iterable) of the
+settings that you require to not be none. If any setting in this list has a
+value of none, then a ``ValueError`` is raised with a list of settings that
+must be set to not none.
+
+Required Settings Types
+~~~~~~~~~~~~~~~~~~~~~~~
+
+You can enforce that settings must have a particular type. For this, set the
+*special setting* ``REQUIRED_SETTINGS_TYPES`` to a dictionary with the keys
+being the name of the setting and the value being the type of the setting (see
+list below for supported values).
+
+If any of these settings has a value that is not of the type specified, or is a
+string that cannot be parsed to the type specified, a ``ValueError`` is raised
+with a list of settings that are of the wrong type. If there are no errors, the
+setting value will be converted into that type. If any of the values are none,
+their type is not evaluated.
+
+The supported types are listed below. If you attempt to set a type that is not
+one of these types, then a ``ValueError`` will be raised with any unsupported
+types.
+
+    - ``"bool"`` - python's native boolean type, parsed from a string as true if the value is ``"True"`` or ``true``; and as false if the value if ``"False"`` or ``"false"``
+    - ``"int"`` - python's native integer type, parsed from a string using ``int(value)``
+    - ``"float"`` - python's native float type, parsed from a string using ``float(value)``
+    - ``"str"`` - python's native string type, not parsed from a string
 
 Dynamic Settings
 ~~~~~~~~~~~~~~~~
