@@ -71,17 +71,17 @@ def required_settings_types(settings_dict):
     invalid_settings_list = []
     for key, value in settings_dict.items():
         if key in required_settings_types:
-            required_type = required_settings_types[key]
-            type, parser = SETTINGS_TYPES[required_type]
+            settings_type = required_settings_types[key]
+            required_type, parser = SETTINGS_TYPES[settings_type]
             # None values are allowed as they can be of any type
-            if value is not None and not isinstance(value, type):
+            if value is not None and not isinstance(value, required_type):
                 try:
                     # only attempt conversion from string
                     if not isinstance(value, str):
                         raise ValueError
                     settings_dict[key] = parser(value)
                 except ValueError:
-                    invalid_settings_list.append((key, required_type))
+                    invalid_settings_list.append((key, settings_type))
 
     if invalid_settings_list:
         raise ValueError(
