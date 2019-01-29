@@ -350,12 +350,12 @@ required settings not satified in the settings file.
 Required Not None Settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can also determine a list mandatory settings that must have a not none
-value, i.e. settings that cannot be set as none. For this, set the *special
-setting* ``REQUIRED_NOT_NONE_SETTINGS`` to a list (or any iterable) of the
-settings that you require to not be none. If any setting in this list has a
-value of none, then a ``ValueError`` is raised with a list of settings that
-must be set to not none.
+You can also determine a list of settings that must have a not none value, i.e.
+settings that cannot be set as none. For this, set the *special setting*
+``REQUIRED_NOT_NONE_SETTINGS`` to a list (or any iterable) of the settings that
+you require to not be none. If any setting in this list has a value of none,
+then a ``ValueError`` is raised with a list of settings that must be set to not
+none.
 
 Required Settings Types
 ~~~~~~~~~~~~~~~~~~~~~~~
