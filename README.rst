@@ -375,7 +375,7 @@ The supported types are listed below. If you attempt to set a type that is not
 one of these types, then a ``ValueError`` will be raised with any unsupported
 types.
 
-    - ``"bool"`` - python's native boolean type, parsed from a string as true if the value is ``"True"`` or ``true``; and as false if the value if ``"False"`` or ``"false"``
+    - ``"bool"`` - python's native boolean type, parsed from a string as true if the value is ``"True"`` or ``"true"``; and as false if the value if ``"False"`` or ``"false"``
     - ``"int"`` - python's native integer type, parsed from a string using ``int(value)``
     - ``"float"`` - python's native float type, parsed from a string using ``float(value)``
     - ``"str"`` - python's native string type, not parsed from a string
