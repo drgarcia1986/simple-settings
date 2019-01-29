@@ -550,6 +550,12 @@ Decorator example
 Changelog
 ---------
 
+[NEXT_RELEASE] - 2019-01-29
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Required not none special setting
+- Required types special setting and type conversion
+
 [0.13.0] - 2018-03-28
 ~~~~~~~~~~~~~~~~~~~~~
 
