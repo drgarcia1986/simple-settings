@@ -550,7 +550,7 @@ Decorator example
 Changelog
 ---------
 
-[NEXT_RELEASE] - 2019-01-29
+[0.14.0] - 2019-01-31
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Required not none special setting
