@@ -111,13 +111,13 @@ def configure_logging(settings_dict):
         logging.config.dictConfig(cfg)
 
 
-SPECIAL_SETTINGS_MAPPING = {
-    'OVERRIDE_BY_ENV': override_settings_by_env,
-    'REQUIRED_SETTINGS': required_settings,
-    'REQUIRED_NOT_NONE_SETTINGS': required_not_none_settings,
-    'REQUIRED_SETTINGS_TYPES': required_settings_types,
-    'CONFIGURE_LOGGING': configure_logging
-}
+SPECIAL_SETTINGS_MAPPING = (
+    ('OVERRIDE_BY_ENV', override_settings_by_env),
+    ('REQUIRED_SETTINGS', required_settings),
+    ('REQUIRED_NOT_NONE_SETTINGS', required_not_none_settings),
+    ('REQUIRED_SETTINGS_TYPES', required_settings_types),
+    ('CONFIGURE_LOGGING', configure_logging),
+)
 
 
 def process_special_settings(settings_dict):
@@ -125,6 +125,6 @@ def process_special_settings(settings_dict):
     if not special_settings:
         return
 
-    for key, func in SPECIAL_SETTINGS_MAPPING.items():
+    for key, func in SPECIAL_SETTINGS_MAPPING:
         if key in special_settings:
             func(settings_dict)
