@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
+from collections import OrderedDict
+
 import pytest
 from mock import MagicMock, call, patch
 
 from simple_settings.special_settings import (
-    SPECIAL_SETTINGS_MAPPING,
     configure_logging,
     override_settings_by_env,
     process_special_settings,
@@ -249,7 +250,7 @@ class TestSpecialSettings(object):
 
         with patch(
             'simple_settings.special_settings.SPECIAL_SETTINGS_MAPPING',
-            (('foo', funcs.foo), ('bar', funcs.bar))
+            OrderedDict((('foo', funcs.foo), ('bar', funcs.bar)))
         ):
             process_special_settings(settings_dict)
 
