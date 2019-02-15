@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
+from collections import OrderedDict
+
 import pytest
-from mock import MagicMock, patch
+from mock import MagicMock, call, patch
 
 from simple_settings.special_settings import (
-    SPECIAL_SETTINGS_MAPPING,
     configure_logging,
     override_settings_by_env,
     process_special_settings,
@@ -102,6 +103,20 @@ class TestSpecialSettings(object):
             'BOOL_PARSED_3': 'True',
             'BOOL_PARSED_4': 'false',
             'BOOL_PARSED_5': 'False'
+        }
+
+    @pytest.fixture
+    def settings_dict_override_and_required(self):
+        return {
+            'SIMPLE_SETTINGS': {
+                'OVERRIDE_BY_ENV': True,
+                'REQUIRED_SETTINGS': ('SIMPLE_INTEGER', ),
+                'REQUIRED_NOT_NONE_SETTINGS': ('SIMPLE_INTEGER', ),
+                'REQUIRED_SETTINGS_TYPES': {
+                    'SIMPLE_INTEGER': 'int'
+                }
+            },
+            'SIMPLE_INTEGER': None
         }
 
     @pytest.fixture
@@ -212,10 +227,34 @@ class TestSpecialSettings(object):
         assert isinstance(converted_value('BOOL_PARSED_4'), bool)
         assert isinstance(converted_value('BOOL_PARSED_5'), bool)
 
+    def test_override_by_env_and_required_loads_in_correct_order(
+        self, settings_dict_override_and_required
+    ):
+        def mock_env_side_effect(k, d=None):
+            return '1' if k == 'SIMPLE_INTEGER' else d
+
+        with patch('os.environ.get', side_effect=mock_env_side_effect):
+            process_special_settings(settings_dict_override_and_required)
+
+        assert settings_dict_override_and_required['SIMPLE_INTEGER'] == 1
+
     def test_should_call_functions_in_process_special_settings(self):
-        mock = MagicMock()
-        settings_dict = {'SIMPLE_SETTINGS': {'foo': mock}}
-        with patch.dict(SPECIAL_SETTINGS_MAPPING, {'foo': mock}):
+        funcs = MagicMock()
+
+        settings_dict = {
+            'SIMPLE_SETTINGS': {
+                'bar': 'bar_value',
+                'foo': 'foo_value'
+            }
+        }
+
+        with patch(
+            'simple_settings.special_settings.SPECIAL_SETTINGS_MAPPING',
+            OrderedDict((('foo', funcs.foo), ('bar', funcs.bar)))
+        ):
             process_special_settings(settings_dict)
 
-        assert mock.called
+        assert funcs.mock_calls == [
+            call.foo(settings_dict),
+            call.bar(settings_dict)
+        ]

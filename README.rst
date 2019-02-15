@@ -550,6 +550,11 @@ Decorator example
 Changelog
 ---------
 
+[NEXT_RELEASE]
+~~~~~~~~~~~~~~
+
+- Enforce ordering of special settings being applied
+
 [0.14.0] - 2019-01-31
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
