@@ -16,7 +16,7 @@ class SettingsLoadStrategyPython(object):
         try:
             importlib.import_module(file_name)
             return True
-        except ImportError:
+        except (ImportError, TypeError):
             return False
 
     @staticmethod
