@@ -62,10 +62,12 @@ class TestSpecialSettings(object):
                 'REQUIRED_SETTINGS_TYPES': {
                     'SIMPLE_INTEGER': 'int',
                     'SIMPLE_BOOL': 'bool',
+                    'SIMPLE_STR': 'json.loads',
                 }
             },
             'SIMPLE_INTEGER': 0.1,  # not an int and not a str so cannot parse
             'SIMPLE_BOOL': 'foo',  # not a bool and not parseable to a bool
+            'SIMPLE_STR': 'foo',  # not a valid value to perform json.loads
         }
 
     @pytest.fixture
@@ -87,6 +89,9 @@ class TestSpecialSettings(object):
                     'BOOL_PARSED_3': 'bool',
                     'BOOL_PARSED_4': 'bool',
                     'BOOL_PARSED_5': 'bool',
+                    'JSON_LOADS_PARSED_1': 'json.loads',
+                    'JSON_LOADS_PARSED_2': 'json.loads',
+                    'JSON_LOADS_PARSED_3': 'json.loads',
                 }
             },
             'STRING_NONE': None,
@@ -102,7 +107,10 @@ class TestSpecialSettings(object):
             'BOOL_PARSED_1': 'true',
             'BOOL_PARSED_3': 'True',
             'BOOL_PARSED_4': 'false',
-            'BOOL_PARSED_5': 'False'
+            'BOOL_PARSED_5': 'False',
+            'JSON_LOADS_PARSED_1': '{"simple": "value"}',
+            'JSON_LOADS_PARSED_2': 'true',
+            'JSON_LOADS_PARSED_3': '1',
         }
 
     @pytest.fixture
@@ -226,6 +234,13 @@ class TestSpecialSettings(object):
         assert isinstance(converted_value('BOOL_PARSED_3'), bool)
         assert isinstance(converted_value('BOOL_PARSED_4'), bool)
         assert isinstance(converted_value('BOOL_PARSED_5'), bool)
+        assert isinstance(converted_value('JSON_LOADS_PARSED_1'), dict)
+        assert isinstance(converted_value('JSON_LOADS_PARSED_2'), bool)
+        assert isinstance(converted_value('JSON_LOADS_PARSED_3'), int)
+
+        assert converted_value('JSON_LOADS_PARSED_1') == {'simple': 'value'}
+        assert converted_value('JSON_LOADS_PARSED_2') == True
+        assert converted_value('JSON_LOADS_PARSED_3') == 1
 
     def test_override_by_env_and_required_loads_in_correct_order(
         self, settings_dict_override_and_required
