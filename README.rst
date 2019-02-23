@@ -579,6 +579,7 @@ Changelog
 
 - Enforce ordering of special settings being applied
 - Dynamic settings behaviors with ``memcached``.
+- Fix ``TypeError`` on load settings by YAML file with a relative path
 
 [0.14.0] - 2019-01-31
 ~~~~~~~~~~~~~~~~~~~~~
