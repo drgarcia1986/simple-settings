@@ -576,6 +576,7 @@ Changelog
 ---------
 
 [0.16.0] - 2019-02-23
+~~~~~~~~~~~~~~
 
 - ``json.loads`` as new ``REQUIRED_SETTINGS_TYPES``
 
