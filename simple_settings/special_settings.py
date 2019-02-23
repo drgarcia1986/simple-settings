@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import json
 import logging.config
 import os
 from collections import OrderedDict
@@ -49,7 +50,8 @@ SETTINGS_TYPES = {
     'bool': (bool, bool_parser),
     'float': (float, float),
     'int': (int, int),
-    'str': (str, str)
+    'str': (str, str),
+    'json.loads': (dict, json.loads)
 }
 
 
