@@ -574,7 +574,7 @@ Decorator example
 Changelog
 ---------
 
-[NEXT_RELEASE]
+[0.15.0] - 2019-02-23
 ~~~~~~~~~~~~~~
 
 - Enforce ordering of special settings being applied
