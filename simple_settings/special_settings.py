@@ -3,6 +3,7 @@ import json
 import logging.config
 import os
 from collections import OrderedDict
+from distutils.util import strtobool
 
 from .constants import SPECIAL_SETTINGS_KEY
 
@@ -38,16 +39,8 @@ def required_not_none_settings(settings_dict):
         )
 
 
-def bool_parser(value):
-    if value.lower() == 'true':
-        return True
-    elif value.lower() == 'false':
-        return False
-    raise ValueError()
-
-
 SETTINGS_TYPES = {
-    'bool': (bool, bool_parser),
+    'bool': (bool, lambda x: bool(strtobool(x))),
     'float': (float, float),
     'int': (int, int),
     'str': (str, str),

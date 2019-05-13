@@ -375,7 +375,7 @@ The supported types are listed below. If you attempt to set a type that is not
 one of these types, then a ``ValueError`` will be raised with any unsupported
 types.
 
-    - ``"bool"`` - python's native boolean type, parsed from a string as true if the value is ``"True"`` or ``"true"``; and as false if the value if ``"False"`` or ``"false"``
+    - ``"bool"`` - python's native boolean type, True values are ``y``, ``yes``, ``t``, ``true``, ``on`` and ``1``; false values are ``n``, ``no``, ``f``, ``false``, ``off`` and ``0``
     - ``"int"`` - python's native integer type, parsed from a string using ``int(value)``
     - ``"float"`` - python's native float type, parsed from a string using ``float(value)``
     - ``"str"`` - python's native string type, not parsed from a string
@@ -574,6 +574,11 @@ Decorator example
 
 Changelog
 ---------
+
+[NEXT_RELEASE]
+~~~~~~~~~~~~~~
+
+- Using ``strtobool`` from standard library on ``Required Settings Type`` feature.
 
 [0.16.0] - 2019-02-23
 ~~~~~~~~~~~~~~
