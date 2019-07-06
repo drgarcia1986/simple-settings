@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from .cfg import SettingsLoadStrategyCfg
+from .environ import SettingsLoadStrategyEnviron
 from .json_file import SettingsLoadStrategyJson
 from .python import SettingsLoadStrategyPython
-from .environ import SettingsLoadStrategyEnviron
 
 yaml_strategy = None
 try:
