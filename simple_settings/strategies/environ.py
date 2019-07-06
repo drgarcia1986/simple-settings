@@ -6,7 +6,7 @@ class SettingsLoadStrategyEnviron(object):
     """
     This is the strategy used to read settings from `os.environ`.
     `file_name` could be '.environ' to load all environment variables or
-    '`PREFIX`.environ' to load environment variables starting with `PREFIX`. 
+    '`PREFIX`.environ' to load environment variables starting with `PREFIX`.
     """
     name = 'environ'
 
