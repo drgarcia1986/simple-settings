@@ -578,6 +578,7 @@ Changelog
 [NEXT_RELEASE]
 ~~~~~~~~~~~~~~
 
+- Allow ``LazySettings.strategies`` to be easily overridden.
 - Using ``strtobool`` from standard library on ``Required Settings Type`` feature.
 
 [0.16.0] - 2019-02-23
