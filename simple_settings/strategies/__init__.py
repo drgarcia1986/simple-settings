@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from .cfg import SettingsLoadStrategyCfg
+from .environ import SettingsLoadStrategyEnviron
 from .json_file import SettingsLoadStrategyJson
 from .python import SettingsLoadStrategyPython
 
@@ -21,7 +22,8 @@ except ImportError:  # pragma: no cover
 strategies = (
     SettingsLoadStrategyPython,
     SettingsLoadStrategyCfg,
-    SettingsLoadStrategyJson
+    SettingsLoadStrategyJson,
+    SettingsLoadStrategyEnviron
 )
 
 if yaml_strategy:
