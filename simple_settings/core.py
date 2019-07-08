@@ -26,6 +26,7 @@ class LazySettings(object):
         self._initialized = False
         self._dict = {}
         self._dynamic_reader = None
+        self.strategies = strategies
 
     def __repr__(self):
         return '<SIMPLE-SETTINGS ({})>'.format(self.as_dict())
@@ -73,9 +74,8 @@ class LazySettings(object):
             settings = strategy.load_settings_file(settings_file)
             self._dict.update(settings)
 
-    @staticmethod
-    def _get_strategy_by_file(settings_file):
-        for strategy in strategies:
+    def _get_strategy_by_file(self, settings_file):
+        for strategy in self.strategies:
             if strategy.is_valid_file(settings_file):
                 return strategy
         raise RuntimeError('Invalid settings file [{}]'.format(settings_file))

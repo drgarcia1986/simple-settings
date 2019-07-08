@@ -586,6 +586,7 @@ Changelog
 ~~~~~~~~~~~~~~
 
 - Allow settings to be loaded from environment variables via ``.environ`` or ``PREFIX_.environ``
+- Allow ``LazySettings.strategies`` to be easily overridden.
 - Using ``strtobool`` from standard library on ``Required Settings Type`` feature.
 
 [0.16.0] - 2019-02-23
