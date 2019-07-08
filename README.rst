@@ -202,6 +202,13 @@ The simple-settings is prepared to play with the following files types:
 
     For toml files is necessary to install with extras require *toml*, e.g.: ``pip install simple-settings[toml]``
 
+
+Loading settings from environment variables
+-------------------------------------------
+
+simple-settings can load all environment variables, e.g. ``python app.py --settings=.environ`` or only environment variables that start with a certain prefix, e.g. ``python app.py --settings=MYPREFIX_.environ``.
+
+
 Load multiple settings modules
 ------------------------------
 
@@ -211,10 +218,10 @@ example:
 
 .. code:: bash
 
-    $ python app.py --settings=production,amazon,new_relic
+    $ python app.py --settings=production,amazon,new_relic,PREFIX_.environ
 
 simple-setting will load all settings modules in order that was
-specified (``production``-> ``amazon`` -> ``new_relic``) overriding
+specified (``production``-> ``amazon`` -> ``new_relic`` -> ``PREFIX_.environ``) overriding
 possibles conflicts.
 
 This also works with *LazySettings* class:
@@ -224,7 +231,7 @@ This also works with *LazySettings* class:
     from simple_settings import LazySettings
 
 
-    settings = LazySettings('production', 'amazon', 'new_relic')
+    settings = LazySettings('production', 'amazon', 'new_relic', 'PREFIX_.environ')
 
 You can combine any type of settings (*python modules*, *yaml*, etc.).
 
@@ -578,15 +585,16 @@ Changelog
 [NEXT_RELEASE]
 ~~~~~~~~~~~~~~
 
+- Allow settings to be loaded from environment variables via ``.environ`` or ``PREFIX_.environ``
 - Using ``strtobool`` from standard library on ``Required Settings Type`` feature.
 
 [0.16.0] - 2019-02-23
-~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
 
 - ``json.loads`` as new ``REQUIRED_SETTINGS_TYPES``
 
 [0.15.0] - 2019-02-23
-~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
 
 - Enforce ordering of special settings being applied
 - Dynamic settings behaviors with ``memcached``.

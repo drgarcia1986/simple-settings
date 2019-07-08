@@ -5,8 +5,8 @@ import os
 class SettingsLoadStrategyEnviron(object):
     """
     This is the strategy used to read settings from `os.environ`.
-    `file_name` could be '.environ' to load all environment variables or
-    '`PREFIX`.environ' to load environment variables starting with `PREFIX`.
+    If `file_name` is set to '.environ', it will load all environment variables.
+    If set to '`PREFIX`.environ', it will load environment variables starting with `PREFIX`.
     """
     name = 'environ'
 
