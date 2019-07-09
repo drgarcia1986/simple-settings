@@ -519,7 +519,7 @@ the ``DYNAMIC_SETTINGS`` special setting with the ``s3`` backend
 
 
 Memcached
-^^^^^^
+^^^^^^^^^
 
 You can read your settings dynamically with memcached if you activate
 the ``DYNAMIC_SETTINGS`` special setting with the ``memcached`` backend
@@ -578,6 +578,27 @@ Decorator example
 
     assert get_some_setting() == 'foo'
     assert settings.SOME_SETTING == 'bar'
+
+
+Advanced Usage
+--------------
+
+Custom Strategy
+~~~~~~~~~~~~~~~
+
+To implement a custom strategy:
+
+.. code:: python
+
+    from simple_settings import settings
+
+    class SettingsCustomStrategy(object):
+        """
+        See `/simple_settings/strategies` for sample strategies (e.g. python, json, cfg)
+        """
+
+    settings.add_strategy(SettingsCustomStrategy)
+
 
 Changelog
 ---------

@@ -95,6 +95,9 @@ class LazySettings(object):
 
         return result
 
+    def add_strategy(self, strategy):
+        self.strategies += (strategy,)
+
     def configure(self, **settings):
         self.setup()
         self._dict.update(settings)
