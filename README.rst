@@ -603,7 +603,7 @@ To implement a custom strategy:
 Changelog
 ---------
 
-[NEXT_RELEASE]
+[0.17.0] - 2019-07-10
 ~~~~~~~~~~~~~~
 
 - Allow settings to be loaded from environment variables via ``.environ`` or ``PREFIX_.environ``
