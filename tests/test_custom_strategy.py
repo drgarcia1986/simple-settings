@@ -69,7 +69,7 @@ class TestSettingsCustomStrategy(object):
         assert settings.START_URLS == ['https://www.google.com']
         assert settings.AUTO_CONNECT == True
 
-    def test_should_not_non_class_settings_value(self):
+    def test_should_not_read_non_class_settings_value(self):
         settings = LazySettings('tests.samples.python_obj.config_invalid')
         settings.add_strategy(SettingsLoadStrategyPythonObj)
 

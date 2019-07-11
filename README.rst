@@ -603,6 +603,16 @@ To implement a custom strategy:
 Changelog
 ---------
 
+[NEXT_RELEASE]
+~~~~~~~~~~~~~~
+
+- Fix ``TypeError`` on ``jsonpickle.decode`` when `auto_casting` is True and
+  dynamic backend returns None.
+- Log error containing ``settings_file`` information when an error occurs in
+  ``strategy.load_settings_file`` call from ``_load_settings_pipeline``.
+- If dynamic settings is enabled, query first the dynamic backend before
+  raising an AttributeError.
+
 [0.17.0] - 2019-07-10
 ~~~~~~~~~~~~~~~~~~~~~
 
