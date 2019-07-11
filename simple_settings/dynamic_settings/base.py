@@ -22,7 +22,7 @@ class BaseReader(object):
         if not self._is_valid_key(key):
             return
         result = self._get(self._qualified_key(key))
-        if self.auto_casting:
+        if self.auto_casting and (result is not None):
             result = jsonpickle.decode(result)
         return result
 
