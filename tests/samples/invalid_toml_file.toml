@@ -1,0 +1,10 @@
+ERROR_STRING = "\simple"
+SIMPLE_INTEGER = 1
+
+SIMPLE_BOOL = true
+
+COMPLEX_LIST = ["foo", "bar"]
+
+[COMPLEX_DICT]
+complex = "dict"
+foo = "bar"
