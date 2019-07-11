@@ -155,4 +155,4 @@ class TestDynamicSettings(object):
         key = 'NON-EXISTING-KEY'
         reader.auto_casting = True
 
-        assert reader.get(key) == None
+        assert reader.get(key) is None
