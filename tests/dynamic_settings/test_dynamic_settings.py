@@ -148,3 +148,11 @@ class TestDynamicSettings(object):
         assert reader.get(key) == expected_setting
 
         assert reader._dict['COMPLEX'] != expected_setting
+
+    def test_should_get_none_when_auto_casting_for_unknown_key_dynamic_storage(
+        self, settings_dict, reader
+    ):
+        key = 'NON-EXISTING-KEY'
+        reader.auto_casting = True
+
+        assert reader.get(key) == None
