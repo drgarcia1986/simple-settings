@@ -71,8 +71,14 @@ class LazySettings(object):
     def _load_settings_pipeline(self):
         for settings_file in self._settings_list:
             strategy = self._get_strategy_by_file(settings_file)
-            settings = strategy.load_settings_file(settings_file)
-            self._dict.update(settings)
+            try:
+                settings = strategy.load_settings_file(settings_file)
+            except Exception:
+                print('Error processing settings_file: {}'.format(
+                    settings_file))
+                raise
+            else:
+                self._dict.update(settings)
 
     def _get_strategy_by_file(self, settings_file):
         for strategy in self.strategies:
