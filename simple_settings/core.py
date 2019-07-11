@@ -8,7 +8,6 @@ from .dynamic_settings import get_dynamic_reader
 from .special_settings import process_special_settings
 from .strategies import strategies
 
-
 logger = logging.getLogger(__name__)
 
 

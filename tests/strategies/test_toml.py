@@ -31,3 +31,9 @@ class TestTomlStrategy(object):
         assert settings['COMPLEX_LIST'] == ['foo', 'bar']
         assert settings['SIMPLE_INTEGER'] == 1
         assert settings['SIMPLE_BOOL'] is True
+
+    def test_should_raise_error_invalid_toml_file_content(self, strategy_toml):
+        with pytest.raises(Exception):
+            settings = strategy_toml.load_settings_file(
+                'tests/samples/invalid_toml_file.toml'
+            )
