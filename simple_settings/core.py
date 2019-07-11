@@ -78,9 +78,10 @@ class LazySettings(object):
             try:
                 settings = strategy.load_settings_file(settings_file)
             except Exception as e:
-                logger.error('Error processing settings_file "{}":\n {}'.format(
-                    settings_file, e
-                ), exc_info=True)
+                logger.error(
+                    'Error processing settings_file "{}":\n {}'.format(
+                        settings_file, e
+                    ), exc_info=True)
             else:
                 self._dict.update(settings)
 
