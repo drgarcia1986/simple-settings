@@ -116,15 +116,11 @@ class TestSettings(object):
 
         assert settings.SIMPLE_INTEGER == 2
 
-    def test_should_log_error_on_invalid_settings_file_content(self):
-        with patch('logging.Logger.error') as mock:
+    def test_should_raise_error_msg_on_invalid_settings_file_content(self):
+        with pytest.raises(RuntimeError):
             settings = get_settings_by_cmd_line(
                 'tests/samples/invalid_toml_file.toml'
             )
-            mock.assert_called_with(
-                'Error processing settings_file '
-                '"tests/samples/invalid_toml_file.toml":'
-                '\n Reserved escape sequence used', exc_info=True)
 
     def test_should_load_a_complex_module_settings(self):
         settings = get_settings_by_cmd_line('tests.samples.complex')
