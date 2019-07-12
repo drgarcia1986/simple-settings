@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import logging
 import os
 import sys
 from copy import deepcopy
@@ -6,6 +7,8 @@ from copy import deepcopy
 from .dynamic_settings import get_dynamic_reader
 from .special_settings import process_special_settings
 from .strategies import strategies
+
+logger = logging.getLogger(__name__)
 
 
 class LazySettings(object):
@@ -74,9 +77,11 @@ class LazySettings(object):
             try:
                 settings = strategy.load_settings_file(settings_file)
             except Exception as e:
-                raise RuntimeError(
-                    'Error processing settings_file "{}"'.format(settings_file)
-                ) from e
+                logger.exception(
+                    'Error processing settings_file "{}":\n {}'.format(
+                        settings_file, e
+                    ))
+                raise
             else:
                 self._dict.update(settings)
 
