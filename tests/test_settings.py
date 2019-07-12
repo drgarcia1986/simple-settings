@@ -116,8 +116,8 @@ class TestSettings(object):
 
         assert settings.SIMPLE_INTEGER == 2
 
-    def test_should_raise_error_msg_on_invalid_settings_file_content(self):
-        with pytest.raises(RuntimeError):
+    def test_should_raise_error_on_invalid_settings_file_content(self):
+        with pytest.raises(Exception):
             settings = get_settings_by_cmd_line(
                 'tests/samples/invalid_toml_file.toml'
             )
