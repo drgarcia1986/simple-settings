@@ -604,7 +604,7 @@ Changelog
 ---------
 
 [0.18.0] - 2019-07-14
-~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
 
 - Fix ``TypeError`` on ``jsonpickle.decode`` when `auto_casting` is True and
   dynamic backend returns None.
