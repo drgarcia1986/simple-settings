@@ -40,7 +40,7 @@ download_url = 'https://github.com/drgarcia1986/simple-settings/tarball/master'
 
 setup(
     name='simple-settings',
-    version='0.17.0',
+    version='0.18.0',
     install_requires=[],
     url='https://github.com/drgarcia1986/simple-settings',
     author='Diego Garcia',
