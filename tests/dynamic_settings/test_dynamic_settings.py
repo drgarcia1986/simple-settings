@@ -2,7 +2,10 @@
 import pytest
 
 from simple_settings.core import LazySettings
-from simple_settings.dynamic_settings import get_dynamic_reader
+from simple_settings.dynamic_settings import (
+    InvalidDynamicSettingsReaderPath,
+    get_dynamic_reader
+)
 from simple_settings.dynamic_settings.base import BaseReader
 
 
@@ -25,13 +28,28 @@ class TestDynamicSettings(object):
     def settings_dict(self):
         return {
             'SIMPLE_SETTINGS': {
-                'DYNAMIC_SETTINGS': {'backend': __name__}
+                'DYNAMIC_SETTINGS': {'backend': '{}.Reader'.format(__name__)}
             }
         }
 
     @pytest.fixture
     def reader(self, settings_dict):
         return get_dynamic_reader(settings_dict)
+
+    @pytest.mark.parametrize('path', (
+        'invalid.path',
+        '{}.Invalid'.format(__name__)
+    ))
+    def test_should_raise_runtime_error_for_invalid_dynamic_settings(
+        self,
+        path
+    ):
+        with pytest.raises(InvalidDynamicSettingsReaderPath) as ex:
+            get_dynamic_reader({
+                'SIMPLE_SETTINGS': {'DYNAMIC_SETTINGS': {'backend': path}}
+            })
+
+        assert path in str(ex)
 
     def test_should_return_instance_of_fake_dynamic_settings(
         self, settings_dict
