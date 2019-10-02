@@ -1,10 +1,12 @@
 language: python
 sudo: required
+dist: xenial
 python:
 - '2.7'
 - '3.4'
 - '3.5'
 - '3.6'
+- '3.7'
 - pypy
 - pypy3
 - nightly
@@ -23,7 +25,7 @@ install:
 - make requirements
 - pip install coveralls
 script:
-- if [[ $TRAVIS_PYTHON_VERSION == '3.6' ]]; then make isort-check; fi
+- if [[ $TRAVIS_PYTHON_VERSION == '3.7' ]]; then make isort-check; fi
 - make test
 after_success:
 - coveralls
