@@ -267,9 +267,6 @@ a ``SIMPLE_SETTINGS`` dict in the settings module.
         }
     }
 
-*Note: special settings may only be specified in python settings files
-(not ini, yaml, etc.).*
-
 Configure logging
 ~~~~~~~~~~~~~~~~~
 
