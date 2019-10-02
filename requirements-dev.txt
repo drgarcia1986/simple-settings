@@ -2,7 +2,7 @@
 bumpversion==0.5.3
 cov-core==1.15.0
 flake8==3.7.8
-isort==4.3.4
+isort==4.3.21
 mock==2.0.0
 moto==1.3.6
 py==1.8.0
