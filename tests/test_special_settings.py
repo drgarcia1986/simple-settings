@@ -92,6 +92,9 @@ class TestSpecialSettings(object):
                     'JSON_LOADS_PARSED_1': 'json.loads',
                     'JSON_LOADS_PARSED_2': 'json.loads',
                     'JSON_LOADS_PARSED_3': 'json.loads',
+                    'JSON_LOADS_PARSED_4': 'json.loads',
+                    'JSON_LOADS_PARSED_5': 'json.loads',
+                    'JSON_LOADS_PARSED_6': 'json.loads',
                 }
             },
             'STRING_NONE': None,
@@ -111,6 +114,9 @@ class TestSpecialSettings(object):
             'JSON_LOADS_PARSED_1': '{"simple": "value"}',
             'JSON_LOADS_PARSED_2': 'true',
             'JSON_LOADS_PARSED_3': '1',
+            'JSON_LOADS_PARSED_4': [1, 3],
+            'JSON_LOADS_PARSED_5': '[1, 3]',
+            'JSON_LOADS_PARSED_6': {"simple": "value"},
         }
 
     @pytest.fixture
@@ -239,8 +245,11 @@ class TestSpecialSettings(object):
         assert isinstance(converted_value('JSON_LOADS_PARSED_3'), int)
 
         assert converted_value('JSON_LOADS_PARSED_1') == {'simple': 'value'}
-        assert converted_value('JSON_LOADS_PARSED_2') == True
+        assert converted_value('JSON_LOADS_PARSED_2') is True
         assert converted_value('JSON_LOADS_PARSED_3') == 1
+        assert converted_value('JSON_LOADS_PARSED_4') == [1, 3]
+        assert converted_value('JSON_LOADS_PARSED_5') == [1, 3]
+        assert converted_value('JSON_LOADS_PARSED_6') == {'simple': 'value'}
 
     def test_override_by_env_and_required_loads_in_correct_order(
         self, settings_dict_override_and_required

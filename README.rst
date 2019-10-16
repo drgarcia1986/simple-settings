@@ -383,7 +383,7 @@ types.
     - ``"int"`` - python's native integer type, parsed from a string using ``int(value)``
     - ``"float"`` - python's native float type, parsed from a string using ``float(value)``
     - ``"str"`` - python's native string type, not parsed from a string
-    - ``"json.loads"`` - Can be some types resulted of python's ``json.loads(value)`` function (e.g. dict: '{"foo": "bar"} -> {'foo': 'bar'}, int: '1' -> 1, bool: 'true' -> True, etc.)
+    - ``"json.loads"`` - Can be some types resulted of python's ``json.loads(value)`` function (e.g. dict: '{"foo": "bar"} -> {'foo': 'bar'}, int: '1' -> 1, bool: 'true' -> True, list: '[1, 2]' -> [1, 2], etc.)
 
 Dynamic Settings
 ~~~~~~~~~~~~~~~~
@@ -644,6 +644,7 @@ Changelog
 
 - Change import dynamic reader mechanism to using full class path with dot notation
 - Update several dependencies
+- ``json.loads`` of ``REQUIRED_SETTINGS_TYPES`` now converts and validate lists
 
 [0.18.0] - 2019-07-14
 ~~~~~~~~~~~~~~~~~~~~~

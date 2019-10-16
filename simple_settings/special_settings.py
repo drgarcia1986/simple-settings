@@ -44,7 +44,7 @@ SETTINGS_TYPES = {
     'float': (float, float),
     'int': (int, int),
     'str': (str, str),
-    'json.loads': (dict, json.loads)
+    'json.loads': ((dict, list), json.loads)
 }
 
 
