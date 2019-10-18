@@ -639,7 +639,7 @@ To implement a custom strategy:
 Changelog
 ---------
 
-[NEXT_RELEASE]
+[0.19.0] - 2019-10-18
 ~~~~~~~~~~~~~~~~~~~~~
 
 - Change import dynamic reader mechanism to using full class path with dot notation
