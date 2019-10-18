@@ -640,7 +640,7 @@ Changelog
 ---------
 
 [NEXT_RELEASE]
-~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
 
 - Change import dynamic reader mechanism to using full class path with dot notation
 - Update several dependencies
