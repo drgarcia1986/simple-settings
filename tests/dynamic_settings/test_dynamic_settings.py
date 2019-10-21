@@ -57,6 +57,15 @@ class TestDynamicSettings(object):
         reader = get_dynamic_reader(settings_dict)
         assert isinstance(reader, Reader)
 
+    def test_should_return_instance_of_dynamic_settings_with_path_in_the_old_fashion(
+        self
+    ):
+        # TODO: Remove this test on version 1.0.0
+        reader = get_dynamic_reader({
+            'SIMPLE_SETTINGS': {'DYNAMIC_SETTINGS': {'backend': __name__}}
+        })
+        assert isinstance(reader, Reader)
+
     def test_should_return_value_of_reader_on_get(self, reader):
         key = 'SIMPLE_STRING'
         expected_setting = 'simple value'

@@ -538,45 +538,6 @@ the ``DYNAMIC_SETTINGS`` special setting with the ``memcached`` backend
     To install with memcached dependencies use: ``pip install simple-settings[memcached]``
 
 
-Custom
-^^^^^^
-You can easily create your own dynamic settings reader. To do that you need to
-create a class than inherit from ``simple_settings.dynamic_settings.base.BaseReader``
-and implement ``_get`` and ``_set`` methods, f.ex:
-
-.. code:: python
-
-   from simple_settings.dynamic_settings.base import BaseReader
-
-
-   class Reader(BaseReader):
-
-       def __init__(self, conf):
-           super(Reader, self).__init__(conf)
-           self._dict = {}
-
-       def _get(self, key):
-           return self._dict.get(key)
-
-       def _set(self, key, value):
-           self._dict[key] = value
-
-..
-
-To use it, just configure ``SIMPLE_SETINGS`` special setting with the full path
-of the reader, f.ex:
-
-.. code:: python
-
-   'SIMPLE_SETTINGS': {
-       'DYNAMIC_SETTINGS': {
-         'backend': 'path.of.module.ClassName'
-       }
-   }
-..
-
-Any other config of dynamic settings will be pass to reader backend on argument ``config``
-
 Utils
 -----
 
@@ -636,8 +597,54 @@ To implement a custom strategy:
     settings.add_strategy(SettingsCustomStrategy)
 
 
+Custom Dynamic Settings Reader
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can easily create your own dynamic settings reader. To do that you need to
+create a class than inherit from ``simple_settings.dynamic_settings.base.BaseReader``
+and implement ``_get`` and ``_set`` methods, f.ex:
+
+.. code:: python
+
+   from simple_settings.dynamic_settings.base import BaseReader
+
+
+   class Reader(BaseReader):
+
+       def __init__(self, conf):
+           super(Reader, self).__init__(conf)
+           self._dict = {}
+
+       def _get(self, key):
+           return self._dict.get(key)
+
+       def _set(self, key, value):
+           self._dict[key] = value
+
+..
+
+To use it, just configure ``SIMPLE_SETINGS`` special setting with the full path
+of the reader, f.ex:
+
+.. code:: python
+
+   'SIMPLE_SETTINGS': {
+       'DYNAMIC_SETTINGS': {
+         'backend': 'path.of.module.ClassName'
+       }
+   }
+..
+
+Any other config of dynamic settings will be pass to reader backend on argument ``conf``
+
+
 Changelog
 ---------
+[NEXT_RELEASE]
+~~~~~~~~~~~~~~~~~~~~~
+
+- Load dynamic settings reader with both ways, full class path and module path
+  (assuming the reader class is called ``Reader``)
 
 [0.19.0] - 2019-10-18
 ~~~~~~~~~~~~~~~~~~~~~
