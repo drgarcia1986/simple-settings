@@ -640,7 +640,7 @@ Any other config of dynamic settings will be pass to reader backend on argument 
 
 Changelog
 ---------
-[NEXT_RELEASE]
+[0.19.1] - 2019-10-21
 ~~~~~~~~~~~~~~~~~~~~~
 
 - Load dynamic settings reader with both ways, full class path and module path
