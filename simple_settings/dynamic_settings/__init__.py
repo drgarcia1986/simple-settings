@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import importlib
+import inspect
+import warnings
 
 from simple_settings.constants import (
     DYNAMIC_SETTINGS_KEY,
@@ -46,6 +48,27 @@ def get_dynamic_reader_class(reader_backend_path):
     try:
         module_path, class_name = reader_backend_path.rsplit('.', 1)
         reader_module = importlib.import_module(module_path)
-        return getattr(reader_module, class_name)
-    except (ValueError, ImportError, AttributeError):
+    except (ValueError, ImportError):
         raise InvalidDynamicSettingsReaderPath(reader_backend_path)
+
+    try:
+        reader_class = getattr(reader_module, class_name)
+    except AttributeError:
+        raise InvalidDynamicSettingsReaderPath(reader_backend_path)
+
+    # TODO: remove this checks and fallbacks on version 1.0.0
+    if inspect.isclass(reader_class):
+        return reader_class
+
+    if class_name == 'Reader':
+        raise InvalidDynamicSettingsReaderPath(reader_backend_path)
+
+    warnings.warn(
+        'Trying to import dynamic setting in the old fashion, '
+        'for next versions, using full class plath',
+        DeprecationWarning
+    )
+
+    return get_dynamic_reader_class(
+        '{}.Reader'.format(reader_backend_path)
+    )
