@@ -49,7 +49,7 @@ class TestDynamicSettings(object):
                 'SIMPLE_SETTINGS': {'DYNAMIC_SETTINGS': {'backend': path}}
             })
 
-        assert path in str(ex)
+        assert path in str(ex.value)
 
     def test_should_return_instance_of_fake_dynamic_settings(
         self, settings_dict
