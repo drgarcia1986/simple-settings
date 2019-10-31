@@ -185,8 +185,8 @@ class TestSpecialSettings(object):
         with pytest.raises(ValueError) as exc:
             required_settings(settings_dict_required)
 
-        assert 'LOST_SETTING' in str(exc)
-        assert 'SIMPLE_STRING' not in str(exc)
+        assert 'LOST_SETTING' in str(exc.value)
+        assert 'SIMPLE_STRING' not in str(exc.value)
 
     def test_required_not_none_settings_should_raise_value_error_for_a_none_setting(
         self, settings_dict_required_not_none
@@ -194,8 +194,8 @@ class TestSpecialSettings(object):
         with pytest.raises(ValueError) as exc:
             required_not_none_settings(settings_dict_required_not_none)
 
-        assert 'SIMPLE_STRING' in str(exc)
-        assert 'SIMPLE_INTEGER' not in str(exc)
+        assert 'SIMPLE_STRING' in str(exc.value)
+        assert 'SIMPLE_INTEGER' not in str(exc.value)
 
     def test_required_settings_types_should_raise_value_error_for_an_unsupported_type(
         self, settings_dict_required_types_unsupported_type
@@ -205,8 +205,8 @@ class TestSpecialSettings(object):
                 settings_dict_required_types_unsupported_type
             )
 
-        assert 'UNSUPPORTED_TYPE' in str(exc)
-        assert 'SIMPLE_INTEGER' not in str(exc)
+        assert 'UNSUPPORTED_TYPE' in str(exc.value)
+        assert 'SIMPLE_INTEGER' not in str(exc.value)
 
     def test_required_settings_types_should_raise_value_error_for_invalid_types(
         self, settings_dict_required_types_invalid_types
@@ -214,8 +214,8 @@ class TestSpecialSettings(object):
         with pytest.raises(ValueError) as exc:
             required_settings_types(settings_dict_required_types_invalid_types)
 
-        assert 'SIMPLE_INTEGER' in str(exc)
-        assert 'SIMPLE_BOOL' in str(exc)
+        assert 'SIMPLE_INTEGER' in str(exc.value)
+        assert 'SIMPLE_BOOL' in str(exc.value)
 
     def test_required_settings_types_should_not_raise_value_error_for_valid_types(
         self, settings_dict_required_types_valid_types
