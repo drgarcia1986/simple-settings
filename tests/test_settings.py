@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 import sys
+from unittest.mock import patch
 
 import pytest
-from mock import patch
 
 from simple_settings.core import LazySettings
 from simple_settings.special_settings import SPECIAL_SETTINGS_KEY
@@ -30,7 +29,7 @@ def get_settings_by_environment(module_name):
     return settings
 
 
-class TestSettings(object):
+class TestSettings:
 
     def test_should_read_init_settings_value(self):
         expect_module = 'tests.samples.simple'

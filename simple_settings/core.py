@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import logging
 import os
 import sys
@@ -11,7 +10,7 @@ from .strategies import strategies
 logger = logging.getLogger(__name__)
 
 
-class LazySettings(object):
+class LazySettings:
     """
     LazySettings is the main class of simple-settings
 

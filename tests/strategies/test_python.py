@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 import pytest
 
 from simple_settings.strategies.python import SettingsLoadStrategyPython
 
 
-class TestPythonStrategy(object):
+class TestPythonStrategy:
 
     @pytest.fixture
     def strategy_python(self):

@@ -1,15 +1,13 @@
-# -*- coding: utf-8 -*-
 from .base import BaseReader
 
 try:
-    import six
     from boto3 import resource
     from botocore.exceptions import ClientError
 except ImportError:  # pragma: no cover
     raise ImportError(
         'To use "s3" dynamic settings reader\n'
         'you need to install simple-settings with s3 dependency:\n'
-        'pip install simple-settings[s3] or pip install boto3 six'
+        'pip install simple-settings[s3] or pip install boto3'
     )
 
 
@@ -64,10 +62,7 @@ class Reader(BaseReader):
         return response['Body'].read().decode()
 
     def _set(self, key, value):
-        if six.PY2:
-            bytes_value = bytes(value)
-        else:
-            bytes_value = bytes(value, 'utf-8')
+        bytes_value = bytes(value, 'utf-8')
 
         self.s3.Object(
             bucket_name=self.conf['bucket_name'],

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import pytest
 
 from simple_settings.core import LazySettings
@@ -6,21 +5,21 @@ from simple_settings.dynamic_settings import get_dynamic_reader
 
 skip = False
 try:
-    import six
     from boto3 import resource
     from botocore.exceptions import ClientError
     from moto import mock_s3
+
     from simple_settings.dynamic_settings.s3_reader import Reader as S3Reader
 except ImportError:
     skip = True
 
 
 @pytest.mark.skipif(skip, reason='Installed without boto3/moto')
-class TestDynamicS3Settings(object):
+class TestDynamicS3Settings:
 
     @pytest.fixture
     def region(self):
-        return 'us-east-1'
+        return 'sa-east-1'
 
     @pytest.fixture
     def bucket_name(self):
@@ -43,14 +42,10 @@ class TestDynamicS3Settings(object):
             setting_key: 'simple'
         }
 
-    @pytest.fixture(scope='module')
+    @pytest.fixture()
     def mock_s3_resource(self):
-        mock = mock_s3()
-        mock.start()
-
-        yield mock
-
-        mock.stop()
+        with mock_s3() as ms3:
+            yield ms3
 
     @pytest.fixture
     def reader(self, mock_s3_resource, settings_dict_to_override_by_s3):
@@ -82,10 +77,7 @@ class TestDynamicS3Settings(object):
         s3.Bucket(bucket_name).delete()
 
     def _set_value_on_s3(self, s3, bucket_name, key, value):
-        if six.PY2:
-            bytes_value = bytes(value)
-        else:
-            bytes_value = bytes(value, 'utf-8')
+        bytes_value = bytes(value, 'utf-8')
 
         s3.Object(
             bucket_name=bucket_name,

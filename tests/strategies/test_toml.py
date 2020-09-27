@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import pytest
 
 skip = False
@@ -9,7 +8,7 @@ except ImportError:
 
 
 @pytest.mark.skipif(skip, reason='Installed without Toml')
-class TestTomlStrategy(object):
+class TestTomlStrategy:
 
     @pytest.fixture
     def strategy_toml(self):

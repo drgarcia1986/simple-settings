@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 import importlib
 import inspect
 
 
-class SettingsLoadStrategyPython(object):
+class SettingsLoadStrategyPython:
     """
     This is the strategy used to read settings from python modules.
 

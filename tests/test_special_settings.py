@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 from collections import OrderedDict
+from unittest.mock import MagicMock, call, patch
 
 import pytest
-from mock import MagicMock, call, patch
 
 from simple_settings.special_settings import (
     configure_logging,
@@ -14,7 +13,7 @@ from simple_settings.special_settings import (
 )
 
 
-class TestSpecialSettings(object):
+class TestSpecialSettings:
     @pytest.fixture
     def settings_dict_to_override(self):
         return {

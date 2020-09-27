@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 import os
 
 
-class SettingsLoadStrategyEnviron(object):
+class SettingsLoadStrategyEnviron:
     """
     This is the strategy used to read settings from `os.environ`.
     If `file_name`=='.environ', it will load all environment variables.

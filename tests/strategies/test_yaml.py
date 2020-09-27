@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import pytest
 
 skip = False
@@ -9,7 +8,7 @@ except ImportError:
 
 
 @pytest.mark.skipif(skip, reason='Installed without PyYaml')
-class TestYamlStrategy(object):
+class TestYamlStrategy:
 
     @pytest.fixture
     def strategy_yaml(self):

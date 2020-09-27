@@ -1,7 +1,4 @@
-# -*- coding: utf-8 -*-
-
-
-class MyConfig(object):
+class MyConfig:
     START_URLS = ['https://www.google.com']
     AUTO_CONNECT = True
 

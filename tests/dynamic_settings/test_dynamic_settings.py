@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import pytest
 
 from simple_settings.core import LazySettings
@@ -22,7 +21,7 @@ class Reader(BaseReader):
         self._dict[key] = value
 
 
-class TestDynamicSettings(object):
+class TestDynamicSettings:
 
     @pytest.fixture
     def settings_dict(self):

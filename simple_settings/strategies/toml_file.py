@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 import codecs
 
 import toml
 
 
-class SettingsLoadStrategyToml(object):
+class SettingsLoadStrategyToml:
     """
     This is the strategy used to read settings from toml files
     """

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from setuptools import setup
 
 
@@ -16,14 +15,14 @@ try:
 except IOError:
     long_description = description
 
-DYNAMIC_SETTINGS_REQUIRES = ['jsonpickle==1.2']
-TOML_REQUIRES = ['toml==0.10.0']
-YAML_REQUIRES = ['PyYAML==5.1.2']
+DYNAMIC_SETTINGS_REQUIRES = ['jsonpickle==1.4.1']
+TOML_REQUIRES = ['toml==0.10.1']
+YAML_REQUIRES = ['PyYAML==5.3.1']
 CONSUL_REQUIRES = ['consulate==0.6.0'] + DYNAMIC_SETTINGS_REQUIRES
-DATABASE_REQUIRES = ['SQLAlchemy==1.3.8'] + DYNAMIC_SETTINGS_REQUIRES
-MEMCACHED_REQUIRES = ['pymemcache==2.2.2', 'six==1.12.0'] + DYNAMIC_SETTINGS_REQUIRES  # noqa
-REDIS_REQUIRES = ['redis==3.3.8', 'six==1.12.0'] + DYNAMIC_SETTINGS_REQUIRES
-S3_REQUIRES = ['boto3==1.4.7', 'six==1.12.0'] + DYNAMIC_SETTINGS_REQUIRES
+DATABASE_REQUIRES = ['SQLAlchemy==1.3.19'] + DYNAMIC_SETTINGS_REQUIRES
+MEMCACHED_REQUIRES = ['pymemcache==3.4.0', 'six==1.15.0'] + DYNAMIC_SETTINGS_REQUIRES  # noqa
+REDIS_REQUIRES = ['redis==3.5.3', 'six==1.15.0'] + DYNAMIC_SETTINGS_REQUIRES
+S3_REQUIRES = ['boto3==1.15.6'] + DYNAMIC_SETTINGS_REQUIRES
 
 ALL_REQUIRES = set(
     CONSUL_REQUIRES +

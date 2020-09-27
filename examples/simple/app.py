@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import os
 
 from simple_settings import settings

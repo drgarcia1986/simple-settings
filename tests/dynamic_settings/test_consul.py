@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import pytest
 
 from simple_settings.core import LazySettings
@@ -7,15 +6,15 @@ from simple_settings.dynamic_settings import get_dynamic_reader
 skip = False
 try:
     import consulate
-    from simple_settings.dynamic_settings.consul_reader import (
+
+    from simple_settings.dynamic_settings.consul_reader import \
         Reader as ConsulReader
-    )
 except ImportError:
     skip = True
 
 
 @pytest.mark.skipif(skip, reason='Installed without consul')
-class TestDynamicConsulSettings(object):
+class TestDynamicConsulSettings:
 
     @pytest.fixture
     def settings_dict_to_override_by_consul(self):
@@ -35,7 +34,7 @@ class TestDynamicConsulSettings(object):
             'SIMPLE_STRING': 'simple'
         }
 
-    @pytest.yield_fixture
+    @pytest.fixture
     def consul(self):
         session = consulate.Consul()
 
