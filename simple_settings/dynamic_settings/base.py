@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 import re
 from copy import deepcopy
 
 import jsonpickle
 
 
-class BaseReader(object):
+class BaseReader:
     """
     Base class for dynamic readers
     """

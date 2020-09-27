@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 import codecs
 
 import yaml
 
 
-class SettingsLoadStrategyYaml(object):
+class SettingsLoadStrategyYaml:
     """
     This is the strategy used to read settings from yaml files
     """

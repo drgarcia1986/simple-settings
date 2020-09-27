@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from simple_settings import settings
 
 print(settings.ONLY_IN_FIRST)

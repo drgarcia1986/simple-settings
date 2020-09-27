@@ -1,41 +1,38 @@
+os: linux
 language: python
-sudo: required
 dist: xenial
 python:
-- '2.7'
-- '3.4'
-- '3.5'
-- '3.6'
-- '3.7'
-- pypy
-- pypy3
-- nightly
-matrix:
+  - "3.6"
+  - "3.7"
+  - "3.8"
+  - pypy3
+  - nightly
+jobs:
   allow_failures:
-  - python: pypy3
+    - python: pypy3
+    - python: nightly
 cache:
   directories:
-  - "$HOME/.cache/pip"
+    - "$HOME/.cache/pip"
 before_install:
-- docker pull progrium/consul
-- docker run -d -p 8400:8400 -p 8500:8500 -p 8600:53/udp -h node1 progrium/consul
-  -server -bootstrap
+  - docker pull progrium/consul
+  - docker run -d -p 8400:8400 -p 8500:8500 -p 8600:53/udp -h node1 progrium/consul
+    -server -bootstrap
 install:
-- export BOTO_CONFIG=/dev/null
-- make requirements
-- pip install coveralls
+  - make requirements
+  - pip install coveralls
 script:
-- if [[ $TRAVIS_PYTHON_VERSION == '3.7' ]]; then make isort-check; fi
-- make test
+  - make isort-check;
+  - make test
 after_success:
-- coveralls
+  - coveralls
 services:
-- redis
-- docker
-- memcached
+  - redis
+  - docker
+  - memcached
 deploy:
   provider: pypi
-  user: drgarcia1986
+  username: drgarcia1986
   distributions: sdist bdist_wheel
   on:
     tags: true

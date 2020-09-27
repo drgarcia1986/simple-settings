@@ -589,7 +589,7 @@ To implement a custom strategy:
 
     from simple_settings import settings
 
-    class SettingsCustomStrategy(object):
+    class SettingsCustomStrategy:
         """
         See `/simple_settings/strategies` for sample strategies (e.g. python, json, cfg)
         """
@@ -640,6 +640,13 @@ Any other config of dynamic settings will be pass to reader backend on argument 
 
 Changelog
 ---------
+[Unreleased]
+~~~~~~~~~~~~~~~~~~~~~
+
+- Drop support to python < 3.6.
+- Update dependencies.
+
+
 [0.19.1] - 2019-10-21
 ~~~~~~~~~~~~~~~~~~~~~
 

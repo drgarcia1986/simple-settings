@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 from .base import BaseReader
 
 try:
-    from redis import StrictRedis
     import six
+    from redis import StrictRedis
 except ImportError:  # pragma: no cover
     raise ImportError(
         'To use "redis" dynamic settings reader\n'

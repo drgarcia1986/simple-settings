@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import importlib
 import inspect
 
@@ -7,7 +6,7 @@ import pytest
 from simple_settings.core import LazySettings
 
 
-class SettingsLoadStrategyPythonObj(object):
+class SettingsLoadStrategyPythonObj:
     """
     This is the strategy used to read settings from a python class' attributes.
 
@@ -60,7 +59,7 @@ class SettingsLoadStrategyPythonObj(object):
         return result
 
 
-class TestSettingsCustomStrategy(object):
+class TestSettingsCustomStrategy:
 
     def test_should_read_class_settings_value(self):
         settings = LazySettings('tests.samples.python_obj.MyConfig')

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import os
 
 import pytest
@@ -6,7 +5,7 @@ import pytest
 from simple_settings.strategies.environ import SettingsLoadStrategyEnviron
 
 
-class TestEnvironStrategy(object):
+class TestEnvironStrategy:
 
     @pytest.fixture
     def strategy_environ(self):

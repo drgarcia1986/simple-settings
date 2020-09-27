@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import pytest
 
 from simple_settings.core import LazySettings
@@ -7,15 +6,16 @@ from simple_settings.dynamic_settings import get_dynamic_reader
 skip = False
 try:
     from simple_settings.dynamic_settings.database_reader import (
-        Reader as DatabaseReader,
         DatabaseOperations
     )
+    from simple_settings.dynamic_settings.database_reader import \
+        Reader as DatabaseReader
 except ImportError:
     skip = True
 
 
 @pytest.mark.skipif(skip, reason='Installed without SQLAlchemy')
-class TestDynamicDatabaseSettings(object):
+class TestDynamicDatabaseSettings:
 
     @pytest.fixture
     def sqlite_db(self):
@@ -33,7 +33,7 @@ class TestDynamicDatabaseSettings(object):
             'SIMPLE_STRING': 'simple'
         }
 
-    @pytest.yield_fixture
+    @pytest.fixture
     def database(self, sqlite_db):
         database = DatabaseOperations(
             {'sqlalchemy.url': sqlite_db}

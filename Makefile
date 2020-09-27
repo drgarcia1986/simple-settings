@@ -4,10 +4,10 @@ clean:
 	@find . -name "__pycache__" -type d | xargs rm -rf
 
 isort-check:
-	isort --check
+	isort . --check
 
 isort-fix:
-	isort -rc .
+	isort .
 
 flake8:
 	flake8 simple_settings/

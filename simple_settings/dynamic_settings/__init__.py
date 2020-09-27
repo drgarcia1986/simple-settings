@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import importlib
 import inspect
 import warnings
@@ -65,7 +64,7 @@ def get_dynamic_reader_class(reader_backend_path):
 
     warnings.warn(
         'Trying to import dynamic setting in the old fashion, '
-        'for next versions, using full class plath',
+        'for next versions, using full class path',
         DeprecationWarning
     )
 

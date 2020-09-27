@@ -1,16 +1,15 @@
-# -*- coding: utf-8 -*-
 import sys
+from unittest.mock import patch
 
 import pytest
-from mock import patch
 
 from simple_settings import settings
 from simple_settings.utils import settings_stub
 
 
-class TestSettingsUtils(object):
+class TestSettingsUtils:
 
-    @pytest.yield_fixture
+    @pytest.fixture
     def current_settings(self):
         with patch.object(
             sys, 'argv', ['', '--settings=tests.samples.simple']

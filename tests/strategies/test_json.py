@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 import pytest
 
 from simple_settings.strategies.json_file import SettingsLoadStrategyJson
 
 
-class TestJsonStrategy(object):
+class TestJsonStrategy:
 
     @pytest.fixture
     def strategy_json(self):

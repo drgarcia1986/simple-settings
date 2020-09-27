@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from simple_settings import settings
 from simple_settings.utils import settings_stub
 

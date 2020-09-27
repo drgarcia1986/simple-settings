@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 from functools import wraps
 
 from .core import settings
 
 
-class SettingsStub(object):
+class SettingsStub:
     """
     A simple context manager (and decorator) class useful
     in tests which is necessary to change some

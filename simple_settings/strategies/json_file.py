@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 import codecs
 import json
 
 
-class SettingsLoadStrategyJson(object):
+class SettingsLoadStrategyJson:
     """
     This is the strategy used to read settings from json files
     """

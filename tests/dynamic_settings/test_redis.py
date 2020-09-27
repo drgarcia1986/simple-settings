@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import pytest
 
 from simple_settings.core import LazySettings
@@ -8,15 +7,15 @@ skip = False
 try:
     import six
     from redis import StrictRedis
-    from simple_settings.dynamic_settings.redis_reader import (
+
+    from simple_settings.dynamic_settings.redis_reader import \
         Reader as RedisReader
-    )
 except ImportError:
     skip = True
 
 
 @pytest.mark.skipif(skip, reason='Installed without redis')
-class TestDynamicRedisSettings(object):
+class TestDynamicRedisSettings:
 
     @pytest.fixture
     def settings_dict_to_override_by_redis(self):
@@ -27,7 +26,7 @@ class TestDynamicRedisSettings(object):
             'SIMPLE_STRING': 'simple'
         }
 
-    @pytest.yield_fixture
+    @pytest.fixture
     def redis(self):
         redis = StrictRedis()
 

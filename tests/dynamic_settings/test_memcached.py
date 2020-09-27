@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import pytest
 
 from simple_settings.core import LazySettings
@@ -8,15 +7,15 @@ skip = False
 try:
     import six
     from pymemcache.client.base import Client
-    from simple_settings.dynamic_settings.memcached_reader import (
+
+    from simple_settings.dynamic_settings.memcached_reader import \
         Reader as MemcachedReader
-    )
 except ImportError:
     skip = True
 
 
 @pytest.mark.skipif(skip, reason='Installed without pymemcache')
-class TestDynamicMemcachedSettings(object):
+class TestDynamicMemcachedSettings:
 
     @pytest.fixture
     def host(self):
@@ -43,7 +42,7 @@ class TestDynamicMemcachedSettings(object):
             'SIMPLE_STRING': 'simple'
         }
 
-    @pytest.yield_fixture
+    @pytest.fixture
     def memcached(self, host, port):
         memcached = Client((host, port))
 

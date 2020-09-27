@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 import codecs
 
 
-class SettingsLoadStrategyCfg(object):
+class SettingsLoadStrategyCfg:
     """
     This is the strategy used to read settings from cfg files
     (simple `key=value` files)

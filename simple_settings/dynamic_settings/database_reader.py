@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 from .base import BaseReader
 
 try:
-    from sqlalchemy import engine_from_config, Column, String
+    from sqlalchemy import Column, String, engine_from_config
     from sqlalchemy.ext.declarative import as_declarative
     from sqlalchemy.orm import sessionmaker
 except ImportError:  # pragma: no cover
@@ -14,7 +13,7 @@ except ImportError:  # pragma: no cover
 
 
 @as_declarative()
-class Base(object):
+class Base:
     """Base class for declarative class definitions
     """
 
@@ -29,7 +28,7 @@ class SimpleSettings(Base):
     value = Column(String)
 
 
-class DatabaseOperations(object):
+class DatabaseOperations:
     """Wrapper for database operations
     """
 
