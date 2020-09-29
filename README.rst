@@ -640,7 +640,7 @@ Any other config of dynamic settings will be pass to reader backend on argument 
 
 Changelog
 ---------
-[NEXT_RELEASE]
+[1.0.0] - 2020-09-29
 ~~~~~~~~~~~~~~~~~~~~~
 
 - Drop support to python < 3.6.
