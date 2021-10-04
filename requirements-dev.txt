@@ -3,6 +3,6 @@ bumpversion==0.6.0
 flake8==3.9.2
 isort==5.8.0
 moto==2.2.1
-pytest-cov==2.11.1
+pytest-cov==3.0.0
 pytest==6.2.4
 wheel==0.36.2
