@@ -640,8 +640,15 @@ Any other config of dynamic settings will be pass to reader backend on argument 
 
 Changelog
 ---------
+
+[NEXT_RELEASE]
+~~~~~~~~~~~~~~~~~~~~
+
+- Fix ``TypeError`` when load an empty config file.
+- Update dependencies.
+
 [1.0.0] - 2020-09-29
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
 
 - Drop support to python < 3.6.
 - Update dependencies.
@@ -663,7 +670,7 @@ Changelog
 [0.18.0] - 2019-07-14
 ~~~~~~~~~~~~~~~~~~~~~
 
-- Fix ``TypeError`` on ``jsonpickle.decode`` when `auto_casting` is True and
+- Fix ``TypeError`` on ``jsonpickle.decode`` when ``auto_casting`` is True and
   dynamic backend returns None.
 - Raise exception containing ``settings_file`` information when an error occurs
   in ``strategy.load_settings_file`` call from ``_load_settings_pipeline``.
