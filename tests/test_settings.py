@@ -117,9 +117,13 @@ class TestSettings:
 
     def test_should_raise_error_on_invalid_settings_file_content(self):
         with pytest.raises(Exception):
-            settings = get_settings_by_cmd_line(
-                'tests/samples/invalid_toml_file.toml'
-            )
+            get_settings_by_cmd_line('tests/samples/invalid_toml_file.toml')
+
+    def test_should_load_an_empty_config_file(self):
+        try:
+            get_settings_by_cmd_line('tests/samples/empty.yml')
+        except Exception as e:
+            pytest.fail('It should not raise: {}'.format(e))
 
     def test_should_load_a_complex_module_settings(self):
         settings = get_settings_by_cmd_line('tests.samples.complex')

@@ -82,7 +82,7 @@ class LazySettings:
                     ))
                 raise
             else:
-                self._dict.update(settings)
+                self._dict.update(settings or {})
 
     def _get_strategy_by_file(self, settings_file):
         for strategy in self.strategies:
