@@ -637,7 +637,7 @@ Any other config of dynamic settings will be pass to reader backend on argument 
 Changelog
 ---------
 
-[NEXT_RELEASE]
+[1.1.0] - 2021-10-26
 ~~~~~~~~~~~~~~~~~~~~
 
 - Fix ``TypeError`` when load an empty config file.
