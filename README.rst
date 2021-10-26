@@ -646,6 +646,7 @@ Changelog
 
 - Fix ``TypeError`` when load an empty config file.
 - Update dependencies.
+- Add log on Python Load Strategy to logging when an exception raises on import process.
 
 [1.0.0] - 2020-09-29
 ~~~~~~~~~~~~~~~~~~~~
