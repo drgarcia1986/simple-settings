@@ -6,12 +6,8 @@ Python Simple Settings
     :target: https://badge.fury.io/py/simple-settings
     :alt: Package version
 
-.. image:: https://api.codacy.com/project/badge/Grade/d5d1a3dece0e48478de9797563b49310
-    :target: https://www.codacy.com/app/drgarcia1986/simple-settings?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=drgarcia1986/simple-settings&amp;utm_campaign=Badge_Grade
-    :alt: Code Issues
-
-.. image:: https://travis-ci.org/drgarcia1986/simple-settings.svg
-    :target: https://travis-ci.org/drgarcia1986/simple-settings
+.. image:: https://github.com/drgarcia1986/simple-settings/actions/workflows/main.yml/badge.svg
+    :target: https://github.com/drgarcia1986/simple-settings
     :alt: Build Status
 
 .. image:: https://coveralls.io/repos/drgarcia1986/simple-settings/badge.svg
