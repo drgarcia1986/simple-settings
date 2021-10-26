@@ -1,5 +1,8 @@
 import importlib
 import inspect
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class SettingsLoadStrategyPython:
@@ -16,6 +19,9 @@ class SettingsLoadStrategyPython:
             importlib.import_module(file_name)
             return True
         except (ImportError, TypeError):
+            logger.info(
+                'Cannot load {} as python settings file'.format(file_name)
+            )
             return False
 
     @staticmethod
