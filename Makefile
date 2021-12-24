@@ -4,31 +4,31 @@ clean:
 	@find . -name "__pycache__" -type d | xargs rm -rf
 
 isort-check:
-	isort . --check
+	@poetry run isort . --check
 
 isort-fix:
-	isort .
+	@poetry run isort .
 
 flake8:
-	flake8 simple_settings/
+	@poetry run flake8 simple_settings/
 
 test: clean flake8
-	py.test --cov-config .coveragerc --cov-report term-missing --cov simple_settings/ tests/
+	@poetry run pytest --cov-config .coveragerc --cov-report term-missing --cov simple_settings/ tests/
 
 test-debug: clean
-	py.test -x --pdb simple_settings/ tests/
+	@poetry run pytest -x --pdb simple_settings/ tests/
 
 requirements: clean
-	pip install -U -r requirements-dev.txt
+	@poetry install --extras all
 
 release-patch:
-	bumpversion patch
+	@poetry run bumpversion patch
 
 release-minor:
-	bumpversion minor
+	@poetry run bumpversion minor
 
 release-major:
-	bumpversion major
+	@poetry run bumpversion major
 
 sdist: test
 	@python setup.py sdist bdist_wheel upload
