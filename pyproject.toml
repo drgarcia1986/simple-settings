@@ -1,0 +1,63 @@
+[tool.poetry]
+name = "simple-settings"
+version = "1.1.0"
+description = "A simple way to manage your project settings."
+authors = ["Diego Garcia <drgarcia1986@gmail.com>"]
+license = "MIT"
+keywords=["django", "flask", "bottle", "tornado", "settings", "configuration", "conf"]
+classifiers=[
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 3',
+]
+packages = [
+    { include = "simple_settings" },
+    { include = "strategies", from = "simple_settings" },
+    { include = "dynamic_settings", from = "simple_settings" },
+]
+repository = "https://github.com/drgarcia1986/simple-settings"
+
+[tool.poetry.urls]
+"Download" = "https://github.com/drgarcia1986/simple-settings/tarball/master"
+
+[tool.poetry.dependencies]
+python=">=3.6.1,<4.0"
+jsonpickle="2.0.0"
+
+[tool.poetry.dev-dependencies]
+bumpversion="0.6.0"
+flake8="4.0.1"
+isort="5.9.3"
+moto="2.2.11"
+pytest-cov="3.0.0"
+pytest="6.2.5"
+wheel="0.37.0"
+
+# A list of all of the optional dependencies, some of which are included in the
+# below `extras`. They can be opted into by apps.
+jsonpickle = { version = "jsonpickle==2.0.0", optional = true }
+toml = { version = "toml==0.10.2", optional = true }
+pyyaml = { version = "PyYAML==6.0", optional = true }
+consulate = { version = "consulate==0.6.0", optional = true }
+sqlalchemy = { version = "SQLAlchemy==1.4.26", optional = true }
+pymemcache = { version = "pymemcache==3.5.0", optional = true }
+six = { version = "six==1.16.0", optional = true}
+redis = { version = "redis==3.5.3", optional = true }
+boto3 = { version = "boto3==1.9.201", optional = true }
+ 
+[tool.poetry.extras]
+all = ["jsonpickle", "toml", "pyyaml", "consulate", "sqlalchemy", "pymemcache", "six", "redis", "boto3"] # noqa
+dynamic_settings = ["jsonpickle"]
+toml = ["toml"]
+yaml = ["pyyaml"]
+consulate = ["consulate", "dynamic_settings"]
+database = ["sqlalchemy", "dynamic_settings"]
+memcache = ["pymemcache", "six", "dynamic_settings"]
+redis = ["redis", "dynamic_settings"]
+s3 = ["boto3", "dynamic_settings"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
