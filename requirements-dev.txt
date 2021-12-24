@@ -1,8 +1,0 @@
--e .[all]
-bumpversion==0.6.0
-flake8==4.0.1
-isort==5.9.3
-moto==2.3.0
-pytest-cov==3.0.0
-pytest==6.2.5
-wheel==0.37.1

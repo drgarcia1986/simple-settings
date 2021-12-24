@@ -31,7 +31,7 @@ release-major:
 	@poetry run bumpversion major
 
 sdist: test
-	@python setup.py sdist bdist_wheel upload
+	@poetry build
 
 outdated:
 	@pip list --outdated --format=columns
