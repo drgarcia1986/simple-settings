@@ -55,6 +55,12 @@ memcache = ["pymemcache", "six", "dynamic_settings"]
 redis = ["redis", "dynamic_settings"]
 s3 = ["boto3", "dynamic_settings"]
 
+[tool.isort]
+known_first_party="simple_settings"
+atomic=true
+multi_line_output=3
+skip="examples"
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
