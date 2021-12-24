@@ -24,7 +24,16 @@ repository = "https://github.com/drgarcia1986/simple-settings"
 
 [tool.poetry.dependencies]
 python=">=3.6.1,<4.0"
-jsonpickle="2.0.0"
+jsonpickle = { version = "2.0.0", optional = true }
+toml = { version = "0.10.2", optional = true }
+PyYAML = { version = "6.0", optional = true }
+consulate = { version = "0.6.0", optional = true }
+SQLAlchemy = { version = "1.4.26", optional = true }
+pymemcache = { version = "3.5.0", optional = true }
+six = { version = "1.16.0", optional = true}
+redis = { version = "3.5.3", optional = true }
+boto3 = { version = "1.9.201", optional = true }
+
 
 [tool.poetry.dev-dependencies]
 bumpversion="0.6.0"
@@ -34,26 +43,14 @@ moto="2.2.11"
 pytest-cov="3.0.0"
 pytest="6.2.5"
 wheel="0.37.0"
-
-# A list of all of the optional dependencies, some of which are included in the
-# below `extras`. They can be opted into by apps.
-jsonpickle = { version = "jsonpickle==2.0.0", optional = true }
-toml = { version = "toml==0.10.2", optional = true }
-pyyaml = { version = "PyYAML==6.0", optional = true }
-consulate = { version = "consulate==0.6.0", optional = true }
-sqlalchemy = { version = "SQLAlchemy==1.4.26", optional = true }
-pymemcache = { version = "pymemcache==3.5.0", optional = true }
-six = { version = "six==1.16.0", optional = true}
-redis = { version = "redis==3.5.3", optional = true }
-boto3 = { version = "boto3==1.9.201", optional = true }
  
 [tool.poetry.extras]
-all = ["jsonpickle", "toml", "pyyaml", "consulate", "sqlalchemy", "pymemcache", "six", "redis", "boto3"] # noqa
+all = ["jsonpickle", "toml", "PyYAML", "consulate", "SQLAlchemy", "pymemcache", "six", "redis", "boto3"] # noqa
 dynamic_settings = ["jsonpickle"]
 toml = ["toml"]
-yaml = ["pyyaml"]
+yaml = ["PyYAML"]
 consulate = ["consulate", "dynamic_settings"]
-database = ["sqlalchemy", "dynamic_settings"]
+database = ["SQLAlchemy", "dynamic_settings"]
 memcache = ["pymemcache", "six", "dynamic_settings"]
 redis = ["redis", "dynamic_settings"]
 s3 = ["boto3", "dynamic_settings"]
