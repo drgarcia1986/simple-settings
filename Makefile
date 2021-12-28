@@ -4,10 +4,10 @@ clean:
 	@find . -name "__pycache__" -type d | xargs rm -rf
 
 isort-check:
-	@poetry run isort . --check
+	@poetry run isort simple_settings --check
 
 isort-fix:
-	@poetry run isort .
+	@poetry run isort simple_settings
 
 flake8:
 	@poetry run flake8 simple_settings/
