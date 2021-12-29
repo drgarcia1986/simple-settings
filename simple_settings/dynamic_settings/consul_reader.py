@@ -1,3 +1,5 @@
+import warnings
+
 from .base import BaseReader
 
 try:
@@ -24,6 +26,10 @@ class Reader(BaseReader):
 
     def __init__(self, conf):
         super(Reader, self).__init__(conf)
+        warnings.warn(
+            'Consul Dynamic Settings Reader is deprecated',
+            DeprecationWarning
+        )
 
         self.session = consulate.Consul(
             host=self.conf['host'],
