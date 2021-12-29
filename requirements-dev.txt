@@ -5,4 +5,4 @@ isort==5.9.3
 moto==2.3.0
 pytest-cov==3.0.0
 pytest==6.2.5
-wheel==0.37.0
+wheel==0.37.1
