@@ -2,9 +2,9 @@ import json
 import logging.config
 import os
 from collections import OrderedDict
-from distutils.util import strtobool
 
 from .constants import SPECIAL_SETTINGS_KEY
+from .strtobool import strtobool
 
 
 def required_settings(settings_dict):
