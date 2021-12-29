@@ -641,6 +641,7 @@ Changelog
 
 - Update dependencies
 - Deprecated Consul Dynamic Settings Reader
+- Implement `strtobool` function (and remove distutils dependency)
 
 
 [1.1.0] - 2021-10-26
