@@ -438,8 +438,8 @@ In redis dynamic reader the binary types is automatically decoded.
     To install with redis dependencies use:
     ``pip install simple-settings[redis]``
 
-Consul
-^^^^^^
+Consul - Deprecated
+^^^^^^^^^^^^^^^^^^^
 
 You can read your settings dynamically from a consul server if you
 activate the ``DYNAMIC_SETTINGS`` special setting with the ``consul``
@@ -636,6 +636,12 @@ Any other config of dynamic settings will be pass to reader backend on argument 
 
 Changelog
 ---------
+[NEXT_RELEASE]
+~~~~~~~~~~~~~~~~~~~~
+
+- Update dependencies
+- Deprecated Consul Dynamic Settings Reader
+
 
 [1.1.0] - 2021-10-26
 ~~~~~~~~~~~~~~~~~~~~
