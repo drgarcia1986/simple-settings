@@ -636,7 +636,7 @@ Any other config of dynamic settings will be pass to reader backend on argument 
 
 Changelog
 ---------
-[NEXT_RELEASE]
+[1.2.0] - 2021-12-30
 ~~~~~~~~~~~~~~~~~~~~
 
 - Update dependencies
