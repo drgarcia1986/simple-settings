@@ -17,7 +17,7 @@ jobs:
       with:
         virtualenvs-create: true
         virtualenvs-in-project: true
-        installer-parallel: true
+        installer-parallel: false
 
     - name: build a binary whell and a source tarball
       run: poetry build
