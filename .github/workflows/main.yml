@@ -49,7 +49,7 @@ jobs:
       with:
         virtualenvs-create: true
         virtualenvs-in-project: true
-        installer-parallel: true
+        installer-parallel: false
 
     - name: Install dependencies
       run: |
