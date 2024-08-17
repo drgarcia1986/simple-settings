@@ -102,6 +102,13 @@ class LazySettings:
         except KeyError:
             raise AttributeError('You did not set {} setting'.format(attr))
 
+    def __delattr__(self, attr: str) -> None:
+        self.setup()
+        try:
+            del self._dict[attr]
+        except KeyError:
+            raise AttributeError('You did not set {} setting'.format(attr))
+
     def add_strategy(self, strategy):
         self.strategies += (strategy,)
 

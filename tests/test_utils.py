@@ -29,6 +29,13 @@ class TestSettingsUtils:
 
         assert current_settings.SIMPLE_STRING == 'simple'
 
+    def test_stub_settings_with_transient_setting(self, current_settings):
+        with settings_stub(TRANSIENT_SIMPLE_STRING='stubbed'):
+            assert current_settings.TRANSIENT_SIMPLE_STRING == 'stubbed'
+
+        with pytest.raises(AttributeError):
+            current_settings.TRANSIENT_SIMPLE_STRING
+
     def test_stub_settings_with_decorator(self, current_settings):
         @settings_stub(SIMPLE_STRING='stubed')
         def get_simple_string_from_setting():

@@ -27,6 +27,9 @@ class SettingsStub:
         settings.configure(**self.new_settings)
 
     def __exit__(self, ext_type, exc_value, traceback):
+        transient_stubs = self.new_settings.keys() - self.old_settings.keys()
+        for stub in transient_stubs:
+            delattr(settings, stub)
         settings.configure(**self.old_settings)
 
 
