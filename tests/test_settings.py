@@ -194,6 +194,27 @@ class TestSettings:
             with pytest.raises(RuntimeError):
                 settings.foo
 
+    @pytest.mark.parametrize('extension, content', (
+        ('cfg', 'VALUE=expanded'),
+        ('json', '{"VALUE": "expanded"}'),
+        ('toml', 'VALUE = "expanded"'),
+        ('yaml', 'VALUE: expanded'),
+        ('yml', 'VALUE: expanded'),
+    ))
+    @pytest.mark.parametrize('absolute', (False, True))
+    def test_should_load_settings_from_user_paths(
+        self, tmp_path, monkeypatch, extension, content, absolute
+    ):
+        monkeypatch.setenv('HOME', str(tmp_path))
+        monkeypatch.setenv('USERPROFILE', str(tmp_path))
+        settings_file = tmp_path / 'settings.{}'.format(extension)
+        settings_file.write_text(content, encoding='utf-8')
+        path = str(settings_file) if absolute else '~/{}'.format(
+            settings_file.name
+        )
+
+        assert LazySettings(path).as_dict() == {'VALUE': 'expanded'}
+
     def test_should_raise_error_if_setting_configured_wrong(self):
         settings = LazySettings()
         with patch.object(
