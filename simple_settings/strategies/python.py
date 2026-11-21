@@ -20,7 +20,8 @@ class SettingsLoadStrategyPython:
             return True
         except (ImportError, TypeError):
             logger.info(
-                'Cannot load {} as python settings file'.format(file_name)
+                'Cannot load {} as python settings file'.format(file_name),
+                exc_info=True
             )
             return False
 
