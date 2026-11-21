@@ -1,5 +1,6 @@
 import codecs
 import json
+import os
 
 
 class SettingsLoadStrategyJson:
@@ -14,5 +15,5 @@ class SettingsLoadStrategyJson:
 
     @staticmethod
     def load_settings_file(settings_file):
-        with codecs.open(settings_file, 'r') as f:
+        with codecs.open(os.path.expanduser(settings_file), 'r') as f:
             return json.loads(f.read())

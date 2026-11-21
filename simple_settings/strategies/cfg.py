@@ -1,4 +1,5 @@
 import codecs
+import os
 
 
 class SettingsLoadStrategyCfg:
@@ -15,7 +16,7 @@ class SettingsLoadStrategyCfg:
     @classmethod
     def load_settings_file(cls, settings_file):
         result = {}
-        with codecs.open(settings_file, 'r', 'utf-8') as f:
+        with codecs.open(os.path.expanduser(settings_file), 'r', 'utf-8') as f:
             settings = [
                 line.split('=') for line in f if cls._is_valid_line(line)
             ]
