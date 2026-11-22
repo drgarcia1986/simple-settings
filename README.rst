@@ -199,6 +199,37 @@ The simple-settings is prepared to play with the following files types:
     For toml files is necessary to install with extras require *toml*, e.g.: ``pip install simple-settings[toml]``
 
 
+Loading TOML files
+------------------
+
+Install the TOML reader with ``pip install 'simple-settings[toml]'``.
+Pass the path to the TOML file, including its extension, instead of a
+Python module name. For example, save this as ``settings.toml``:
+
+.. code:: toml
+
+    simple = "a simple string"
+
+    [complex]
+    text = "this is a text in a complex struct"
+
+Then load it explicitly with ``LazySettings``:
+
+.. code:: python
+
+    from simple_settings import LazySettings
+
+    settings = LazySettings('settings.toml')
+    print(settings.simple)
+    print(settings.complex['text'])
+
+TOML tables become dictionaries, and setting names retain their case.
+Relative file paths are resolved from the current working directory.
+To use ``from simple_settings import settings`` instead, select the
+same file with ``python app.py --settings=settings.toml`` or set the
+``SIMPLE_SETTINGS`` environment variable to ``settings.toml``.
+
+
 Loading settings from environment variables
 -------------------------------------------
 
